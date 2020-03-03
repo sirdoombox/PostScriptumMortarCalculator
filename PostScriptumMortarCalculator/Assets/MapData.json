@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Arnhem Range",
+    "path": "/maps/Arnhem_Range.jpg",
+    "bounds": 756
+  },
+  {
+    "name": "Arnhem",
+    "path": "/maps/Arnhem.jpg",
+    "bounds": 
+  },
+  {
+    "name": "Best",
+    "path": "/maps/Best.jpg",
+    "bounds": 
+  },
+  {
+    "name": "Dinant",
+    "path": "/maps/Dinant.jpg",
+    "bounds": 2300
+  },
+  {
+    "name": "Doorwerth",
+    "path": "/maps/Doorwerth.jpg",
+    "bounds": 
+  },
+  {
+    "name": "Driel",
+    "path": "/maps/Driel.jpg",
+    "bounds": 4900
+  },
+  {
+    "name": "Grave",
+    "path": "/maps/Grave.jpg",
+    "bounds": 
+  },
+  {
+    "name": "Heelsum",
+    "path": "/maps/Heelsum.jpg",
+    "bounds": 
+  },
+  {
+    "name": "Oosterbeek",
+    "path": "/maps/Oosterbeek.jpg",
+    "bounds": 
+  },
+  {
+    "name": "Stonne",
+    "path": "/maps/Stonne.jpg",
+    "bounds": 3300
+  },
+  {
+    "name": "Veghel",
+    "path": "/maps/Veghel.jpg",
+    "bounds": 
+  },
+  {
+    "name": "Velmolen",
+    "path": "/maps/Velmolen.jpg",
+    "bounds": 
+  }
+]

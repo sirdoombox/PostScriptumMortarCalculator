@@ -1,0 +1,20 @@
+<mah:MetroWindow x:Class="PostScriptumMortarCalculator.Views.PsmcRootView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:PostScriptumMortarCalculator.Views"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:controls="clr-namespace:PostScriptumMortarCalculator.Controls"
+        xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
+        xmlns:s="https://github.com/canton7/Stylet"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels:PsmcRootViewModel}"
+        Title="Post Scriptum Mortar Calculator" 
+        Height="450" 
+        Width="800"
+        SaveWindowPosition="True">
+    <Grid>
+        <ContentControl s:View.Model="{Binding MapViewModel}"/>
+    </Grid>
+</mah:MetroWindow>
