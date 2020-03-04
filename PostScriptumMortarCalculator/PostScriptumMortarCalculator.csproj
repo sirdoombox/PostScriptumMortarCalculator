@@ -15,6 +15,7 @@
         <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <WarningLevel>4</WarningLevel>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,8 +49,24 @@
           <HintPath>..\packages\MahApps.Metro.2.0.0-alpha0660\lib\net47\MahApps.Metro.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a">
+          <HintPath>..\packages\MahApps.Metro.IconPacks.Zondicons.3.3.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="MahApps.Metro.IconPacks.Zondicons, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a">
+          <HintPath>..\packages\MahApps.Metro.IconPacks.Zondicons.3.3.0\lib\net47\MahApps.Metro.IconPacks.Zondicons.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.3\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+          <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="PanAndZoom, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\PanAndZoom.2.3.1\lib\net461\PanAndZoom.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="PropertyChanged, Version=3.2.6.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd">
@@ -65,6 +82,9 @@
         <Reference Include="System.Configuration" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Net.Http" />
+        <Reference Include="System.Numerics" />
+        <Reference Include="System.Runtime.Caching" />
         <Reference Include="System.Xml" />
         <Reference Include="System.Xaml">
             <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -72,6 +92,14 @@
         <Reference Include="WindowsBase" />
         <Reference Include="PresentationCore" />
         <Reference Include="PresentationFramework" />
+        <Reference Include="Wpf.Controls.PanAndZoom, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Wpf.Controls.PanAndZoom.2.3.1\lib\net461\Wpf.Controls.PanAndZoom.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Wpf.MatrixExtensions, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Wpf.MatrixExtensions.2.3.1\lib\net461\Wpf.MatrixExtensions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="App.xaml">
@@ -79,10 +107,17 @@
             <SubType>Designer</SubType>
         </ApplicationDefinition>
         <Compile Include="Controls\MapContainer.cs" />
-        <Compile Include="Controls\MapSelectionEventArgs.cs" />
+        <Compile Include="Converters\BooleanConverterBase.cs" />
+        <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+        <Compile Include="Converters\InverseBooleanConverter.cs" />
+        <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
+        <Compile Include="Data\MapData.cs" />
+        <Compile Include="Events\MapSelectionChangedEvent.cs" />
+        <Compile Include="Events\MapSelectionEventArgs.cs" />
+        <Compile Include="Extensions\NumericExtensions.cs" />
         <Compile Include="Models\CalculatorModel.cs" />
         <Compile Include="Models\MapModel.cs" />
-        <Compile Include="Services\MapsResourceService.cs" />
+        <Compile Include="Services\DataResourceService.cs" />
         <Compile Include="ViewModels\CalculatorViewModel.cs" />
         <Compile Include="ViewModels\MapViewModel.cs" />
         <Compile Include="ViewModels\PsmcRootViewModel.cs" />
@@ -111,9 +146,7 @@
         <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Static" />
-    </ItemGroup>
-    <ItemGroup>
+      <Resource Include="Assets\Data\MapData.json" />
       <Resource Include="Assets\Maps\Arnhem.jpg" />
       <Resource Include="Assets\Maps\Arnhem_Range.jpg" />
       <Resource Include="Assets\Maps\Best.jpg" />
@@ -127,8 +160,7 @@
       <Resource Include="Assets\Maps\Veghel.jpg" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Assets\MapData.json" />
-      <Content Include="Assets\Maps\Velmolen.jpg" />
+      <Resource Include="Assets\Maps\Velmolen.jpg" />
     </ItemGroup>
     <ItemGroup>
       <COMReference Include="NATUPNPLib">

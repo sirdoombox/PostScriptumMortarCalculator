@@ -7,12 +7,12 @@
   {
     "name": "Arnhem",
     "path": "/maps/Arnhem.jpg",
-    "bounds": 
+    "bounds": 4000
   },
   {
     "name": "Best",
     "path": "/maps/Best.jpg",
-    "bounds": 
+    "bounds": 2000
   },
   {
     "name": "Dinant",
@@ -22,7 +22,7 @@
   {
     "name": "Doorwerth",
     "path": "/maps/Doorwerth.jpg",
-    "bounds": 
+    "bounds": 4035
   },
   {
     "name": "Driel",
@@ -32,17 +32,17 @@
   {
     "name": "Grave",
     "path": "/maps/Grave.jpg",
-    "bounds": 
+    "bounds": 3060
   },
   {
     "name": "Heelsum",
     "path": "/maps/Heelsum.jpg",
-    "bounds": 
+    "bounds": 5610
   },
   {
     "name": "Oosterbeek",
     "path": "/maps/Oosterbeek.jpg",
-    "bounds": 
+    "bounds": 4525
   },
   {
     "name": "Stonne",
@@ -52,11 +52,11 @@
   {
     "name": "Veghel",
     "path": "/maps/Veghel.jpg",
-    "bounds": 
+    "bounds": 3060
   },
   {
     "name": "Velmolen",
     "path": "/maps/Velmolen.jpg",
-    "bounds": 
+    "bounds": 2200
   }
 ]

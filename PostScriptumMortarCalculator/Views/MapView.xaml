@@ -3,15 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:controls="clr-namespace:PostScriptumMortarCalculator.Controls"
              xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
              xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:panAndZoom="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:MapViewModel}">
-    <StackPanel>
-        <TextBlock Text="{Binding Model.EventTest}"/>
-        <controls:MapContainer ClipToBounds="True" MapSelection="{s:Action HandleMapSelectionEvent}">
-            <Image Source="{Binding Model.MapFile}"/>
-        </controls:MapContainer>
-    </StackPanel>
+    <UserControl.Resources>
+        <Style TargetType="iconPacks:PackIconZondicons">
+            <Setter Property="Width" Value="{Binding Model.IconScale, Mode=OneWay}" />
+            <Setter Property="Height" Value="{Binding Model.IconScale, Mode=OneWay}" />
+            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+            <Setter Property="Canvas.ZIndex" Value="1" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                   FontWeight="Black"
+                   Text="R. Click: Mortar | L. Click: Target | M. Click: Move | M. Scroll: Zoom"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBlock Text="{Binding TestDistance, StringFormat=Distance: {0}m}" />
+        </StackPanel>
+        <panAndZoom:ZoomBorder Grid.Row="1"
+                               Margin="0 10 0 0"
+                               ClipToBounds="True"
+                               ZoomSpeed="2"
+                               PanButton="Middle"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               KeyDown="{s:Action ZoomBorderKeyDown}"
+                               MouseEnter="{s:Action MouseEntered}"
+                               EnableConstrains="True"
+                               Focusable="True">
+            <Canvas Width="{Binding ElementName=Image, Path=ActualWidth}"
+                    Height="{Binding ElementName=Image, Path=ActualHeight}"
+                    SizeChanged="{s:Action SizeChanged}">
+                <Image x:Name="Image"
+                       Canvas.ZIndex="0"
+                       Source="{Binding Model.Data.MapPath, IsAsync=True}"
+                       MouseDown="{s:Action MouseDown}" />
+                <iconPacks:PackIconZondicons Kind="Location"
+                                             Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
+                                             Canvas.Top="{Binding Model.MortarPositionTopWithOffset}"
+                                             Canvas.Left="{Binding Model.MortarPositionLeftWithOffset}" />
+                <iconPacks:PackIconZondicons Kind="Target"
+                                             Visibility="{Binding Model.IsTargetPositionSet, Converter={StaticResource BooleanToVisibility}}"
+                                             Canvas.Top="{Binding Model.TargetPositionTopWithOffset}"
+                                             Canvas.Left="{Binding Model.TargetPositionLeftWithOffset}" />
+            </Canvas>
+        </panAndZoom:ZoomBorder>
+    </Grid>
 </UserControl>

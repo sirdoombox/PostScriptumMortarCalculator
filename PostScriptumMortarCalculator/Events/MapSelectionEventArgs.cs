@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace PostScriptumMortarCalculator.Controls
+namespace PostScriptumMortarCalculator.Events
 {
     public class MapSelectionEventArgs : RoutedEventArgs
     {
