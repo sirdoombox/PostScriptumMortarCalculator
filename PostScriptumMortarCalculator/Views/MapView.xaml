@@ -22,15 +22,29 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
-                   Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                   FontWeight="Black"
-                   Text="R. Click: Mortar | L. Click: Target | M. Click: Move | M. Scroll: Zoom"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Top" />
-        <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="LeftToRight">
-            <TextBlock Text="{Binding TestDistance, StringFormat=Distance: {0}m}" />
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Model.AvailableMaps}" 
+                      SelectedItem="{Binding Model.SelectedMap}"
+                      SelectionChanged="{s:Action OnMapSelectionChanged}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Slider Grid.Column="1"/>
+            <TextBlock Grid.Column="2"
+                       Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                       FontWeight="Black"
+                       Text="R. Click: Mortar | L. Click: Target | M. Click: Move | M. Scroll: Zoom"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top" />
+        </Grid>
         <panAndZoom:ZoomBorder Grid.Row="1"
                                Margin="0 10 0 0"
                                ClipToBounds="True"
@@ -47,16 +61,16 @@
                     SizeChanged="{s:Action SizeChanged}">
                 <Image x:Name="Image"
                        Canvas.ZIndex="0"
-                       Source="{Binding Model.Data.MapPath, IsAsync=True}"
+                       Source="{Binding Model.SelectedMap.MapPath, IsAsync=True}"
                        MouseDown="{s:Action MouseDown}" />
                 <iconPacks:PackIconZondicons Kind="Location"
                                              Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
-                                             Canvas.Top="{Binding Model.MortarPositionTopWithOffset}"
-                                             Canvas.Left="{Binding Model.MortarPositionLeftWithOffset}" />
+                                             Canvas.Top="{Binding Model.MortarPosition.Y}"
+                                             Canvas.Left="{Binding Model.MortarPosition.X}" />
                 <iconPacks:PackIconZondicons Kind="Target"
                                              Visibility="{Binding Model.IsTargetPositionSet, Converter={StaticResource BooleanToVisibility}}"
-                                             Canvas.Top="{Binding Model.TargetPositionTopWithOffset}"
-                                             Canvas.Left="{Binding Model.TargetPositionLeftWithOffset}" />
+                                             Canvas.Top="{Binding Model.TargetPosition.Y}"
+                                             Canvas.Left="{Binding Model.TargetPosition.X}" />
             </Canvas>
         </panAndZoom:ZoomBorder>
     </Grid>

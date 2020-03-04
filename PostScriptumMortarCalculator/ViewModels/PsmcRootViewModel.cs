@@ -1,19 +1,13 @@
-using Stylet;
+using PostScriptumMortarCalculator.Models;
+using PostScriptumMortarCalculator.ViewModels.Base;
 
 namespace PostScriptumMortarCalculator.ViewModels
 {
-    public sealed class PsmcRootViewModel : Conductor<IScreen>.Collection.AllActive
+    public sealed class PsmcRootViewModel : ConductorViewModelBase<PsmcRootModel, CalculatorViewModel>
     {
-        public MapViewModel MapViewModel { get; set; }
-        public CalculatorViewModel CalculatorViewModel { get; set; }
-
-        public PsmcRootViewModel(CalculatorViewModel calculatorViewModel, MapViewModel mapViewModel)
+        public PsmcRootViewModel(CalculatorViewModel calcViewModel) : base(calcViewModel)
         {
-            mapViewModel.LinkToCalculator(calculatorViewModel);
-            ActivateItem(calculatorViewModel);
-            ActivateItem(mapViewModel);
-            CalculatorViewModel = calculatorViewModel;
-            MapViewModel = mapViewModel;
+            
         }
     }
 }

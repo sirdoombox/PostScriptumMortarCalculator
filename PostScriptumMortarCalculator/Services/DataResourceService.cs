@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using PostScriptumMortarCalculator.Data;
 

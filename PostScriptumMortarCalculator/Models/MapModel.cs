@@ -1,49 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Windows;
 using PostScriptumMortarCalculator.Data;
 using PostScriptumMortarCalculator.Extensions;
+using PostScriptumMortarCalculator.Utils;
 using Stylet;
 
 namespace PostScriptumMortarCalculator.Models
 {
     public class MapModel : PropertyChangedBase
     {
-        public MapData Data { get; set; }
+        public BindableCollection<MapData> AvailableMaps { get; set; }
+        public MapData SelectedMap { get; set; }
 
         public double IconScale { get; set; }
 
-        public double MortarPositionTop { get; set; }
+        public Vector2 MortarPosition { get; set; }
 
-        public double MortarPositionLeft { get; set; }
+        public Vector2 MortarPositionMeters => MortarPosition.ToMetersScale(MapPixelsPerMeter);
+        
+        public Vector2 MortarPositionIconOffset => new Vector2(MortarPosition.X - (IconScale/2d), MortarPosition.Y - IconScale);
 
-        public double MortarPositionTopWithOffset => MortarPositionTop - IconScale;
+        public Vector2 TargetPosition { get; set; }
+        
+        public Vector2 TargetPositionIconOffset => new Vector2(TargetPosition.X - (IconScale / 2d), TargetPosition.Y - (IconScale / 2d));
 
-        public double MortarPositionLeftWithOffset => MortarPositionLeft - (IconScale / 2d);
+        public Vector2 TargetPositionMeters => TargetPosition.ToMetersScale(MapPixelsPerMeter);
+        
+        public bool IsMortarPositionSet => !MortarPosition.Equals(default);
 
-
-        public double TargetPositionTop { get; set; }
-
-        public double TargetPositionLeft { get; set; }
-
-        public double TargetPositionTopWithOffset => TargetPositionTop - (IconScale / 2d);
-
-        public double TargetPositionLeftWithOffset => TargetPositionLeft - (IconScale / 2d);
-
-        public bool IsMortarPositionSet => !MortarPositionTop.Equals(default) || !MortarPositionLeft.Equals(default);
-
-        public bool IsTargetPositionSet => !TargetPositionTop.Equals(default) || !TargetPositionLeft.Equals(default);
+        public bool IsTargetPositionSet => !TargetPosition.Equals(default);
 
         public double MapPixelsPerMeter;
         public double MapSizeBoundsPixels;
-
-        public Vector2 MortarPositionMeters =>
-            new Vector2((float) MortarPositionLeft.ToScaledMeters(MapPixelsPerMeter),
-                (float) MortarPositionTop.ToScaledMeters(MapPixelsPerMeter));
-        
-        public Vector2 TargetPositionMeters =>
-            new Vector2((float) TargetPositionLeft.ToScaledMeters(MapPixelsPerMeter),
-                (float) TargetPositionTop.ToScaledMeters(MapPixelsPerMeter));
     }
 }

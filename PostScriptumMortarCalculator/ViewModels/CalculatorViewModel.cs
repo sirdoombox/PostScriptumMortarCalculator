@@ -1,18 +1,16 @@
-using System;
 using System.Linq;
 using PostScriptumMortarCalculator.Data;
-using PostScriptumMortarCalculator.Events;
 using PostScriptumMortarCalculator.Models;
 using PostScriptumMortarCalculator.Services;
+using PostScriptumMortarCalculator.ViewModels.Base;
 using Stylet;
 
 namespace PostScriptumMortarCalculator.ViewModels
 {
-    public class CalculatorViewModel : ViewModelBase<CalculatorModel>
+    public class CalculatorViewModel : ConductorViewModelBase<CalculatorModel, MapViewModel>
     {
-        public Action<MapData> MapSelectionChanged { get; set; }
         
-        public CalculatorViewModel(DataResourceService dataResourceService)
+        public CalculatorViewModel(MapViewModel mapViewModel, DataResourceService dataResourceService) : base(mapViewModel)
         {
             Model.AvailableMaps = new BindableCollection<MapData>();
             Model.AvailableMaps.AddRange(dataResourceService.GetAvailableMapData());
@@ -21,7 +19,7 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public void OnMapSelectionChanged()
         {
-            MapSelectionChanged?.Invoke(Model.SelectedMap);
+            
         }
     }
 }

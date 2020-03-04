@@ -117,12 +117,15 @@
         <Compile Include="Extensions\NumericExtensions.cs" />
         <Compile Include="Models\CalculatorModel.cs" />
         <Compile Include="Models\MapModel.cs" />
+        <Compile Include="Models\PsmcRootModel.cs" />
         <Compile Include="Services\DataResourceService.cs" />
+        <Compile Include="Utils\Vector2.cs" />
+        <Compile Include="ViewModels\Base\ConductorViewModelBase.cs" />
+        <Compile Include="ViewModels\Base\ViewModelBase.cs" />
         <Compile Include="ViewModels\CalculatorViewModel.cs" />
         <Compile Include="ViewModels\MapViewModel.cs" />
         <Compile Include="ViewModels\PsmcRootViewModel.cs" />
         <Compile Include="Bootstrapper\PSMCBootstrapper.cs" />
-        <Compile Include="ViewModels\ViewModelBase.cs" />
         <Page Include="Views\CalculatorView.xaml" />
         <Page Include="Views\MapView.xaml" />
         <Page Include="Views\PsmcRootView.xaml" />
