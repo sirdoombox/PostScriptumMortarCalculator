@@ -10,14 +10,14 @@ namespace PostScriptumMortarCalculator.Extensions
             return Math.Round(pixelValue / pixelsPerMeter, 2);
         }
 
-        public static double PixelBoundsToScaledMeters(this double pixelBounds, double mapBounds)
+        public static double PixelBoundsToPixelsPerMeter(this double pixelBounds, double mapBounds)
         {
             return Math.Round(pixelBounds / mapBounds, 2);
         }
 
-        public static Vector2 ToMetersScale(this Vector2 vector, double pixelsPerMeter)
+        public static RoundedVector2 ToMetersScale(this RoundedVector2 vector, double pixelsPerMeter)
         {
-            return new Vector2(vector.X.ToScaledMeters(pixelsPerMeter), vector.Y.ToScaledMeters(pixelsPerMeter));
+            return new RoundedVector2(vector.X.ToScaledMeters(pixelsPerMeter), vector.Y.ToScaledMeters(pixelsPerMeter));
         }
     }
 }

@@ -1,12 +1,13 @@
+using System.Windows;
 using PostScriptumMortarCalculator.Data;
+using PostScriptumMortarCalculator.Utils;
+using PostScriptumMortarCalculator.ViewModels;
 using Stylet;
 
 namespace PostScriptumMortarCalculator.Models
 {
     public class CalculatorModel : PropertyChangedBase
     {
-        public BindableCollection<MapData> AvailableMaps { get; set; }
-
-        public MapData SelectedMap { get; set; }
+        public MapModel MapModel { get; set; }
     }
 }

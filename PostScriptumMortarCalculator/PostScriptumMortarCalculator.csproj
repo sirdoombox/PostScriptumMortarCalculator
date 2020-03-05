@@ -119,7 +119,7 @@
         <Compile Include="Models\MapModel.cs" />
         <Compile Include="Models\PsmcRootModel.cs" />
         <Compile Include="Services\DataResourceService.cs" />
-        <Compile Include="Utils\Vector2.cs" />
+        <Compile Include="Utils\RoundedVector2.cs" />
         <Compile Include="ViewModels\Base\ConductorViewModelBase.cs" />
         <Compile Include="ViewModels\Base\ViewModelBase.cs" />
         <Compile Include="ViewModels\CalculatorViewModel.cs" />

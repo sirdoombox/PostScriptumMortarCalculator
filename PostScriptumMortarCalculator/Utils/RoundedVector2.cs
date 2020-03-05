@@ -1,0 +1,57 @@
+using System;
+
+namespace PostScriptumMortarCalculator.Utils
+{
+    public struct RoundedVector2
+    {
+        
+        private const double c_PRECISION = 0.001d;
+        private const int c_DECIMALS = 2;
+        
+        public double X { get; }
+        public double Y { get; }
+
+        public RoundedVector2(double x, double y)
+        {
+            X = Math.Round(x, c_DECIMALS);
+            Y = Math.Round(y, c_DECIMALS);
+        }
+
+        public static double Distance(RoundedVector2 v1, RoundedVector2 v2)
+        {
+            var dx = v1.X - v2.X;
+            var dy = v1.Y - v2.Y;
+            return Math.Round(Math.Sqrt((dx * dx) + (dy * dy)), c_DECIMALS);
+        }
+
+        public static double Angle(RoundedVector2 v1, RoundedVector2 v2)
+        {
+            var dx = v1.X - v2.X;
+            var dy = v1.Y - v2.Y;
+            var radian = Math.Atan2(dy, dx);
+            var angle = (radian * (180 / Math.PI) + 270) % 360;
+
+            return Math.Round(angle, c_DECIMALS);
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj is RoundedVector2 other)
+                return Math.Abs(this.X - other.X) < c_PRECISION && Math.Abs(this.Y - other.Y) < c_PRECISION;
+            return false;
+        }
+
+        public bool Equals(RoundedVector2 other)
+        {
+            return Math.Abs(this.X - other.X) < c_PRECISION && Math.Abs(this.Y - other.Y) < c_PRECISION;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (X.GetHashCode() * 397) ^ Y.GetHashCode();
+            }
+        }
+    }
+}

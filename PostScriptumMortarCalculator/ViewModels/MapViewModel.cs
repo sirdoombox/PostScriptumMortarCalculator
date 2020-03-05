@@ -1,9 +1,12 @@
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
+using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
+using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.Utils;
 using PostScriptumMortarCalculator.ViewModels.Base;
 using Wpf.Controls.PanAndZoom;
@@ -16,12 +19,19 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         private DispatcherTimer m_timer;
 
-        private CalculatorViewModel m_calculatorViewModel;
-
-
+        public MapViewModel(DataResourceService dataResource)
+        {
+            Model.AvailableMaps.AddRange(dataResource.GetAvailableMapData());
+            
+        }
+        
         protected override void OnViewLoaded()
         {
             m_zoomBorder = View.FindChild<ZoomBorder>();
+            m_zoomBorder.Loaded += (_, __) =>
+            {
+                Model.SelectedMap = Model.AvailableMaps.First();
+            };
             m_timer = new DispatcherTimer {Interval = TimeSpan.FromMilliseconds(10)};
             m_timer.Tick += (_, __) => UpdateScale();
             m_timer.Start();
@@ -33,21 +43,24 @@ namespace PostScriptumMortarCalculator.ViewModels
             switch (e.ChangedButton)
             {
                 case MouseButton.Right:
-                    Model.MortarPosition = new Vector2(pos.X, pos.Y);
+                    Model.MortarPosition = new RoundedVector2(pos.X, pos.Y);
                     break;
                 case MouseButton.Left:
-                    Model.TargetPosition = new Vector2(pos.X, pos.Y);
+                    Model.TargetPosition = new RoundedVector2(pos.X, pos.Y);
                     break;
             }
-
-            if (!Model.IsMortarPositionSet || !Model.IsTargetPositionSet) return;
-            TestDistance = Vector2.Distance(Model.MortarPositionMeters, Model.TargetPositionMeters);
-            TestDistance = Math.Round(TestDistance, 2);
         }
 
-        public void SizeChanged()
+        public void OnMapSelectionChanged()
         {
-            if (m_zoomBorder is null) return;
+            Model.Reset();
+            Model.MapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(Model.SelectedMap.Bounds);
+        }
+        
+        // Filthy hack because the first time the canvas is initialised it resizes, but never after for no clear reason.
+        public void CanvasSizeChanged()
+        {
+            OnMapSelectionChanged();
         }
 
         private void UpdateScale()
@@ -67,7 +80,15 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public void ZoomBorderKeyDown(object _, KeyEventArgs e)
         {
-            if (e.Key == Key.R) m_zoomBorder?.Uniform();
+            switch (e.Key)
+            {
+                case Key.R:
+                    m_zoomBorder?.Uniform();
+                    break;
+                case Key.H:
+                    Model.IsHelpVisible = !Model.IsHelpVisible;
+                    break;
+            }
         }
     }
 }

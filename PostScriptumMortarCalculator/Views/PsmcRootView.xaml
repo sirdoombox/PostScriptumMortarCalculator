@@ -15,11 +15,6 @@
         Width="800"
         SaveWindowPosition="True">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
-        <ContentControl Grid.Column="0" Margin="10" s:View.Model="{Binding CalculatorViewModel}"/>
-        <ContentControl Grid.Column="1" Margin="10" s:View.Model="{Binding MapViewModel}"/>
+        <ContentControl Margin="10" s:View.Model="{Binding ActiveItem}"/>
     </Grid>
 </mah:MetroWindow>
