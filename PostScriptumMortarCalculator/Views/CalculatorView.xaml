@@ -12,42 +12,55 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.Resources>
-            <Thickness x:Key="ControlMargin" Top="10"/>
+            <Thickness x:Key="ControlMargin" Top="10" />
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="10 0 10 0" VerticalAlignment="Center">
-            <TextBox mah:TextBoxHelper.Watermark="Mortar Position X | Y" 
+            <ComboBox ItemsSource="{Binding Model.Mortars}"
+                      SelectedItem="{Binding Model.SelectedMortar}"
+                      SelectionChanged="{s:Action OnMortarSelectionChanged}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox Margin="{StaticResource ControlMargin}"
+                     mah:TextBoxHelper.Watermark="Mortar Position X | Y"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      IsReadOnly="True">
                 <TextBox.Text>
                     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged">
-                        <Binding Path="Model.MapModel.MortarPositionMeters.X"/>
-                        <Binding Path="Model.MapModel.MortarPositionMeters.Y"/>
+                        <Binding Path="Model.MapModel.MortarPositionMeters.X" />
+                        <Binding Path="Model.MapModel.MortarPositionMeters.Y" />
                     </MultiBinding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox mah:TextBoxHelper.Watermark="Target Position X | Y" 
+            <TextBox Margin="{StaticResource ControlMargin}"
+                     mah:TextBoxHelper.Watermark="Target Position X | Y"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      IsReadOnly="True">
                 <TextBox.Text>
                     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged">
-                        <Binding Path="Model.MapModel.TargetPositionMeters.X"/>
-                        <Binding Path="Model.MapModel.TargetPositionMeters.Y"/>
+                        <Binding Path="Model.MapModel.TargetPositionMeters.X" />
+                        <Binding Path="Model.MapModel.TargetPositionMeters.Y" />
                     </MultiBinding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox mah:TextBoxHelper.Watermark="Distance To Target" 
+            <TextBox Margin="{StaticResource ControlMargin}"
+                     mah:TextBoxHelper.Watermark="Distance To Target"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      Text="{Binding Model.MapModel.Distance, StringFormat={}{0}m, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="True"/>
-            <TextBox mah:TextBoxHelper.Watermark="Angle To Target" 
+                     IsReadOnly="True" />
+            <TextBox Margin="{StaticResource ControlMargin}"
+                     mah:TextBoxHelper.Watermark="Angle To Target"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      Text="{Binding Model.MapModel.Angle, StringFormat={}{0}°, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="True"/>
+                     IsReadOnly="True" />
         </StackPanel>
-        <ContentControl Grid.Column="1" s:View.Model="{Binding ActiveItem}"/>
+        <ContentControl Grid.Column="1" s:View.Model="{Binding ActiveItem}" />
     </Grid>
 </UserControl>

@@ -1,7 +1,4 @@
-using System.Windows;
 using PostScriptumMortarCalculator.Data;
-using PostScriptumMortarCalculator.Utils;
-using PostScriptumMortarCalculator.ViewModels;
 using Stylet;
 
 namespace PostScriptumMortarCalculator.Models
@@ -9,5 +6,9 @@ namespace PostScriptumMortarCalculator.Models
     public class CalculatorModel : PropertyChangedBase
     {
         public MapModel MapModel { get; set; }
+        
+        public BindableCollection<MortarData> Mortars { get; set; } = new BindableCollection<MortarData>();
+        
+        public MortarData SelectedMortar { get; set; }
     }
 }

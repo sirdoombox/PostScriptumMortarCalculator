@@ -1,4 +1,6 @@
 using System;
+using System.Data.SqlTypes;
+using Newtonsoft.Json;
 
 namespace PostScriptumMortarCalculator.Utils
 {
@@ -10,7 +12,8 @@ namespace PostScriptumMortarCalculator.Utils
         
         public double X { get; }
         public double Y { get; }
-
+        
+        
         public RoundedVector2(double x, double y)
         {
             X = Math.Round(x, c_DECIMALS);
@@ -32,6 +35,13 @@ namespace PostScriptumMortarCalculator.Utils
             var angle = (radian * (180 / Math.PI) + 270) % 360;
 
             return Math.Round(angle, c_DECIMALS);
+        }
+
+        public static RoundedVector2 LerpBetween(RoundedVector2 v1, RoundedVector2 v2, double perc)
+        {
+            var lx = v1.X + (v2.X - v1.X) * perc;
+            var ly = v1.Y + (v2.Y - v1.Y) * perc;
+            return new RoundedVector2(lx,ly);
         }
         
         public override bool Equals(object obj)

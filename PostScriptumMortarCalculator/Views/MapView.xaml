@@ -5,29 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
              xmlns:s="https://github.com/canton7/Stylet"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:panAndZoom="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:MapViewModel}">
-    <UserControl.Resources>
-        <Style TargetType="iconPacks:PackIconZondicons">
-            <Setter Property="Width" Value="{Binding Model.IconScale, Mode=OneWay}" />
-            <Setter Property="Height" Value="{Binding Model.IconScale, Mode=OneWay}" />
-            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
-            <Setter Property="Canvas.ZIndex" Value="1" />
-        </Style>
-    </UserControl.Resources>
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="Ellipse" x:Key="AreaStyleEllipse">
+                <Setter Property="Opacity" Value="1" />
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Model.AvailableMaps}" 
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Model.AvailableMaps}"
                       SelectedItem="{Binding Model.SelectedMap}"
                       SelectionChanged="{s:Action OnMapSelectionChanged}">
                 <ComboBox.ItemTemplate>
@@ -36,7 +32,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Slider Grid.Column="1"/>
+            <Slider Grid.Column="1" />
         </Grid>
         <panAndZoom:ZoomBorder Grid.Row="1"
                                Margin="0 10 0 0"
@@ -53,17 +49,47 @@
                     Height="{Binding ElementName=Image, Path=ActualHeight}"
                     SizeChanged="{s:Action CanvasSizeChanged}">
                 <Image x:Name="Image"
-                       Canvas.ZIndex="0"
+                       Canvas.ZIndex="-10"
                        Source="{Binding Model.SelectedMap.MapPath, IsAsync=True}"
                        MouseDown="{s:Action MouseDown}" />
-                <iconPacks:PackIconZondicons Kind="Location"
-                                             Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
-                                             Canvas.Top="{Binding Model.MortarPositionIconOffset.Y, Mode=OneWay}"
-                                             Canvas.Left="{Binding Model.MortarPositionIconOffset.X, Mode=OneWay}" />
-                <iconPacks:PackIconZondicons Kind="Target"
-                                             Visibility="{Binding Model.IsTargetPositionSet, Converter={StaticResource BooleanToVisibility}}"
-                                             Canvas.Top="{Binding Model.TargetPositionIconOffset.Y, Mode=OneWay}"
-                                             Canvas.Left="{Binding Model.TargetPositionIconOffset.X, Mode=OneWay}" />
+                <!-- Mortar position grid and associated visuals. -->
+                <Grid Canvas.Top="{Binding Model.MortarPosition.Y, Mode=OneWay}"
+                      Canvas.Left="{Binding Model.MortarPosition.X, Mode=OneWay}"
+                      Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}">
+                    <Ellipse Fill="Blue"
+                             Width="5"
+                             Height="5">
+                        <Ellipse.RenderTransform>
+                            <TranslateTransform X="-2.5" Y="-2.5" />
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse 
+                             Width="{Binding Model.MortarMinDistancePixels}"
+                             Height="{Binding Model.MortarMinDistancePixels}"
+                             Fill="Purple">
+                        <Ellipse.RenderTransform>
+                            <TranslateTransform X="{Binding Model.HalfMortarMinDistance}"
+                                                Y="{Binding Model.HalfMortarMinDistance}" />
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse Style="{StaticResource AreaStyleEllipse}"
+                             Width="{Binding Model.MortarMaxDistancePixels}"
+                             Height="{Binding Model.MortarMaxDistancePixels}"
+                             Fill="Blue">
+                        <Ellipse.RenderTransform>
+                            <TranslateTransform X="{Binding Model.HalfMortarMaxDistance}"
+                                                Y="{Binding Model.HalfMortarMaxDistance}" />
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                </Grid>
+                <Ellipse x:Name="TargetEllipse"
+                         Canvas.Top="{Binding Model.TargetPosition.Y, Mode=OneWay}"
+                         Canvas.Left="{Binding Model.TargetPosition.X, Mode=OneWay}"
+                         Visibility="{Binding Model.IsTargetPositionSet, Converter={StaticResource BooleanToVisibility}}">
+                    <Ellipse.RenderTransform>
+                        <RotateTransform Angle="{Binding Model.Angle, Mode=OneWay}" />
+                    </Ellipse.RenderTransform>
+                </Ellipse>
             </Canvas>
         </panAndZoom:ZoomBorder>
         <TextBlock Grid.Row="1"

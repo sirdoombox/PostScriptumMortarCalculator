@@ -45,18 +45,15 @@
           <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="DynamicExpresso.Core, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\DynamicExpresso.Core.2.3.1\lib\net461\DynamicExpresso.Core.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f">
           <HintPath>..\packages\MahApps.Metro.2.0.0-alpha0660\lib\net47\MahApps.Metro.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="MahApps.Metro.IconPacks.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a">
-          <HintPath>..\packages\MahApps.Metro.IconPacks.Zondicons.3.3.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="MahApps.Metro.IconPacks.Zondicons, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a">
-          <HintPath>..\packages\MahApps.Metro.IconPacks.Zondicons.3.3.0\lib\net47\MahApps.Metro.IconPacks.Zondicons.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
+        <Reference Include="Microsoft.CSharp" />
         <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.3\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
           <Private>True</Private>
@@ -112,6 +109,7 @@
         <Compile Include="Converters\InverseBooleanConverter.cs" />
         <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
         <Compile Include="Data\MapData.cs" />
+        <Compile Include="Data\MortarData.cs" />
         <Compile Include="Events\MapSelectionChangedEvent.cs" />
         <Compile Include="Events\MapSelectionEventArgs.cs" />
         <Compile Include="Extensions\NumericExtensions.cs" />
@@ -175,6 +173,9 @@
         <Isolated>False</Isolated>
         <EmbedInteropTypes>True</EmbedInteropTypes>
       </COMReference>
+    </ItemGroup>
+    <ItemGroup>
+      <Resource Include="Assets\Data\MortarData.json" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

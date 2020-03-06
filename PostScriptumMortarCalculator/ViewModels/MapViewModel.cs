@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
+using PostScriptumMortarCalculator.Data;
 using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
 using PostScriptumMortarCalculator.Services;
@@ -22,7 +22,6 @@ namespace PostScriptumMortarCalculator.ViewModels
         public MapViewModel(DataResourceService dataResource)
         {
             Model.AvailableMaps.AddRange(dataResource.GetAvailableMapData());
-            
         }
         
         protected override void OnViewLoaded()
@@ -32,9 +31,6 @@ namespace PostScriptumMortarCalculator.ViewModels
             {
                 Model.SelectedMap = Model.AvailableMaps.First();
             };
-            m_timer = new DispatcherTimer {Interval = TimeSpan.FromMilliseconds(10)};
-            m_timer.Tick += (_, __) => UpdateScale();
-            m_timer.Start();
         }
 
         public void MouseDown(object _, MouseButtonEventArgs e)
@@ -61,11 +57,6 @@ namespace PostScriptumMortarCalculator.ViewModels
         public void CanvasSizeChanged()
         {
             OnMapSelectionChanged();
-        }
-
-        private void UpdateScale()
-        {
-            Model.IconScale = Clamp(30, 10000, 30 / m_zoomBorder.ZoomX);
         }
 
         private static double Clamp(double min, double max, double value)

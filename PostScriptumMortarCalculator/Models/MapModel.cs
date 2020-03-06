@@ -8,36 +8,40 @@ namespace PostScriptumMortarCalculator.Models
     public class MapModel : PropertyChangedBase
     {
         public BindableCollection<MapData> AvailableMaps { get; set; } = new BindableCollection<MapData>();
+        
         public MapData SelectedMap { get; set; }
 
-        public double IconScale { get; set; }
+        public MortarData SelectedMortar { get; set; }
 
         public RoundedVector2 MortarPosition { get; set; }
 
-        public RoundedVector2 MortarPositionMeters => 
+        public RoundedVector2 MortarPositionMeters =>
             MortarPosition.ToMetersScale(MapPixelsPerMeter);
 
-        public RoundedVector2 MortarPositionIconOffset => 
-            new RoundedVector2(MortarPosition.X - (IconScale/2d), MortarPosition.Y - IconScale);
-
         public RoundedVector2 TargetPosition { get; set; }
-        
-        public RoundedVector2 TargetPositionIconOffset => 
-            new RoundedVector2(TargetPosition.X - (IconScale / 2d), TargetPosition.Y - (IconScale / 2d));
 
-        public RoundedVector2 TargetPositionMeters => 
+
+        public RoundedVector2 TargetPositionMeters =>
             TargetPosition.ToMetersScale(MapPixelsPerMeter);
-        
-        public double Distance => 
+
+        public double Distance =>
             RoundedVector2.Distance(MortarPositionMeters, TargetPositionMeters);
 
         public double Angle =>
             RoundedVector2.Angle(MortarPositionMeters, TargetPositionMeters);
-        
-        public bool IsMortarPositionSet => 
+
+        public double MortarMinDistancePixels => SelectedMortar.MinRange.Distance.ToPixelScale(MapPixelsPerMeter);
+
+        public double HalfMortarMinDistance => -(MortarMinDistancePixels / 2d);
+
+        public double MortarMaxDistancePixels => SelectedMortar.MaxRange.Distance.ToPixelScale(MapPixelsPerMeter);
+
+        public double HalfMortarMaxDistance => -(MortarMaxDistancePixels / 2d);
+
+        public bool IsMortarPositionSet =>
             !MortarPosition.Equals(default);
 
-        public bool IsTargetPositionSet => 
+        public bool IsTargetPositionSet =>
             !TargetPosition.Equals(default);
 
         public bool IsHelpVisible { get; set; } = true;
@@ -46,7 +50,6 @@ namespace PostScriptumMortarCalculator.Models
 
         public void Reset()
         {
-            IconScale = default;
             MortarPosition = default;
             TargetPosition = default;
             MapPixelsPerMeter = default;
