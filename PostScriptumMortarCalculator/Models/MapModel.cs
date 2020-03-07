@@ -80,10 +80,11 @@ namespace PostScriptumMortarCalculator.Models
 
         public double MapPixelsPerMeter;
 
-        public void Reset()
+        public void Reset(bool resetMapPixels = false)
         {
             MortarPosition = default;
             TargetPosition = default;
+            if (!resetMapPixels) return;
             MapPixelsPerMeter = default;
         }
 

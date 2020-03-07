@@ -127,6 +127,7 @@
                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
                    FontWeight="Black"
                    Margin="0 0 5 5"
+                   FontSize="15"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Bottom">
             R. Click: Mortar | L. Click: Target | M. Click: Move | M. Scroll: Zoom | H: Show/Hide Help

@@ -19,7 +19,7 @@
             <StackPanel.Resources>
                 <Thickness x:Key="ControlMargin" Top="10" />
                 <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
-                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontSize" Value="20" />
                 </Style>
             </StackPanel.Resources>
             <ComboBox ItemsSource="{Binding Model.Mortars}"
@@ -61,14 +61,18 @@
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      Text="{Binding Model.MapModel.Distance, StringFormat={}{0}m, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
+            <Separator Margin="{StaticResource ControlMargin}"
+                       Background="{DynamicResource MahApps.Brushes.Accent}" />
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Angle To Target"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
+                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                      Text="{Binding Model.MapModel.Angle, StringFormat={}{0}°, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Milliradians"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
+                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                      Text="{Binding Model.MapModel.Milliradians, StringFormat={}{0}Mil, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
         </StackPanel>

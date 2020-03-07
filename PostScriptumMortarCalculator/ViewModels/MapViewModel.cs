@@ -49,7 +49,7 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public void OnMapSelectionChanged()
         {
-            Model.Reset();
+            Model.Reset(true);
             Model.MapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(Model.SelectedMap.Bounds);
             Model.OnSelectedMortarChanged();
         }
@@ -76,6 +76,7 @@ namespace PostScriptumMortarCalculator.ViewModels
             {
                 case Key.R:
                     m_zoomBorder?.Uniform();
+                    Model.Reset();
                     break;
                 case Key.H:
                     Model.IsHelpVisible = !Model.IsHelpVisible;
