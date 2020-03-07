@@ -36,8 +36,18 @@ namespace PostScriptumMortarCalculator.Extensions
         {
             var minDist = mortarData.MinRange.Distance;
             var maxDist = mortarData.MaxRange.Distance;
-            if(distance > maxDist || distance < minDist) throw new ArgumentOutOfRangeException(nameof(distance));
+            if (distance > maxDist || distance < minDist) return -1;
             return (distance - minDist) / (maxDist - minDist);
+        }
+
+        public static double PercentageBetween(this double value, double min, double max)
+        {
+            return (value - min) / (max - min);
+        }
+
+        public static double LerpBetween(this double perc, double min, double max)
+        {
+            return min + (max - min) * perc;
         }
     }
 }

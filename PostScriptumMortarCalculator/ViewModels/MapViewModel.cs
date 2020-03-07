@@ -51,6 +51,7 @@ namespace PostScriptumMortarCalculator.ViewModels
         {
             Model.Reset();
             Model.MapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(Model.SelectedMap.Bounds);
+            Model.OnSelectedMortarChanged();
         }
         
         // Filthy hack because the first time the canvas is initialised it resizes, but never after for no clear reason.

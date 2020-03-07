@@ -11,16 +11,22 @@
              d:DataContext="{d:DesignInstance viewModels:CalculatorViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.Resources>
-            <Thickness x:Key="ControlMargin" Top="10" />
-        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="10 0 10 0" VerticalAlignment="Center">
+            <StackPanel.Resources>
+                <Thickness x:Key="ControlMargin" Top="10" />
+                <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
+                    <Setter Property="FontSize" Value="20"/>
+                </Style>
+            </StackPanel.Resources>
             <ComboBox ItemsSource="{Binding Model.Mortars}"
                       SelectedItem="{Binding Model.SelectedMortar}"
+                      FontSize="20"
+                      mah:TextBoxHelper.Watermark="Mortar"
+                      mah:TextBoxHelper.UseFloatingWatermark="True"
                       SelectionChanged="{s:Action OnMortarSelectionChanged}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -59,6 +65,11 @@
                      mah:TextBoxHelper.Watermark="Angle To Target"
                      mah:TextBoxHelper.UseFloatingWatermark="True"
                      Text="{Binding Model.MapModel.Angle, StringFormat={}{0}°, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                     IsReadOnly="True" />
+            <TextBox Margin="{StaticResource ControlMargin}"
+                     mah:TextBoxHelper.Watermark="Milliradians"
+                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     Text="{Binding Model.MapModel.Milliradians, StringFormat={}{0}Mil, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
         </StackPanel>
         <ContentControl Grid.Column="1" s:View.Model="{Binding ActiveItem}" />

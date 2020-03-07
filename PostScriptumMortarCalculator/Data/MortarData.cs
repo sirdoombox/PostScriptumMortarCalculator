@@ -22,7 +22,7 @@ namespace PostScriptumMortarCalculator.Data
             Name = mortarName;
             DispersionRadiusAtMinRange = dispersionRadiusAtMinRange;
             DispersionRadiusAtMaxRange = dispersionRadiusAtMaxRange;
-            RangeValues = rangeValues.OrderByDescending(x => x.Distance).ToList();
+            RangeValues = rangeValues.OrderBy(x => x.Distance).ToList();
         }
     }
 

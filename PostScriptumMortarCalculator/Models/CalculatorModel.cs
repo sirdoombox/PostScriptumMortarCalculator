@@ -10,5 +10,7 @@ namespace PostScriptumMortarCalculator.Models
         public BindableCollection<MortarData> Mortars { get; set; } = new BindableCollection<MortarData>();
         
         public MortarData SelectedMortar { get; set; }
+        
+        
     }
 }

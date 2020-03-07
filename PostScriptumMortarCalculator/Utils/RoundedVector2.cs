@@ -6,14 +6,13 @@ namespace PostScriptumMortarCalculator.Utils
 {
     public struct RoundedVector2
     {
-        
         private const double c_PRECISION = 0.001d;
         private const int c_DECIMALS = 2;
-        
+
         public double X { get; }
         public double Y { get; }
-        
-        
+
+
         public RoundedVector2(double x, double y)
         {
             X = Math.Round(x, c_DECIMALS);
@@ -41,8 +40,20 @@ namespace PostScriptumMortarCalculator.Utils
         {
             var lx = v1.X + (v2.X - v1.X) * perc;
             var ly = v1.Y + (v2.Y - v1.Y) * perc;
-            return new RoundedVector2(lx,ly);
+            return new RoundedVector2(lx, ly);
         }
+
+        public static RoundedVector2 operator /(RoundedVector2 v1, RoundedVector2 v2) =>
+            new RoundedVector2(v1.X / v2.X, v1.Y / v2.Y);
+
+        public static RoundedVector2 operator /(RoundedVector2 v, double by) =>
+            new RoundedVector2(v.X / by, v.Y / by);
+        
+        public static RoundedVector2 operator -(RoundedVector2 v) =>
+            new RoundedVector2(-v.X, -v.Y);
+        
+        public static RoundedVector2 operator *(RoundedVector2 v, double by) =>
+            new RoundedVector2(v.X * by, v.Y * by);
         
         public override bool Equals(object obj)
         {

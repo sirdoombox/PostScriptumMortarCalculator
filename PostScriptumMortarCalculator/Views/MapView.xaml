@@ -11,7 +11,8 @@
     <Grid>
         <Grid.Resources>
             <Style TargetType="Ellipse" x:Key="AreaStyleEllipse">
-                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Opacity" Value="{Binding Model.Opacity, Mode=OneWay}" />
+                <Setter Property="IsHitTestVisible" Value="False" />
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
@@ -32,7 +33,18 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Slider Grid.Column="1" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Content="Opacity"
+                       Foreground="{DynamicResource MahApps.Brushes.Accent}" />
+                <Slider Value="{Binding Model.Opacity}"
+                        MinWidth="100"
+                        Minimum="0.1"
+                        Maximum="1"
+                        SmallChange="0.01"
+                        LargeChange="0.1" 
+                        Margin="0,0,5,0"/>
+                <TextBox Text="{Binding Model.Opacity}" Width="40"/>
+            </StackPanel>
         </Grid>
         <panAndZoom:ZoomBorder Grid.Row="1"
                                Margin="0 10 0 0"
@@ -44,6 +56,8 @@
                                KeyDown="{s:Action ZoomBorderKeyDown}"
                                MouseEnter="{s:Action MouseEntered}"
                                EnableConstrains="True"
+                               BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
+                               BorderThickness="1"
                                Focusable="True">
             <Canvas Width="{Binding ElementName=Image, Path=ActualWidth}"
                     Height="{Binding ElementName=Image, Path=ActualHeight}"
@@ -53,41 +67,55 @@
                        Source="{Binding Model.SelectedMap.MapPath, IsAsync=True}"
                        MouseDown="{s:Action MouseDown}" />
                 <!-- Mortar position grid and associated visuals. -->
-                <Grid Canvas.Top="{Binding Model.MortarPosition.Y, Mode=OneWay}"
-                      Canvas.Left="{Binding Model.MortarPosition.X, Mode=OneWay}"
-                      Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}">
-                    <Ellipse Fill="Blue"
-                             Width="5"
-                             Height="5">
-                        <Ellipse.RenderTransform>
-                            <TranslateTransform X="-2.5" Y="-2.5" />
-                        </Ellipse.RenderTransform>
-                    </Ellipse>
-                    <Ellipse 
-                             Width="{Binding Model.MortarMinDistancePixels}"
-                             Height="{Binding Model.MortarMinDistancePixels}"
-                             Fill="Purple">
-                        <Ellipse.RenderTransform>
-                            <TranslateTransform X="{Binding Model.HalfMortarMinDistance}"
-                                                Y="{Binding Model.HalfMortarMinDistance}" />
-                        </Ellipse.RenderTransform>
-                    </Ellipse>
-                    <Ellipse Style="{StaticResource AreaStyleEllipse}"
-                             Width="{Binding Model.MortarMaxDistancePixels}"
-                             Height="{Binding Model.MortarMaxDistancePixels}"
-                             Fill="Blue">
-                        <Ellipse.RenderTransform>
-                            <TranslateTransform X="{Binding Model.HalfMortarMaxDistance}"
-                                                Y="{Binding Model.HalfMortarMaxDistance}" />
-                        </Ellipse.RenderTransform>
-                    </Ellipse>
-                </Grid>
-                <Ellipse x:Name="TargetEllipse"
-                         Canvas.Top="{Binding Model.TargetPosition.Y, Mode=OneWay}"
-                         Canvas.Left="{Binding Model.TargetPosition.X, Mode=OneWay}"
-                         Visibility="{Binding Model.IsTargetPositionSet, Converter={StaticResource BooleanToVisibility}}">
+                <Ellipse Fill="Blue"
+                         Canvas.Left="{Binding Model.MortarPosition.X}"
+                         Canvas.Top="{Binding Model.MortarPosition.Y}"
+                         Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
+                         IsHitTestVisible="False"
+                         Width="5"
+                         Height="5">
                     <Ellipse.RenderTransform>
-                        <RotateTransform Angle="{Binding Model.Angle, Mode=OneWay}" />
+                        <TranslateTransform X="-2.5" Y="-2.5" />
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse Width="{Binding Model.MortarMinDistancePixels}"
+                         Height="{Binding Model.MortarMinDistancePixels}"
+                         Canvas.Left="{Binding Model.MortarPosition.X}"
+                         Canvas.Top="{Binding Model.MortarPosition.Y}"
+                         Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
+                         Style="{StaticResource AreaStyleEllipse}"
+                         Fill="Purple">
+                    <Ellipse.RenderTransform>
+                        <TranslateTransform X="{Binding Model.HalfMortarMinDistance}"
+                                            Y="{Binding Model.HalfMortarMinDistance}" />
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse Width="{Binding Model.MortarMaxDistancePixels}"
+                         Height="{Binding Model.MortarMaxDistancePixels}"
+                         Canvas.Left="{Binding Model.MortarPosition.X}"
+                         Canvas.Top="{Binding Model.MortarPosition.Y}"
+                         Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
+                         Style="{StaticResource AreaStyleEllipse}"
+                         Fill="Blue">
+                    <Ellipse.RenderTransform>
+                        <TranslateTransform X="{Binding Model.HalfMortarMaxDistance}"
+                                            Y="{Binding Model.HalfMortarMaxDistance}" />
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <!-- Target position indicator -->
+                <Ellipse Canvas.Top="{Binding Model.TargetPosition.Y}"
+                         Canvas.Left="{Binding Model.TargetPosition.X}"
+                         Width="{Binding Model.TargetInnateSplashPixels.X}"
+                         Height="{Binding Model.TargetInnateSplashPixels.Y}"
+                         Visibility="{Binding Model.IsTargetPositionSet, Converter={StaticResource BooleanToVisibility}}"
+                         Style="{StaticResource AreaStyleEllipse}"
+                         Fill="Red">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform X="{Binding Model.TargetInnateSplashOffset.X}"
+                                                Y="{Binding Model.TargetInnateSplashOffset.Y}" />
+                            <RotateTransform Angle="{Binding Model.Angle, Mode=OneWay}" />
+                        </TransformGroup>
                     </Ellipse.RenderTransform>
                 </Ellipse>
             </Canvas>
@@ -98,6 +126,7 @@
                    Visibility="{Binding Model.IsHelpVisible, Converter={StaticResource BooleanToVisibility}}"
                    Foreground="{DynamicResource MahApps.Brushes.Accent}"
                    FontWeight="Black"
+                   Margin="0 0 5 5"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Bottom">
             R. Click: Mortar | L. Click: Target | M. Click: Move | M. Scroll: Zoom | H: Show/Hide Help

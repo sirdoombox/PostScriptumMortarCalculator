@@ -123,5 +123,392 @@
         "Milliradians": 800
       }
     ]
+  },
+  {
+    "MortarName": "British 3 Inch",
+    "DispersionRadiusAtMinRange": {
+      "X": 20,
+      "Y": 20
+    },
+    "DispersionRadiusAtMaxRange": {
+      "X": 14,
+      "Y": 6
+    },
+    "RangeValues": [
+      {
+        "Distance": 100,
+        "Milliradians": 1536
+      },
+      {
+        "Distance": 150,
+        "Milliradians": 1519
+      },
+      {
+        "Distance": 200,
+        "Milliradians": 1502
+      },
+      {
+        "Distance": 250,
+        "Milliradians": 1485
+      },
+      {
+        "Distance": 300,
+        "Milliradians": 1467
+      },
+      {
+        "Distance": 350,
+        "Milliradians": 1450
+      },
+      {
+        "Distance": 400,
+        "Milliradians": 1432
+      },
+      {
+        "Distance": 450,
+        "Milliradians": 1415
+      },
+      {
+        "Distance": 500,
+        "Milliradians": 1397
+      },
+      {
+        "Distance": 550,
+        "Milliradians": 1378
+      },
+      {
+        "Distance": 600,
+        "Milliradians": 1360
+      },
+      {
+        "Distance": 650,
+        "Milliradians": 1341
+      },
+      {
+        "Distance": 700,
+        "Milliradians": 1322
+      },
+      {
+        "Distance": 750,
+        "Milliradians": 1302
+      },
+      {
+        "Distance": 800,
+        "Milliradians": 1282
+      },
+      {
+        "Distance": 850,
+        "Milliradians": 1262
+      },
+      {
+        "Distance": 900,
+        "Milliradians": 1241
+      },
+      {
+        "Distance": 950,
+        "Milliradians": 1219
+      },
+      {
+        "Distance": 1000,
+        "Milliradians": 1196
+      },
+      {
+        "Distance": 1050,
+        "Milliradians": 1172
+      },
+      {
+        "Distance": 1100,
+        "Milliradians": 1147
+      },
+      {
+        "Distance": 1150,
+        "Milliradians": 1121
+      },
+      {
+        "Distance": 1200,
+        "Milliradians": 1092
+      },
+      {
+        "Distance": 1250,
+        "Milliradians": 1062
+      },
+      {
+        "Distance": 1300,
+        "Milliradians": 1027
+      },
+      {
+        "Distance": 1350,
+        "Milliradians": 988
+      },
+      {
+        "Distance": 1400,
+        "Milliradians": 939
+      },
+      {
+        "Distance": 1460,
+        "Milliradians": 850
+      },
+      {
+        "Distance": 1475,
+        "Milliradians": 800
+      }
+    ]
+  },
+  {
+    "MortarName": "Granatwerfer 34",
+    "DispersionRadiusAtMinRange": {
+      "X": 20,
+      "Y": 20
+    },
+    "DispersionRadiusAtMaxRange": {
+      "X": 14,
+      "Y": 6
+    },
+    "RangeValues": [
+      {
+        "Distance": 100,
+        "Milliradians": 1536
+      },
+      {
+        "Distance": 150,
+        "Milliradians": 1519
+      },
+      {
+        "Distance": 200,
+        "Milliradians": 1502
+      },
+      {
+        "Distance": 250,
+        "Milliradians": 1485
+      },
+      {
+        "Distance": 300,
+        "Milliradians": 1467
+      },
+      {
+        "Distance": 350,
+        "Milliradians": 1450
+      },
+      {
+        "Distance": 400,
+        "Milliradians": 1432
+      },
+      {
+        "Distance": 450,
+        "Milliradians": 1415
+      },
+      {
+        "Distance": 500,
+        "Milliradians": 1397
+      },
+      {
+        "Distance": 550,
+        "Milliradians": 1378
+      },
+      {
+        "Distance": 600,
+        "Milliradians": 1360
+      },
+      {
+        "Distance": 650,
+        "Milliradians": 1341
+      },
+      {
+        "Distance": 700,
+        "Milliradians": 1322
+      },
+      {
+        "Distance": 750,
+        "Milliradians": 1302
+      },
+      {
+        "Distance": 800,
+        "Milliradians": 1282
+      },
+      {
+        "Distance": 850,
+        "Milliradians": 1262
+      },
+      {
+        "Distance": 900,
+        "Milliradians": 1241
+      },
+      {
+        "Distance": 950,
+        "Milliradians": 1219
+      },
+      {
+        "Distance": 1000,
+        "Milliradians": 1196
+      },
+      {
+        "Distance": 1050,
+        "Milliradians": 1172
+      },
+      {
+        "Distance": 1100,
+        "Milliradians": 1147
+      },
+      {
+        "Distance": 1150,
+        "Milliradians": 1121
+      },
+      {
+        "Distance": 1200,
+        "Milliradians": 1092
+      },
+      {
+        "Distance": 1250,
+        "Milliradians": 1062
+      },
+      {
+        "Distance": 1300,
+        "Milliradians": 1027
+      },
+      {
+        "Distance": 1350,
+        "Milliradians": 988
+      },
+      {
+        "Distance": 1400,
+        "Milliradians": 939
+      },
+      {
+        "Distance": 1460,
+        "Milliradians": 850
+      },
+      {
+        "Distance": 1475,
+        "Milliradians": 800
+      }
+    ]
+  },
+  {
+    "MortarName": "M2 Mortar",
+    "DispersionRadiusAtMinRange": {
+      "X": 20,
+      "Y": 20
+    },
+    "DispersionRadiusAtMaxRange": {
+      "X": 14,
+      "Y": 6
+    },
+    "RangeValues": [
+      {
+        "Distance": 100,
+        "Milliradians": 1536
+      },
+      {
+        "Distance": 150,
+        "Milliradians": 1519
+      },
+      {
+        "Distance": 200,
+        "Milliradians": 1502
+      },
+      {
+        "Distance": 250,
+        "Milliradians": 1485
+      },
+      {
+        "Distance": 300,
+        "Milliradians": 1467
+      },
+      {
+        "Distance": 350,
+        "Milliradians": 1450
+      },
+      {
+        "Distance": 400,
+        "Milliradians": 1432
+      },
+      {
+        "Distance": 450,
+        "Milliradians": 1415
+      },
+      {
+        "Distance": 500,
+        "Milliradians": 1397
+      },
+      {
+        "Distance": 550,
+        "Milliradians": 1378
+      },
+      {
+        "Distance": 600,
+        "Milliradians": 1360
+      },
+      {
+        "Distance": 650,
+        "Milliradians": 1341
+      },
+      {
+        "Distance": 700,
+        "Milliradians": 1322
+      },
+      {
+        "Distance": 750,
+        "Milliradians": 1302
+      },
+      {
+        "Distance": 800,
+        "Milliradians": 1282
+      },
+      {
+        "Distance": 850,
+        "Milliradians": 1262
+      },
+      {
+        "Distance": 900,
+        "Milliradians": 1241
+      },
+      {
+        "Distance": 950,
+        "Milliradians": 1219
+      },
+      {
+        "Distance": 1000,
+        "Milliradians": 1196
+      },
+      {
+        "Distance": 1050,
+        "Milliradians": 1172
+      },
+      {
+        "Distance": 1100,
+        "Milliradians": 1147
+      },
+      {
+        "Distance": 1150,
+        "Milliradians": 1121
+      },
+      {
+        "Distance": 1200,
+        "Milliradians": 1092
+      },
+      {
+        "Distance": 1250,
+        "Milliradians": 1062
+      },
+      {
+        "Distance": 1300,
+        "Milliradians": 1027
+      },
+      {
+        "Distance": 1350,
+        "Milliradians": 988
+      },
+      {
+        "Distance": 1400,
+        "Milliradians": 939
+      },
+      {
+        "Distance": 1460,
+        "Milliradians": 850
+      },
+      {
+        "Distance": 1475,
+        "Milliradians": 800
+      }
+    ]
   }
 ]
