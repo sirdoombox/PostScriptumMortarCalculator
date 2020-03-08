@@ -6,6 +6,7 @@ using PostScriptumMortarCalculator.Models;
 using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.Utils;
 using PostScriptumMortarCalculator.ViewModels.Base;
+using PropertyChanged;
 using Wpf.Controls.PanAndZoom;
 
 namespace PostScriptumMortarCalculator.ViewModels
@@ -41,7 +42,8 @@ namespace PostScriptumMortarCalculator.ViewModels
                     break;
             }
         }
-
+        
+        [SuppressPropertyChangedWarnings]
         public void OnMapSelectionChanged()
         {
             Model.Reset(true);
