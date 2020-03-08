@@ -1,6 +1,4 @@
 using System;
-using System.Data.SqlTypes;
-using Newtonsoft.Json;
 
 namespace PostScriptumMortarCalculator.Utils
 {

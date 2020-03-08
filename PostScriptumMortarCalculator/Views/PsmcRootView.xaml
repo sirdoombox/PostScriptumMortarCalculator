@@ -11,8 +11,10 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:PsmcRootViewModel}"
         Title="Post Scriptum Mortar Calculator" 
-        Height="450" 
-        Width="800"
+        Height="500" 
+        Width="900"
+        MinWidth="900"
+        MinHeight="500"
         SaveWindowPosition="True">
     <Grid>
         <ContentControl Margin="10" s:View.Model="{Binding ActiveItem}"/>

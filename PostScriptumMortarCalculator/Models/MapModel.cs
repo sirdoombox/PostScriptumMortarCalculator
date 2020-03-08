@@ -56,6 +56,9 @@ namespace PostScriptumMortarCalculator.Models
 
         public bool IsTargetPositionSet =>
             !TargetPosition.Equals(default);
+
+        public bool IsMortarAndTargetSet =>
+            IsMortarPositionSet && IsTargetPositionSet;
         
         public double Milliradians
         {

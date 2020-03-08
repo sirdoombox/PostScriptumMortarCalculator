@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Windows;
 using PostScriptumMortarCalculator.Models;
 using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.ViewModels.Base;
@@ -18,6 +19,11 @@ namespace PostScriptumMortarCalculator.ViewModels
         public void OnMortarSelectionChanged()
         {
             Model.MapModel.SelectedMortar = Model.SelectedMortar;
+        }
+
+        public void CopyToClipboardClicked()
+        {
+            Clipboard.SetData(DataFormats.Text, $"Angle: {Model.MapModel.Angle} | Mills: {Model.MapModel.Milliradians}");
         }
     }
 }

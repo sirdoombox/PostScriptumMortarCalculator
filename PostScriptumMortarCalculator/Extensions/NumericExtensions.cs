@@ -1,5 +1,4 @@
 using System;
-using System.Numerics;
 using PostScriptumMortarCalculator.Data;
 using PostScriptumMortarCalculator.Utils;
 

@@ -1,9 +1,6 @@
-using System;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Threading;
 using MahApps.Metro.Controls;
-using PostScriptumMortarCalculator.Data;
 using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
 using PostScriptumMortarCalculator.Services;
@@ -16,8 +13,6 @@ namespace PostScriptumMortarCalculator.ViewModels
     public class MapViewModel : ViewModelBase<MapModel>
     {
         private ZoomBorder m_zoomBorder;
-
-        private DispatcherTimer m_timer;
 
         public MapViewModel(DataResourceService dataResource)
         {

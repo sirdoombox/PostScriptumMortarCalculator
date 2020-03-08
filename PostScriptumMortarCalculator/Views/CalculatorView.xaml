@@ -12,8 +12,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="10 0 10 0" VerticalAlignment="Center">
             <StackPanel.Resources>
@@ -75,6 +75,12 @@
                      Foreground="{DynamicResource MahApps.Brushes.Accent}"
                      Text="{Binding Model.MapModel.Milliradians, StringFormat={}{0}Mil, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
+            <Button Margin="{StaticResource ControlMargin}"
+                    Style="{StaticResource MahApps.Styles.Button.AccentedSquare}"
+                    FontSize="20"
+                    Command="{s:Action CopyToClipboardClicked}"
+                    mah:ControlsHelper.ContentCharacterCasing="Normal"
+                    Content="Copy to Clipboard"/>
         </StackPanel>
         <ContentControl Grid.Column="1" s:View.Model="{Binding ActiveItem}" />
     </Grid>

@@ -41,9 +41,9 @@
                         Minimum="0.1"
                         Maximum="1"
                         SmallChange="0.01"
-                        LargeChange="0.1" 
-                        Margin="0,0,5,0"/>
-                <TextBox Text="{Binding Model.Opacity}" Width="40"/>
+                        LargeChange="0.1"
+                        Margin="0,0,5,0" />
+                <TextBox Text="{Binding Model.Opacity}" Width="40" />
             </StackPanel>
         </Grid>
         <panAndZoom:ZoomBorder Grid.Row="1"
@@ -68,6 +68,7 @@
                        MouseDown="{s:Action MouseDown}" />
                 <!-- Mortar position grid and associated visuals. -->
                 <Ellipse Fill="Blue"
+                         Canvas.ZIndex="100"
                          Canvas.Left="{Binding Model.MortarPosition.X}"
                          Canvas.Top="{Binding Model.MortarPosition.Y}"
                          Visibility="{Binding Model.IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
@@ -118,6 +119,14 @@
                         </TransformGroup>
                     </Ellipse.RenderTransform>
                 </Ellipse>
+                <!-- Mortar -> Target line -->
+                <Line X1="{Binding Model.MortarPosition.X}"
+                      Y1="{Binding Model.MortarPosition.Y}"
+                      X2="{Binding Model.TargetPosition.X}"
+                      Y2="{Binding Model.TargetPosition.Y}"
+                      Visibility="{Binding Model.IsMortarAndTargetSet, Converter={StaticResource BooleanToVisibility}}"
+                      StrokeThickness="5"
+                      Stroke="Red" />
             </Canvas>
         </panAndZoom:ZoomBorder>
         <TextBlock Grid.Row="1"
