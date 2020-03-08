@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostScriptumMortarCalculato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostScriptumMortarCalculator.Tests", "PostScriptumMortarCalculator.Tests\PostScriptumMortarCalculator.Tests.csproj", "{0719C79E-381D-4572-A8FC-A56F3ACF25AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostScriptumMortarCalculator.MortarDataGatherer", "PostScriptumMortarCalculator.MortarDataGatherer\PostScriptumMortarCalculator.MortarDataGatherer.csproj", "{E25E9AA7-8413-458C-856E-314402F492C0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +18,5 @@ Global
 		{0719C79E-381D-4572-A8FC-A56F3ACF25AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0719C79E-381D-4572-A8FC-A56F3ACF25AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0719C79E-381D-4572-A8FC-A56F3ACF25AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E25E9AA7-8413-458C-856E-314402F492C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E25E9AA7-8413-458C-856E-314402F492C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E25E9AA7-8413-458C-856E-314402F492C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E25E9AA7-8413-458C-856E-314402F492C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

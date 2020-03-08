@@ -29,18 +29,76 @@ namespace PostScriptumMortarCalculator.ViewModels
             };
         }
 
+        private bool m_isMouseCaptured;
+        private MouseButton m_capturedButton;
+
         public void MouseDown(object _, MouseButtonEventArgs e)
         {
             var pos = e.GetPosition(m_zoomBorder.Child);
             switch (e.ChangedButton)
             {
                 case MouseButton.Right:
+                    m_isMouseCaptured = true;
+                    m_capturedButton = MouseButton.Right;
+                    break;
+                case MouseButton.Left:
+                    m_isMouseCaptured = true;
+                    m_capturedButton = MouseButton.Left;
+                    break;
+            }
+        }
+
+        public void MouseMove(object _, MouseEventArgs e)
+        {
+            if (!m_isMouseCaptured) return;
+            var pos = e.GetPosition(m_zoomBorder.Child);
+            switch (m_capturedButton)
+            {
+                case MouseButton.Right:
                     Model.MortarPosition = new RoundedVector2(pos.X, pos.Y);
                     break;
                 case MouseButton.Left:
+                    if (!Model.IsMortarPositionSet) break;
+                    if (!IsMousePosInValidRange(pos.X, pos.Y)) break;
                     Model.TargetPosition = new RoundedVector2(pos.X, pos.Y);
                     break;
             }
+        }
+
+        public void MouseUp(object _, MouseButtonEventArgs e)
+        {
+            if (!m_isMouseCaptured) return;
+            var pos = e.GetPosition(m_zoomBorder.Child);
+            switch (e.ChangedButton)
+            {
+                case MouseButton.Right:
+                    m_isMouseCaptured = false;
+                    m_capturedButton = default;
+                    Model.MortarPosition = new RoundedVector2(pos.X, pos.Y);
+                    if (!IsTargetStillInRange()) Model.TargetPosition = default;
+                    break;
+                case MouseButton.Left:
+                    m_isMouseCaptured = false;
+                    m_capturedButton = default;
+                    if (!Model.IsMortarPositionSet) break;
+                    if (!IsMousePosInValidRange(pos.X, pos.Y)) break;
+                    Model.TargetPosition = new RoundedVector2(pos.X, pos.Y);
+                    break;
+            }
+        }
+
+        private bool IsMousePosInValidRange(double posX, double posY)
+        {
+            var tempTarget = new RoundedVector2(posX, posY).ToMetersScale(Model.MapPixelsPerMeter);
+            var tempDist = RoundedVector2.Distance(Model.MortarPositionMeters, tempTarget);
+            return tempDist >= Model.SelectedMortar.MinRange.Distance
+                   && tempDist <= Model.SelectedMortar.MaxRange.Distance;
+        }
+
+        private bool IsTargetStillInRange()
+        {
+            return Model.Distance >= Model.SelectedMortar.MinRange.Distance
+                   && Model.Distance <= Model.SelectedMortar.MaxRange.Distance;
         }
         
         [SuppressPropertyChangedWarnings]

@@ -65,7 +65,9 @@
                 <Image x:Name="Image"
                        Canvas.ZIndex="-10"
                        Source="{Binding Model.SelectedMap.MapPath, IsAsync=True}"
-                       MouseDown="{s:Action MouseDown}" />
+                       MouseDown="{s:Action MouseDown}"
+                       MouseUp="{s:Action MouseUp}"
+                       MouseMove="{s:Action MouseMove}"/>
                 <!-- Mortar position grid and associated visuals. -->
                 <Ellipse Fill="Blue"
                          Canvas.ZIndex="100"
@@ -124,6 +126,7 @@
                       Y1="{Binding Model.MortarPosition.Y}"
                       X2="{Binding Model.TargetPosition.X}"
                       Y2="{Binding Model.TargetPosition.Y}"
+                      IsHitTestVisible="False"
                       Visibility="{Binding Model.IsMortarAndTargetSet, Converter={StaticResource BooleanToVisibility}}"
                       StrokeThickness="5"
                       Stroke="Red" />
