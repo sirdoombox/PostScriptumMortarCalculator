@@ -1,5 +1,5 @@
 using System;
-using PostScriptumMortarCalculator.Data;
+using PostScriptumMortarCalculator.Models;
 using PostScriptumMortarCalculator.Utils;
 
 namespace PostScriptumMortarCalculator.Extensions
@@ -31,7 +31,7 @@ namespace PostScriptumMortarCalculator.Extensions
             return new RoundedVector2(vector.X.ToPixelScale(pixelsPerMeter), vector.Y.ToPixelScale(pixelsPerMeter));
         }
 
-        public static double PercentageBetweenMinAndMaxDistance(this MortarData mortarData, double distance)
+        public static double PercentageBetweenMinAndMaxDistance(this MortarDataModel mortarData, double distance)
         {
             var minDist = mortarData.MinRange.Distance;
             var maxDist = mortarData.MaxRange.Distance;

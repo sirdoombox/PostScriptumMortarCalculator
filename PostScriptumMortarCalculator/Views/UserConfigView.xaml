@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:PostScriptumMortarCalculator.Views"
              xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
@@ -12,14 +11,21 @@
         <StackPanel.Resources>
             <Thickness x:Key="ControlMargin">0 10 0 0</Thickness>
         </StackPanel.Resources>
-        <ComboBox ItemsSource="{Binding Model.Themes}"
-                  SelectedItem="{Binding Model.Theme}" 
+        <ComboBox ItemsSource="{Binding Themes}"
+                  SelectedItem="{Binding SelectedTheme}"
                   mah:TextBoxHelper.UseFloatingWatermark="True"
-                  mah:TextBoxHelper.Watermark="Theme"/>
+                  mah:TextBoxHelper.Watermark="Theme" />
         <ComboBox Margin="{StaticResource ControlMargin}"
-                  ItemsSource="{Binding Model.Accents}"
-                  SelectedItem="{Binding Model.Accent}" 
+                  ItemsSource="{Binding Accents}"
+                  SelectedItem="{Binding SelectedAccent}"
                   mah:TextBoxHelper.UseFloatingWatermark="True"
-                  mah:TextBoxHelper.Watermark="Accent" />
+                  mah:TextBoxHelper.Watermark="Accent">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" 
+                               Foreground="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}, Converter={StaticResource StringToAccentBrush}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </StackPanel>
 </UserControl>

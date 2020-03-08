@@ -21,6 +21,7 @@
                     <converters:InverseBooleanConverter x:Key="InverseBoolean"/>
                     <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
                     <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibility"/>
+                    <converters:StringToAccentBrushConverter x:Key="StringToAccentBrush"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using PostScriptumMortarCalculator.Utils;
+using PropertyChanged;
 
-namespace PostScriptumMortarCalculator.Data
+namespace PostScriptumMortarCalculator.Models
 {
-    public class MortarData
+    [DoNotNotify]
+    public class MortarDataModel
     {
         public string Name { get; }
         public RoundedVector2 DispersionRadiusAtMinRange { get; }
@@ -15,7 +17,7 @@ namespace PostScriptumMortarCalculator.Data
         
         public MortarRangeValue MaxRange => RangeValues.Last();
 
-        public MortarData(string mortarName, RoundedVector2 dispersionRadiusAtMinRange,
+        public MortarDataModel(string mortarName, RoundedVector2 dispersionRadiusAtMinRange,
             RoundedVector2 dispersionRadiusAtMaxRange, List<MortarRangeValue> rangeValues)
         {
             Name = mortarName;
@@ -23,18 +25,19 @@ namespace PostScriptumMortarCalculator.Data
             DispersionRadiusAtMaxRange = dispersionRadiusAtMaxRange;
             RangeValues = rangeValues.OrderBy(x => x.Distance).ToList();
         }
-    }
-
-    public struct MortarRangeValue
-    {
-        public double Distance { get; }
-
-        public double Milliradians { get; }
-
-        public MortarRangeValue(double distance, double milliradians)
+        
+        
+        public struct MortarRangeValue
         {
-            Distance = distance;
-            Milliradians = milliradians;
+            public double Distance { get; }
+
+            public double Milliradians { get; }
+
+            public MortarRangeValue(double distance, double milliradians)
+            {
+                Distance = distance;
+                Milliradians = milliradians;
+            }
         }
     }
 }

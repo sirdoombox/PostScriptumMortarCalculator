@@ -109,25 +109,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\MapContainer.cs" />
     <Compile Include="Converters\BooleanConverterBase.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Data\MapData.cs" />
-    <Compile Include="Data\MortarData.cs" />
-    <Compile Include="Events\MapSelectionChangedEvent.cs" />
-    <Compile Include="Events\MapSelectionEventArgs.cs" />
+    <Compile Include="Converters\StringToAccentBrushConverter.cs" />
+    <Compile Include="Events\MortarChangedEvent.cs" />
+    <Compile Include="Events\PositionChangedEvent.cs" />
     <Compile Include="Extensions\NumericExtensions.cs" />
-    <Compile Include="Models\CalculatorModel.cs" />
-    <Compile Include="Models\MapModel.cs" />
-    <Compile Include="Models\PsmcRootModel.cs" />
+    <Compile Include="Models\MapDataModel.cs" />
+    <Compile Include="Models\MortarDataModel.cs" />
     <Compile Include="Models\UserConfigModel.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\DataResourceService.cs" />
     <Compile Include="Utils\RoundedVector2.cs" />
-    <Compile Include="ViewModels\Base\ConductorViewModelBase.cs" />
-    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\CalculatorViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\PsmcRootViewModel.cs" />

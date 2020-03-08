@@ -1,36 +1,162 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
+using PostScriptumMortarCalculator.Events;
 using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
-using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.Utils;
-using PostScriptumMortarCalculator.ViewModels.Base;
-using PropertyChanged;
+using Stylet;
 using Wpf.Controls.PanAndZoom;
 
 namespace PostScriptumMortarCalculator.ViewModels
 {
-    public class MapViewModel : ViewModelBase<MapModel>
+    public class MapViewModel : Screen, IHandle<MortarChangedEvent>
     {
-        private ZoomBorder m_zoomBorder;
+        private const string c_RESOURCE_PATH = "/PostScriptumMortarCalculator;component/Assets";
 
-        public MapViewModel(DataResourceService dataResource)
+        #region Properties
+
+        public RoundedVector2 TargetPositionPixels { get; set; }
+
+        public RoundedVector2 MortarPositionPixels { get; set; }
+
+        public double Angle => 
+            RoundedVector2.Angle(MortarPositionPixels, TargetPositionPixels);
+
+        public double MortarMinDistancePixels { get; private set; }
+            
+
+        public double HalfMortarMinDistancePixels => 
+            -(MortarMinDistancePixels / 2d);
+
+        public double MortarMaxDistancePixels { get; private set; }
+
+        public double HalfMortarMaxDistancePixels => 
+            -(MortarMaxDistancePixels / 2d);
+
+        public double DistancePixels =>
+            RoundedVector2.Distance(MortarPositionPixels, TargetPositionPixels);
+
+        public RoundedVector2 TargetInnateSplashPixels { get; private set; }
+            
+
+        public RoundedVector2 TargetInnateSplashOffset =>
+            -(TargetInnateSplashPixels / 2d);
+
+        public bool IsMortarPositionSet =>
+            !MortarPositionPixels.Equals(default);
+
+        public bool IsTargetPositionSet =>
+            !TargetPositionPixels.Equals(default);
+
+        public bool IsMortarAndTargetSet =>
+            IsMortarPositionSet && IsTargetPositionSet;
+
+        public BindableCollection<MapDataModel> AvailableMaps { get; set; } =
+            new BindableCollection<MapDataModel>();
+
+        public MapDataModel SelectedMap { get; set; }
+
+        public MortarDataModel SelectedMortar { get; private set; }
+
+        public bool IsHelpVisible { get; set; } = true;
+
+        public double Opacity { get; set; } = .25d;
+        public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapPath;
+
+        #endregion
+
+        #region Private Fields
+
+        private ZoomBorder m_zoomBorder;
+        private bool m_isMouseCaptured;
+        private MouseButton m_capturedButton;
+        private double m_mapPixelsPerMeter;
+        private readonly IEventAggregator m_eventAggregator;
+
+        #endregion
+
+        #region Initialisation
+
+        public MapViewModel(IReadOnlyList<MapDataModel> availableMaps, 
+            IEventAggregator eventAggregator)
         {
-            Model.AvailableMaps.AddRange(dataResource.GetAvailableMapData());
+            m_eventAggregator = eventAggregator;
+            m_eventAggregator.Subscribe(this);
+            AvailableMaps.AddRange(availableMaps);
+            SelectedMap = AvailableMaps.First();
         }
-        
+
         protected override void OnViewLoaded()
         {
             m_zoomBorder = View.FindChild<ZoomBorder>();
-            m_zoomBorder.Loaded += (_, __) =>
-            {
-                Model.SelectedMap = Model.AvailableMaps.First();
-            };
+            m_zoomBorder.Loaded += (_, __) => { OnSelectedMapChanged(); };
         }
 
-        private bool m_isMouseCaptured;
-        private MouseButton m_capturedButton;
+        #endregion
+
+        #region PropertyChanged Handlers
+
+        public void OnSelectedMapChanged()
+        {
+            if (m_zoomBorder is null) return;
+            Reset(true);
+            m_mapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(SelectedMap.Bounds);
+        }
+
+        public void OnTargetPositionPixelsChanged() => PublishUpdate();
+        public void OnMortarPositionPixelsChanged() => PublishUpdate();
+
+        private void PublishUpdate()
+        {
+            m_eventAggregator.Publish(new PositionChangedEvent(
+                MortarPositionPixels.ToMetersScale(m_mapPixelsPerMeter), 
+                TargetPositionPixels.ToMetersScale(m_mapPixelsPerMeter), Angle));
+        }
+
+        public void Handle(MortarChangedEvent message)
+        {
+            SelectedMortar = message.ActiveMortar;
+            MortarMinDistancePixels = SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
+            MortarMaxDistancePixels = SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
+            TargetInnateSplashPixels = RoundedVector2.LerpBetween(SelectedMortar.DispersionRadiusAtMinRange,
+                    SelectedMortar.DispersionRadiusAtMaxRange,
+                    SelectedMortar.PercentageBetweenMinAndMaxDistance(
+                        DistancePixels.ToScaledMeters(m_mapPixelsPerMeter)))
+                .ToPixelScale(m_mapPixelsPerMeter) * 2;
+            NotifyOfPropertyChange(() => HalfMortarMaxDistancePixels);
+            NotifyOfPropertyChange(() => HalfMortarMinDistancePixels);
+        }
+
+        #endregion
+
+        #region UI Event Handlers
+
+        public void MouseEntered()
+        {
+            m_zoomBorder?.Focus();
+        }
+
+        // Filthy hack because the first time the canvas is initialised it resizes, but never after for no clear reason.
+        public void CanvasSizeChanged()
+        {
+            OnSelectedMapChanged();
+        }
+
+        public void ZoomBorderKeyDown(object _, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.R:
+                    m_zoomBorder?.Uniform();
+                    Reset();
+                    break;
+                case Key.H:
+                    IsHelpVisible = !IsHelpVisible;
+                    break;
+            }
+        }
 
         public void MouseDown(object _, MouseButtonEventArgs e)
         {
@@ -55,12 +181,12 @@ namespace PostScriptumMortarCalculator.ViewModels
             switch (m_capturedButton)
             {
                 case MouseButton.Right:
-                    Model.MortarPosition = new RoundedVector2(pos.X, pos.Y);
+                    MortarPositionPixels = new RoundedVector2(pos.X, pos.Y);
                     break;
                 case MouseButton.Left:
-                    if (!Model.IsMortarPositionSet) break;
+                    if (!IsMortarPositionSet) break;
                     if (!IsMousePosInValidRange(pos.X, pos.Y)) break;
-                    Model.TargetPosition = new RoundedVector2(pos.X, pos.Y);
+                    TargetPositionPixels = new RoundedVector2(pos.X, pos.Y);
                     break;
             }
         }
@@ -74,69 +200,47 @@ namespace PostScriptumMortarCalculator.ViewModels
                 case MouseButton.Right:
                     m_isMouseCaptured = false;
                     m_capturedButton = default;
-                    Model.MortarPosition = new RoundedVector2(pos.X, pos.Y);
-                    if (!IsTargetStillInRange()) Model.TargetPosition = default;
+                    MortarPositionPixels = new RoundedVector2(pos.X, pos.Y);
+                    if (!IsTargetStillInRange()) TargetPositionPixels = default;
                     break;
                 case MouseButton.Left:
                     m_isMouseCaptured = false;
                     m_capturedButton = default;
-                    if (!Model.IsMortarPositionSet) break;
+                    if (!IsMortarPositionSet) break;
                     if (!IsMousePosInValidRange(pos.X, pos.Y)) break;
-                    Model.TargetPosition = new RoundedVector2(pos.X, pos.Y);
+                    TargetPositionPixels = new RoundedVector2(pos.X, pos.Y);
                     break;
             }
         }
 
+        #endregion
+
+        #region Helpers
+
         private bool IsMousePosInValidRange(double posX, double posY)
         {
-            var tempTarget = new RoundedVector2(posX, posY).ToMetersScale(Model.MapPixelsPerMeter);
-            var tempDist = RoundedVector2.Distance(Model.MortarPositionMeters, tempTarget);
-            return tempDist >= Model.SelectedMortar.MinRange.Distance
-                   && tempDist <= Model.SelectedMortar.MaxRange.Distance;
+            var tempTarget = new RoundedVector2(posX, posY);
+            var tempDist = RoundedVector2.Distance(MortarPositionPixels, tempTarget);
+            return tempDist >= SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter)
+                   && tempDist <= SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter);
         }
 
         private bool IsTargetStillInRange()
         {
-            return Model.Distance >= Model.SelectedMortar.MinRange.Distance
-                   && Model.Distance <= Model.SelectedMortar.MaxRange.Distance;
-        }
-        
-        [SuppressPropertyChangedWarnings]
-        public void OnMapSelectionChanged()
-        {
-            Model.Reset(true);
-            Model.MapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(Model.SelectedMap.Bounds);
-            Model.OnSelectedMortarChanged();
-        }
-        
-        // Filthy hack because the first time the canvas is initialised it resizes, but never after for no clear reason.
-        public void CanvasSizeChanged()
-        {
-            OnMapSelectionChanged();
+            var dist = RoundedVector2.Distance(MortarPositionPixels, TargetPositionPixels);
+            return dist >= SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter)
+                   && dist <= SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter);
+            ;
         }
 
-        private static double Clamp(double min, double max, double value)
+        private void Reset(bool resetMapPixels = false)
         {
-            return value <= min ? min : value >= max ? max : value;
+            MortarPositionPixels = default;
+            TargetPositionPixels = default;
+            if (!resetMapPixels) return;
+            m_mapPixelsPerMeter = default;
         }
 
-        public void MouseEntered()
-        {
-            m_zoomBorder?.Focus();
-        }
-
-        public void ZoomBorderKeyDown(object _, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.R:
-                    m_zoomBorder?.Uniform();
-                    Model.Reset();
-                    break;
-                case Key.H:
-                    Model.IsHelpVisible = !Model.IsHelpVisible;
-                    break;
-            }
-        }
+        #endregion
     }
 }

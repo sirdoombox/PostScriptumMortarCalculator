@@ -13,8 +13,9 @@ namespace PostScriptumMortarCalculator.Services
         private readonly string m_appDataPath;
         private readonly string m_configDir;
         private readonly string m_configFilePath;
-        private UserConfigModel m_activeConfig;
-        
+
+        public UserConfigModel ActiveConfig { get; private set; }
+
         public ConfigService()
         {
             m_appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -25,16 +26,15 @@ namespace PostScriptumMortarCalculator.Services
         public UserConfigModel LoadOrDefault()
         {
             if (!Directory.Exists(m_configDir) || !File.Exists(m_configFilePath))
-                m_activeConfig = UserConfigModel.Default;
+                ActiveConfig = UserConfigModel.Default;
             else
-                m_activeConfig = JsonConvert.DeserializeObject<UserConfigModel>(File.ReadAllText(m_configFilePath));
-            m_activeConfig.PropertyChanged += (_,__) => SerialiseUserConfig();
-            return m_activeConfig;
+                ActiveConfig = JsonConvert.DeserializeObject<UserConfigModel>(File.ReadAllText(m_configFilePath));
+            return ActiveConfig;
         }
 
         public void SerialiseUserConfig()
         {
-            var cfgJson = JsonConvert.SerializeObject(m_activeConfig);
+            var cfgJson = JsonConvert.SerializeObject(ActiveConfig);
             if (!Directory.Exists(m_configDir)) Directory.CreateDirectory(m_configDir);
             File.WriteAllText(m_configFilePath, cfgJson);
         }

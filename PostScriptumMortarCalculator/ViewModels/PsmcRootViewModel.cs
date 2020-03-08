@@ -3,36 +3,26 @@ using System.Windows;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 using PostScriptumMortarCalculator.Models;
-using PostScriptumMortarCalculator.Services;
-using PostScriptumMortarCalculator.ViewModels.Base;
+using Stylet;
 
 namespace PostScriptumMortarCalculator.ViewModels
 {
-    public sealed class PsmcRootViewModel : ConductorViewModelBase<PsmcRootModel, CalculatorViewModel>
+    public sealed class PsmcRootViewModel : Conductor<IScreen>
     {
-        private readonly UserConfigModel m_cfgModel;
-
         public UserConfigViewModel ConfigViewModel { get; set; }
+        public MapViewModel MapViewModel { get; set; }
+        public CalculatorViewModel CalculatorViewModel { get; set; }
 
         public PsmcRootViewModel(CalculatorViewModel calcViewModel,
-            UserConfigModel cfg,
-            UserConfigViewModel cfgViewModel) : base(calcViewModel)
+            MapViewModel mapViewModel,
+            UserConfigViewModel cfgViewModel)
         {
+            MapViewModel = mapViewModel;
+            ActivateItem(MapViewModel);
+            CalculatorViewModel = calcViewModel;
+            ActivateItem(CalculatorViewModel);
             ConfigViewModel = cfgViewModel;
-            m_cfgModel = cfg;
-            cfg.PropertyChanged += (_, __) => OnUserConfigChanged();
-            m_cfgModel.Accents.AddRange(ThemeManager.ColorSchemes.Select(x => x.Name));
-            m_cfgModel.Themes.AddRange(ThemeManager.Themes.GroupBy(x => x.BaseColorScheme).Select(x => x.First())
-                .Select(x => x.BaseColorScheme));
-
-            ThemeManager.ChangeThemeBaseColor(Application.Current, m_cfgModel.Theme);
-            ThemeManager.ChangeThemeColorScheme(Application.Current, m_cfgModel.Accent);
-        }
-
-        private void OnUserConfigChanged()
-        {
-            ThemeManager.ChangeThemeBaseColor(Application.Current, m_cfgModel.Theme);
-            ThemeManager.ChangeThemeColorScheme(Application.Current, m_cfgModel.Accent);
+            ActivateItem(ConfigViewModel);
         }
 
         public void OpenSettingsFlyout()
