@@ -15,7 +15,24 @@
         Width="900"
         MinWidth="900"
         MinHeight="500"
+        Icon="pack://application:,,,/psmc_icon.ico"
         SaveWindowPosition="True">
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout Position="Right"
+                        AreAnimationsEnabled="True"
+                        mah:ControlsHelper.ContentCharacterCasing="Normal"
+                        Header="Settings">
+                <ContentControl s:View.Model="{Binding ConfigViewModel}"/>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Content="Settings"
+                    Command="{s:Action OpenSettingsFlyout}"/>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <ContentControl Margin="10" s:View.Model="{Binding ActiveItem}"/>
     </Grid>
