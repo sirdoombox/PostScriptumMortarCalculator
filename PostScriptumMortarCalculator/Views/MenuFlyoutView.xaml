@@ -1,0 +1,28 @@
+<UserControl x:Class="PostScriptumMortarCalculator.Views.MenuFlyoutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PostScriptumMortarCalculator.Views"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
+             xmlns:s="https://github.com/canton7/Stylet"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:MenuFlyoutViewModel}">
+    <mah:MetroAnimatedSingleRowTabControl ItemsSource="{Binding Items}" 
+                                          SelectedItem="{Binding ActiveItem}">
+        <mah:MetroAnimatedSingleRowTabControl.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding DisplayName}"/>
+            </DataTemplate>
+        </mah:MetroAnimatedSingleRowTabControl.ItemTemplate>
+        <mah:MetroAnimatedSingleRowTabControl.ContentTemplate>
+            <DataTemplate>
+                <ContentControl Margin="10"
+                                s:View.Model="{Binding}"
+                                VerticalContentAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch" IsTabStop="False" />
+            </DataTemplate>
+        </mah:MetroAnimatedSingleRowTabControl.ContentTemplate>
+    </mah:MetroAnimatedSingleRowTabControl>
+</UserControl>

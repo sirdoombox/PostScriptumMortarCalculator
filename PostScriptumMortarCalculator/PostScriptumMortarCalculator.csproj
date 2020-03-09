@@ -111,6 +111,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BooleanConverterBase.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\HalfDoubleConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\StringToAccentBrushConverter.cs" />
@@ -124,11 +125,17 @@
     <Compile Include="Services\DataResourceService.cs" />
     <Compile Include="Utils\RoundedVector2.cs" />
     <Compile Include="ViewModels\CalculatorViewModel.cs" />
+    <Compile Include="ViewModels\CreditsViewModel.cs" />
+    <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
+    <Compile Include="ViewModels\MenuFlyoutViewModel.cs" />
     <Compile Include="ViewModels\PsmcRootViewModel.cs" />
     <Compile Include="Bootstrapper\PSMCBootstrapper.cs" />
     <Compile Include="ViewModels\UserConfigViewModel.cs" />
     <Page Include="Views\CalculatorView.xaml" />
+    <Page Include="Views\CreditsView.xaml" />
+    <Page Include="Views\HelpView.xaml" />
+    <Page Include="Views\MenuFlyoutView.xaml" />
     <Page Include="Views\UserConfigView.xaml" />
     <Page Include="Views\MapView.xaml" />
     <Page Include="Views\PsmcRootView.xaml" />

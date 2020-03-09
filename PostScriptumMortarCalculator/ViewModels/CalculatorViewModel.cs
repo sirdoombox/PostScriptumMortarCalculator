@@ -54,22 +54,15 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         #region Initialisation
 
-        public CalculatorViewModel(
-            IReadOnlyList<MortarDataModel> mortars, 
+        public CalculatorViewModel(MortarDataModel defaultMortar,
+            IReadOnlyList<MortarDataModel> mortars,
             IEventAggregator eventAggregator)
         {
             m_eventAggregator = eventAggregator;
             m_eventAggregator.Subscribe(this);
             AvailableMortars.AddRange(mortars);
-            SelectedMortar = AvailableMortars.First();
-            
+            SelectedMortar = defaultMortar;
         }
-
-        protected override void OnViewLoaded()
-        {
-            m_eventAggregator.Publish(new MortarChangedEvent(SelectedMortar));
-        }
-
         #endregion
 
         #region PropertyChanged Handlers
@@ -98,5 +91,6 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         #endregion
 
+        
     }
 }

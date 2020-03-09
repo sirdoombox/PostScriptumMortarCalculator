@@ -9,23 +9,23 @@ namespace PostScriptumMortarCalculator.ViewModels
 {
     public sealed class PsmcRootViewModel : Conductor<IScreen>
     {
-        public UserConfigViewModel ConfigViewModel { get; set; }
+        public MenuFlyoutViewModel MenuFlyoutViewModel { get; set; }
         public MapViewModel MapViewModel { get; set; }
         public CalculatorViewModel CalculatorViewModel { get; set; }
 
         public PsmcRootViewModel(CalculatorViewModel calcViewModel,
             MapViewModel mapViewModel,
-            UserConfigViewModel cfgViewModel)
+            MenuFlyoutViewModel menuFlyoutViewModel)
         {
             MapViewModel = mapViewModel;
             ActivateItem(MapViewModel);
             CalculatorViewModel = calcViewModel;
             ActivateItem(CalculatorViewModel);
-            ConfigViewModel = cfgViewModel;
-            ActivateItem(ConfigViewModel);
+            MenuFlyoutViewModel = menuFlyoutViewModel;
+            ActivateItem(MenuFlyoutViewModel);
         }
 
-        public void OpenSettingsFlyout()
+        public void OpenMenuFlyout()
         {
             var flyout = ((MetroWindow) Application.Current.MainWindow).Flyouts.Items[0];
             ((Flyout) flyout).IsOpen = !((Flyout) flyout).IsOpen;

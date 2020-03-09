@@ -1,34 +1,35 @@
 <mah:MetroWindow x:Class="PostScriptumMortarCalculator.Views.PsmcRootView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
-        xmlns:s="https://github.com/canton7/Stylet"
-        mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance viewModels:PsmcRootViewModel}"
-        Title="Post Scriptum Mortar Calculator" 
-        Height="500" 
-        Width="900"
-        MinWidth="900"
-        MinHeight="500"
-        Icon="pack://application:,,,/psmc_icon.ico"
-        SaveWindowPosition="True">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
+                 xmlns:s="https://github.com/canton7/Stylet"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance viewModels:PsmcRootViewModel}"
+                 Title="Post Scriptum Mortar Calculator"
+                 Height="500"
+                 Width="900"
+                 MinWidth="900"
+                 MinHeight="500"
+                 Icon="pack://application:,,,/psmc_icon.ico"
+                 SaveWindowPosition="True">
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl>
             <mah:Flyout Position="Right"
                         AreAnimationsEnabled="True"
                         mah:ControlsHelper.ContentCharacterCasing="Normal"
-                        Header="Settings">
-                <ContentControl s:View.Model="{Binding ConfigViewModel}"/>
+                        Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=mah:MetroWindow}, Path=ActualWidth, Converter={StaticResource HalfDouble}}"
+                        Header="Menu">
+                <ContentControl s:View.Model="{Binding MenuFlyoutViewModel}" />
             </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button Content="Settings"
-                    Command="{s:Action OpenSettingsFlyout}"/>
+            <Button Content="Menu"
+                    Command="{s:Action OpenMenuFlyout}" />
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid Margin="10">
@@ -37,8 +38,8 @@
             <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Column="0"
-                        s:View.Model="{Binding CalculatorViewModel}"/>
+                        s:View.Model="{Binding CalculatorViewModel}" />
         <ContentControl Grid.Column="1"
-                        s:View.Model="{Binding MapViewModel}"/>
+                        s:View.Model="{Binding MapViewModel}" />
     </Grid>
 </mah:MetroWindow>

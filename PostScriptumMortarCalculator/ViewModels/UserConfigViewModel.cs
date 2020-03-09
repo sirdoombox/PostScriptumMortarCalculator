@@ -24,6 +24,7 @@ namespace PostScriptumMortarCalculator.ViewModels
         
         public UserConfigViewModel(ConfigService configService)
         {
+            DisplayName = "Settings";
             m_configService = configService;
             m_configModel = m_configService.ActiveConfig;
             Accents.AddRange(ThemeManager.ColorSchemes.Select(x => x.Name));
@@ -31,18 +32,24 @@ namespace PostScriptumMortarCalculator.ViewModels
                 .Select(x => x.BaseColorScheme));
             SelectedTheme = m_configModel.Theme;
             SelectedAccent = m_configModel.Accent;
-            ThemeManager.ChangeThemeBaseColor(Application.Current, SelectedTheme);
-            ThemeManager.ChangeThemeColorScheme(Application.Current, SelectedAccent);
         }
 
         protected override void OnPropertyChanged(string propertyName)
         {
-            if (m_configService is null) return;
-            m_configModel.Accent = SelectedAccent;
-            m_configModel.Theme = SelectedTheme;
+            if (m_configModel is null) return;
             m_configService.SerialiseUserConfig();
-            ThemeManager.ChangeThemeBaseColor(Application.Current, SelectedTheme);
+        }
+
+        public void OnSelectedAccentChanged()
+        {
+            m_configModel.Accent = SelectedAccent;
             ThemeManager.ChangeThemeColorScheme(Application.Current, SelectedAccent);
+        }
+
+        public void OnSelectedThemeChanged()
+        {
+            m_configModel.Theme = SelectedTheme;
+            ThemeManager.ChangeThemeBaseColor(Application.Current, SelectedTheme);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using PostScriptumMortarCalculator.Models;
 using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.ViewModels;
@@ -22,6 +23,8 @@ namespace PostScriptumMortarCalculator.Bootstrapper
             builder.Bind<IReadOnlyList<MortarDataModel>>()
                 .ToFactory(container => dataResourceService.GetMortarData())
                 .InSingletonScope();
+            builder.Bind<MortarDataModel>()
+                .ToFactory(container => container.Get<IReadOnlyList<MortarDataModel>>().First());
         }
     }
 }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
 using PostScriptumMortarCalculator.Events;
@@ -21,25 +23,25 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public RoundedVector2 MortarPositionPixels { get; set; }
 
-        public double Angle => 
+        public double Angle =>
             RoundedVector2.Angle(MortarPositionPixels, TargetPositionPixels);
 
         public double MortarMinDistancePixels { get; private set; }
-            
 
-        public double HalfMortarMinDistancePixels => 
+
+        public double HalfMortarMinDistancePixels =>
             -(MortarMinDistancePixels / 2d);
 
         public double MortarMaxDistancePixels { get; private set; }
 
-        public double HalfMortarMaxDistancePixels => 
+        public double HalfMortarMaxDistancePixels =>
             -(MortarMaxDistancePixels / 2d);
 
         public double DistancePixels =>
             RoundedVector2.Distance(MortarPositionPixels, TargetPositionPixels);
 
         public RoundedVector2 TargetInnateSplashPixels { get; private set; }
-            
+
 
         public RoundedVector2 TargetInnateSplashOffset =>
             -(TargetInnateSplashPixels / 2d);
@@ -60,8 +62,6 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public MortarDataModel SelectedMortar { get; private set; }
 
-        public bool IsHelpVisible { get; set; } = true;
-
         public double Opacity { get; set; } = .25d;
         public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapPath;
 
@@ -70,6 +70,7 @@ namespace PostScriptumMortarCalculator.ViewModels
         #region Private Fields
 
         private ZoomBorder m_zoomBorder;
+        private Canvas m_canvas;
         private bool m_isMouseCaptured;
         private MouseButton m_capturedButton;
         private double m_mapPixelsPerMeter;
@@ -79,19 +80,15 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         #region Initialisation
 
-        public MapViewModel(IReadOnlyList<MapDataModel> availableMaps, 
+        public MapViewModel(IReadOnlyList<MapDataModel> availableMaps,
+            MortarDataModel defaultMortar,
             IEventAggregator eventAggregator)
         {
             m_eventAggregator = eventAggregator;
             m_eventAggregator.Subscribe(this);
             AvailableMaps.AddRange(availableMaps);
+            SelectedMortar = defaultMortar;
             SelectedMap = AvailableMaps.First();
-        }
-
-        protected override void OnViewLoaded()
-        {
-            m_zoomBorder = View.FindChild<ZoomBorder>();
-            m_zoomBorder.Loaded += (_, __) => { OnSelectedMapChanged(); };
         }
 
         #endregion
@@ -111,37 +108,34 @@ namespace PostScriptumMortarCalculator.ViewModels
         private void PublishUpdate()
         {
             m_eventAggregator.Publish(new PositionChangedEvent(
-                MortarPositionPixels.ToMetersScale(m_mapPixelsPerMeter), 
+                MortarPositionPixels.ToMetersScale(m_mapPixelsPerMeter),
                 TargetPositionPixels.ToMetersScale(m_mapPixelsPerMeter), Angle));
+        }
+
+        public void OnSelectedMortarChanged()
+        {
+            MortarMinDistancePixels = SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
+            MortarMaxDistancePixels = SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
+            NotifyOfPropertyChange(() => HalfMortarMaxDistancePixels);
+            NotifyOfPropertyChange(() => HalfMortarMinDistancePixels);
+            if (!IsTargetStillInRange()) TargetPositionPixels = default;
         }
 
         public void Handle(MortarChangedEvent message)
         {
             SelectedMortar = message.ActiveMortar;
-            MortarMinDistancePixels = SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
-            MortarMaxDistancePixels = SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
-            TargetInnateSplashPixels = RoundedVector2.LerpBetween(SelectedMortar.DispersionRadiusAtMinRange,
-                    SelectedMortar.DispersionRadiusAtMaxRange,
-                    SelectedMortar.PercentageBetweenMinAndMaxDistance(
-                        DistancePixels.ToScaledMeters(m_mapPixelsPerMeter)))
-                .ToPixelScale(m_mapPixelsPerMeter) * 2;
-            NotifyOfPropertyChange(() => HalfMortarMaxDistancePixels);
-            NotifyOfPropertyChange(() => HalfMortarMinDistancePixels);
         }
 
         #endregion
 
         #region UI Event Handlers
 
-        public void MouseEntered()
+        public void CanvasLoaded(object sender, RoutedEventArgs _)
         {
-            m_zoomBorder?.Focus();
-        }
-
-        // Filthy hack because the first time the canvas is initialised it resizes, but never after for no clear reason.
-        public void CanvasSizeChanged()
-        {
+            m_canvas = (Canvas) sender;
+            m_zoomBorder = (ZoomBorder) m_canvas.Parent;
             OnSelectedMapChanged();
+            OnSelectedMortarChanged();
         }
 
         public void ZoomBorderKeyDown(object _, KeyEventArgs e)
@@ -151,9 +145,6 @@ namespace PostScriptumMortarCalculator.ViewModels
                 case Key.R:
                     m_zoomBorder?.Uniform();
                     Reset();
-                    break;
-                case Key.H:
-                    IsHelpVisible = !IsHelpVisible;
                     break;
             }
         }
@@ -187,6 +178,7 @@ namespace PostScriptumMortarCalculator.ViewModels
                     if (!IsMortarPositionSet) break;
                     if (!IsMousePosInValidRange(pos.X, pos.Y)) break;
                     TargetPositionPixels = new RoundedVector2(pos.X, pos.Y);
+                    RecalculateTargetSplash();
                     break;
             }
         }
@@ -209,8 +201,21 @@ namespace PostScriptumMortarCalculator.ViewModels
                     if (!IsMortarPositionSet) break;
                     if (!IsMousePosInValidRange(pos.X, pos.Y)) break;
                     TargetPositionPixels = new RoundedVector2(pos.X, pos.Y);
+                    RecalculateTargetSplash();
                     break;
             }
+        }
+
+        public void MouseEntered()
+        {
+            m_zoomBorder?.Focus();
+        }
+
+        // Filthy hack because the first time the canvas is initialised it resizes, but never after for no clear reason.
+        public void CanvasSizeChanged()
+        {
+            OnSelectedMapChanged();
+            OnSelectedMortarChanged();
         }
 
         #endregion
@@ -239,6 +244,15 @@ namespace PostScriptumMortarCalculator.ViewModels
             TargetPositionPixels = default;
             if (!resetMapPixels) return;
             m_mapPixelsPerMeter = default;
+        }
+
+        private void RecalculateTargetSplash()
+        {
+            TargetInnateSplashPixels = RoundedVector2.LerpBetween(SelectedMortar.DispersionRadiusAtMinRange,
+                    SelectedMortar.DispersionRadiusAtMaxRange,
+                    SelectedMortar.PercentageBetweenMinAndMaxDistance(
+                        DistancePixels.ToScaledMeters(m_mapPixelsPerMeter)))
+                .ToPixelScale(m_mapPixelsPerMeter) * 2;
         }
 
         #endregion

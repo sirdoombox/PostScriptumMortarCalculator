@@ -61,7 +61,8 @@
                                Focusable="True">
             <Canvas Width="{Binding ElementName=Image, Path=ActualWidth}"
                     Height="{Binding ElementName=Image, Path=ActualHeight}"
-                    SizeChanged="{s:Action CanvasSizeChanged}">
+                    SizeChanged="{s:Action CanvasSizeChanged}"
+                    Loaded="{s:Action CanvasLoaded}">
                 <Image x:Name="Image"
                        Canvas.ZIndex="-10"
                        Source="{Binding MapImageSource, IsAsync=True}"
@@ -127,22 +128,11 @@
                       X2="{Binding TargetPositionPixels.X}"
                       Y2="{Binding TargetPositionPixels.Y}"
                       IsHitTestVisible="False"
+                      Opacity="{Binding Opacity}"
                       Visibility="{Binding IsMortarAndTargetSet, Converter={StaticResource BooleanToVisibility}}"
                       StrokeThickness="5"
                       Stroke="Red" />
             </Canvas>
         </panAndZoom:ZoomBorder>
-        <TextBlock Grid.Row="1"
-                   Panel.ZIndex="10"
-                   IsHitTestVisible="False"
-                   Visibility="{Binding IsHelpVisible, Converter={StaticResource BooleanToVisibility}}"
-                   Foreground="{DynamicResource MahApps.Brushes.Accent}"
-                   FontWeight="Black"
-                   Margin="0 0 5 5"
-                   FontSize="15"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Bottom">
-            R. Click: Mortar | L. Click: Target | M. Click: Move | M. Scroll: Zoom | H: Show/Hide Help
-        </TextBlock>
     </Grid>
 </UserControl>
