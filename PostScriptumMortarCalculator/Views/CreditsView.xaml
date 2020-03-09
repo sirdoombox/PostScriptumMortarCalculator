@@ -9,7 +9,7 @@
              x:Name="RootControl"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:CreditsViewModel}">
-    <StackPanel VerticalAlignment="Center">
+    <StackPanel>
         <StackPanel.Resources>
             <Thickness x:Key="ControlMargin">0 10 0 0</Thickness>
             <Style TargetType="Label">

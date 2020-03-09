@@ -7,23 +7,51 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:HelpViewModel}">
     <StackPanel>
+        <StackPanel.Resources>
+            <Thickness x:Key="ControlMargin">0 5 0 0</Thickness>
+            <Style x:Key="BaseLabelStyle" TargetType="Label">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+            </Style>
+            <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontWeight" Value="Black"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Style TargetType="DockPanel" x:Key="DockPanelStyle">
+                <Style.Resources>
+                    <Style TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                        <Setter Property="DockPanel.Dock" Value="Left"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="DockPanel.Dock" Value="Right"/>
+                        <Setter Property="Margin" Value="5 0 0 0"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </StackPanel.Resources>
         <Label Content="Hotkeys"/>    
         <ItemsControl ItemsSource="{Binding Hotkeys}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel>
+                    <DockPanel Style="{StaticResource DockPanelStyle}">
                         <Label Content="{Binding Action}"/>
                         <TextBlock Text="{Binding Key}"/>
                     </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Separator Background="{DynamicResource MahApps.Brushes.Accent}"/>
-        <Label Content="Hints"/>
+        <Separator Background="{DynamicResource MahApps.Brushes.Accent}" Margin="{StaticResource ControlMargin}"/>
+        <Label Content="Hints" Margin="{StaticResource ControlMargin}"/>
         <ItemsControl ItemsSource="{Binding Hints}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Path=., StringFormat=- {0}}" TextWrapping="Wrap"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
