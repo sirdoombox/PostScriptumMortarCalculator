@@ -15,9 +15,17 @@
         <StackPanel Grid.Column="0" Margin="10 0 10 0" VerticalAlignment="Center">
             <StackPanel.Resources>
                 <Thickness x:Key="ControlMargin" Top="10" />
-                <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
-                    <Setter Property="FontSize" Value="20" />
-                </Style>
+                    <Style x:Key="BaseTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
+                        <Setter Property="FontSize" Value="20" />
+                        <Setter Property="IsReadOnly" Value="True"/>
+                        <Setter Property="mah:TextBoxHelper.UseFloatingWatermark" Value="True"/>
+                    </Style>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}"/>
+                    <Style x:Key="LessVisibleStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray5}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray5}"/>
+                        <Setter Property="Focusable" Value="False"/>
+                    </Style>
             </StackPanel.Resources>
             <ComboBox ItemsSource="{Binding AvailableMortars}"
                       SelectedItem="{Binding SelectedMortar}"
@@ -32,8 +40,7 @@
             </ComboBox>
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Mortar Position X | Y"
-                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                     IsReadOnly="True">
+                     Style="{StaticResource LessVisibleStyle}">
                 <TextBox.Text>
                     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding Path="MortarPositionMeters.X" />
@@ -43,8 +50,7 @@
             </TextBox>
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Target Position X | Y"
-                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                     IsReadOnly="True">
+                     Style="{StaticResource LessVisibleStyle}">
                 <TextBox.Text>
                     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding Path="TargetPositionMeters.X" />
@@ -54,21 +60,17 @@
             </TextBox>
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Distance To Target"
-                     mah:TextBoxHelper.UseFloatingWatermark="True"
+                     Style="{StaticResource LessVisibleStyle}"
                      Text="{Binding Distance, StringFormat={}{0}m, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
             <Separator Margin="{StaticResource ControlMargin}"
                        Background="{DynamicResource MahApps.Brushes.Accent}" />
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Angle To Target"
-                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                      Text="{Binding Angle, StringFormat={}{0}°, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Milliradians"
-                     mah:TextBoxHelper.UseFloatingWatermark="True"
-                     Foreground="{DynamicResource MahApps.Brushes.Accent}"
                      Text="{Binding Milliradians, StringFormat={}{0}Mil, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
             <Button Margin="{StaticResource ControlMargin}"
