@@ -65,6 +65,12 @@ namespace PostScriptumMortarCalculator.Utils
         public static bool operator !=(RoundedVector2 v1, object obj) => 
             !(v1 == obj);
 
+        public static bool operator ==(object obj, RoundedVector2 v1) =>
+            v1.Equals(obj);
+
+        public static bool operator !=(object obj, RoundedVector2 v1) => 
+            !(obj == v1);
+
         public override bool Equals(object obj)
         {
             if (obj is RoundedVector2 other)

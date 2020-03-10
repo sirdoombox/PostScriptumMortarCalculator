@@ -8,6 +8,8 @@ namespace PostScriptumMortarCalculator.Tests.Utils
     public class RoundedVector2Tests
     {
         private const double c_ACCURACY = 0.01d;
+        
+        // TODO: Add additional test cases.
 
         [Test]
         public void Constructor_LongNumbers_RoundCorrectly()
@@ -43,57 +45,99 @@ namespace PostScriptumMortarCalculator.Tests.Utils
             var angle = RoundedVector2.Angle(v1, v2);
             Assert.That(angle, Is.EqualTo(shouldBeAngle).Within(c_ACCURACY));
         }
-        
-        [TestCase(0,0,1,1,0.5,0.5,0.5)]
-        public void LepBetween_OfTwoVectors_CalculatedCorrectly(double v1X, double v1Y, double v2X, double v2Y, 
+
+        [TestCase(0, 0, 1, 1, 0.5, 0.5, 0.5)]
+        public void LepBetween_OfTwoVectors_CalculatedCorrectly(double v1X, double v1Y, double v2X, double v2Y,
             double percent, double shouldBeX, double shouldBeY)
         {
             var v1 = new RoundedVector2(v1X, v1Y);
             var v2 = new RoundedVector2(v2X, v2Y);
-            var shouldBe = new RoundedVector2(shouldBeX,shouldBeY);
+            var shouldBe = new RoundedVector2(shouldBeX, shouldBeY);
             var lerpedValue = RoundedVector2.LerpBetween(v1, v2, percent);
             Assert.That(lerpedValue.X, Is.EqualTo(shouldBe.X).Within(c_ACCURACY));
             Assert.That(lerpedValue.Y, Is.EqualTo(shouldBe.Y).Within(c_ACCURACY));
         }
 
-        public void Division_OfVectorByDouble_CalculatedCorrectly()
+        [TestCase(1, 1, 2, 0.5, 0.5)]
+        public void Division_OfVectorByDouble_CalculatedCorrectly(double v1X, double v1Y,
+            double divideBy, double shouldBeX, double shouldBeY)
         {
-            
+            var v1 = new RoundedVector2(v1X, v1Y);
+            var shouldBe = new RoundedVector2(shouldBeX, shouldBeY);
+            var dividedValue = v1 / divideBy;
+            Assert.That(dividedValue.X, Is.EqualTo(shouldBe.X).Within(c_ACCURACY));
+            Assert.That(dividedValue.Y, Is.EqualTo(shouldBe.Y).Within(c_ACCURACY));
         }
 
-        public void Division_OfTwoVectors_CalculatedCorrectly()
+        [TestCase(5, 5, 2, 2, 2.5, 2.5)]
+        public void Division_OfTwoVectors_CalculatedCorrectly(double v1X, double v1Y, double v2X, double v2Y,
+            double shouldBeX, double shouldBeY)
         {
-            
-        }
-
-        public void Negation_OfVector_CalculatedCorrect()
-        {
-            
-        }
-
-        public void Multiplication_OfVectorByDouble_CalculatedCorrectly()
-        {
-            
-        }
-
-        public void Equality_OfTwoIdenticalVectors_AreEqual()
-        {
-            
-        }
-
-        public void Equality_OfVectorAndIdenticalVectorCastToObject_AreEqual()
-        {
-            
-        }
-
-        public void Equality_OfTwoDifferentVectors_AreUnequal()
-        {
-            
+            var v1 = new RoundedVector2(v1X, v1Y);
+            var v2 = new RoundedVector2(v2X, v2Y);
+            var shouldBe = new RoundedVector2(shouldBeX, shouldBeY);
+            var dividedValue = v1 / v2;
+            Assert.That(dividedValue.X, Is.EqualTo(shouldBe.X).Within(c_ACCURACY));
+            Assert.That(dividedValue.Y, Is.EqualTo(shouldBe.Y).Within(c_ACCURACY));
         }
         
-        public void Equality_OfVectorAndDifferentVectorCastToObject_AreUnequalEqual()
+        [TestCase(10,12, -10,-12)]
+        public void Negation_OfVector_CalculatedCorrect(double v1X, double v1Y, double shouldBeX, double shouldBeY)
         {
-            
+            var v1 = new RoundedVector2(v1X, v1Y);
+            var shouldBe = new RoundedVector2(shouldBeX, shouldBeY);
+            var negatedValue = -v1;
+            Assert.That(negatedValue.X, Is.EqualTo(shouldBe.X).Within(c_ACCURACY));
+            Assert.That(negatedValue.Y, Is.EqualTo(shouldBe.Y).Within(c_ACCURACY));
+        }
+        
+        [TestCase(1,1,2,2,2)]
+        public void Multiplication_OfVectorByDouble_CalculatedCorrectly(double v1X, double v1Y,
+            double multiplyBy, double shouldBeX, double shouldBeY)
+        {
+            var v1 = new RoundedVector2(v1X, v1Y);
+            var shouldBe = new RoundedVector2(shouldBeX, shouldBeY);
+            var multipliedValue = v1*multiplyBy;
+            Assert.That(multipliedValue.X, Is.EqualTo(shouldBe.X).Within(c_ACCURACY));
+            Assert.That(multipliedValue.Y, Is.EqualTo(shouldBe.Y).Within(c_ACCURACY));
+        }
+        
+        [TestCase(1,1,1,1)]
+        public void Equality_OfTwoIdenticalVectors_AreEqual(double v1X, double v1Y, double v2X, double v2Y)
+        {
+            var v1 = new RoundedVector2(v1X, v1Y);
+            var v2 = new RoundedVector2(v2X, v2Y);
+            Assert.That(v1 == v2);
+            Assert.That(v2 == v1);
+        }
+        
+        [TestCase(1,1,1,1)]
+        public void Equality_OfVectorAndIdenticalVectorCastToObject_AreEqual(double v1X, double v1Y, double v2X,
+            double v2Y)
+        {
+            var v1 = new RoundedVector2(v1X, v1Y);
+            object v2 = new RoundedVector2(v2X, v2Y);
+            Assert.That(v1 == v2);
+            Assert.That(v2 == v1);
+        }
+        
+        [TestCase(1,1,2,2)]
+        public void Equality_OfTwoDifferentVectors_AreUnequal(double v1X, double v1Y, double v2X, double v2Y)
+        {
+            var v1 = new RoundedVector2(v1X, v1Y);
+            var v2 = new RoundedVector2(v2X, v2Y);
+            Assert.That(v1 != v2);
+            Assert.That(v2 != v1);
+        }
+        
+        [TestCase(1,1,2,2)]
+        public void Equality_OfVectorAndDifferentVectorCastToObject_AreUnequalEqual(double v1X, double v1Y, double v2X,
+            double v2Y)
+        {
+            var v1 = new RoundedVector2(v1X, v1Y);
+            var v2 = new RoundedVector2(v2X, v2Y);
+            Assert.That(v1 != v2);
+            Assert.That(v2 != v1);
         }
     }
 }
