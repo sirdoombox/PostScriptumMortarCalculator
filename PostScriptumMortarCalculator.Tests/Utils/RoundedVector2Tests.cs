@@ -4,7 +4,6 @@ using PostScriptumMortarCalculator.Utils;
 namespace PostScriptumMortarCalculator.Tests.Utils
 {
     [TestFixture]
-    [TestOf(typeof(RoundedVector2))]
     public class RoundedVector2Tests
     {
         private const double c_ACCURACY = 0.01d;

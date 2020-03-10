@@ -1,13 +1,10 @@
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
 using NUnit.Framework;
 using PostScriptumMortarCalculator.Converters;
 
 namespace PostScriptumMortarCalculator.Tests.Converters
 {
     [TestFixture]
-    [TestOf(typeof(IValueConverter))]
     public class ConverterTests
     {
         [Test]

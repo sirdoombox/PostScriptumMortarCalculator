@@ -39,8 +39,7 @@ namespace PostScriptumMortarCalculator.Services
         public HelpDataModel GetHelpData() =>
             GetDataFromFileName<HelpDataModel>(c_HELP_DATA_FILENAME);
         
-        // I don't like this method at all, but getting resources seems to be a difficult task
-        // Perhaps Costura.Fody is the reason it's so difficult?
+        // TODO: Clean this up to something less awful.
         private T GetDataFromFileName<T>(string fileName)
         {
             foreach (var res in from object resource in m_resources select (DictionaryEntry) resource)

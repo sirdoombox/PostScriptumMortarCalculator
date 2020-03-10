@@ -1,8 +1,5 @@
-using System.Linq;
 using System.Windows;
-using MahApps.Metro;
 using MahApps.Metro.Controls;
-using PostScriptumMortarCalculator.Models;
 using Stylet;
 
 namespace PostScriptumMortarCalculator.ViewModels

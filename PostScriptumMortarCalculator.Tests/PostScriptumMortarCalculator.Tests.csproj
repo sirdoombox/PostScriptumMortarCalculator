@@ -45,12 +45,12 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Converters\ConverterTests.cs" />
+        <Compile Include="Extensions\NumericExtensionsTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Services\DataResourceServiceTest.cs" />
         <Compile Include="Utils\RoundedVector2Tests.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Extensions" />
-      <Folder Include="Services" />
       <Folder Include="ViewModels" />
     </ItemGroup>
     <ItemGroup>

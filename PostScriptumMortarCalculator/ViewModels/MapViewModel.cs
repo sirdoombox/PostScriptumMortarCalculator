@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MahApps.Metro.Controls;
 using PostScriptumMortarCalculator.Events;
 using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
