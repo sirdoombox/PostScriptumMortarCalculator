@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostScriptumMortarCalculator", "PostScriptumMortarCalculator\PostScriptumMortarCalculator.csproj", "{849E4663-ADC4-4328-8906-6D40976BFB22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostScriptumMortarCalculator.Tests", "PostScriptumMortarCalculator.Tests\PostScriptumMortarCalculator.Tests.csproj", "{0719C79E-381D-4572-A8FC-A56F3ACF25AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostScriptumMortarCalculator.Tests", "PostScriptumMortarCalculator.Tests\PostScriptumMortarCalculator.Tests.csproj", "{4757CB6E-AB24-4C20-8FEF-765DEF7CF5F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		{849E4663-ADC4-4328-8906-6D40976BFB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{849E4663-ADC4-4328-8906-6D40976BFB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{849E4663-ADC4-4328-8906-6D40976BFB22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0719C79E-381D-4572-A8FC-A56F3ACF25AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0719C79E-381D-4572-A8FC-A56F3ACF25AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0719C79E-381D-4572-A8FC-A56F3ACF25AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0719C79E-381D-4572-A8FC-A56F3ACF25AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4757CB6E-AB24-4C20-8FEF-765DEF7CF5F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4757CB6E-AB24-4C20-8FEF-765DEF7CF5F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4757CB6E-AB24-4C20-8FEF-765DEF7CF5F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4757CB6E-AB24-4C20-8FEF-765DEF7CF5F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
