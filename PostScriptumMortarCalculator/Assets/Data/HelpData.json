@@ -1,0 +1,32 @@
+{
+  "Hotkeys": [
+    {
+      "Action": "Place Mortar",
+      "Key": "Right Click"
+    },
+    {
+      "Action": "Place Target",
+      "Key": "Left Click"
+    },
+    {
+      "Action": "Zoom",
+      "Key": "Scroll Wheel"
+    },
+    {
+      "Action": "Pan",
+      "Key": "Middle Mouse"
+    },
+    {
+      "Action": "Reset",
+      "Key": "R"
+    }
+  ],
+  "Hints": [
+    "Remember to update your mortar position when you move.",
+    "Zoom in fully to place your mortar position as accurately as possible.",
+    "The red area at your target location is the innate spread of the mortar.",
+    "This tool is very accurate but not perfect.",
+    "No terrain height data is incorporated in the calculation because that data is not available.",
+    "Innate spread and distance beyond the maximum range on the in-game tables is a (quite accurate) approximation."
+  ]
+}

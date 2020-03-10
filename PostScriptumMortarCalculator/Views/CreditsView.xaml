@@ -40,14 +40,16 @@
             </Style>
         </StackPanel.Resources>
         <Label Content="Contributors"/>
-        <ItemsControl ItemsSource="{Binding PersonalContributors}">
+        <ItemsControl ItemsSource="{Binding Contributors}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Style="{StaticResource DockPanelStyle}">
-                        <Label Content="{Binding ContributionType}"/>
+                        <Label Content="{Binding ContributionType}"
+                               ToolTip="{Binding ContributionDescription}"/>
                         <Button Content="{Binding Name}"
+                                ToolTip="{Binding URL}"
                                 Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
-                                CommandParameter="{Binding UrlString}"/>
+                                CommandParameter="{Binding URL}"/>
                     </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -56,14 +58,16 @@
                    Margin="{StaticResource ControlMargin}"/>
         <Label Content="External Tools &amp; Libraries"
                Margin="{StaticResource ControlMargin}"/>
-        <ItemsControl ItemsSource="{Binding LibraryContributors}">
+        <ItemsControl ItemsSource="{Binding ExternalTools}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Style="{StaticResource DockPanelStyle}">
-                        <Label Content="{Binding ContributionType}"/>
+                        <Label Content="{Binding ContributionType}"
+                               ToolTip="{Binding ContributionDescription}"/>
                         <Button Content="{Binding Name}"
                                 Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
-                                CommandParameter="{Binding UrlString}"/>
+                                ToolTip="{Binding URL}"
+                                CommandParameter="{Binding URL}"/>
                     </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

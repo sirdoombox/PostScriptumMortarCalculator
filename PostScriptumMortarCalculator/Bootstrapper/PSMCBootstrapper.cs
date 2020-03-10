@@ -13,15 +13,20 @@ namespace PostScriptumMortarCalculator.Bootstrapper
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             var configService = new ConfigService();
-            var config = configService.LoadOrDefault();
-            builder.Bind<UserConfigModel>().ToInstance(config);
+            builder.Bind<UserConfigModel>().ToInstance(configService.LoadOrDefault());
             builder.Bind<ConfigService>().ToInstance(configService);
             var dataResourceService = new DataResourceService();
             builder.Bind<IReadOnlyList<MapDataModel>>()
-                .ToFactory(container => dataResourceService.GetMapData())
+                .ToFactory(_ => dataResourceService.GetMapData())
                 .InSingletonScope();
             builder.Bind<IReadOnlyList<MortarDataModel>>()
-                .ToFactory(container => dataResourceService.GetMortarData())
+                .ToFactory(_ => dataResourceService.GetMortarData())
+                .InSingletonScope();
+            builder.Bind<HelpDataModel>()
+                .ToFactory(_ => dataResourceService.GetHelpData())
+                .InSingletonScope();
+            builder.Bind<CreditsDataModel>()
+                .ToFactory(_ => dataResourceService.GetCreditsData())
                 .InSingletonScope();
             builder.Bind<MortarDataModel>()
                 .ToFactory(container => container.Get<IReadOnlyList<MortarDataModel>>().First());

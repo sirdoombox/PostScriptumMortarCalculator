@@ -14,35 +14,44 @@ namespace PostScriptumMortarCalculator.Services
     public class DataResourceService
     {
         private const string c_RESOURCE_MANAGER = "PostScriptumMortarCalculator.g";
+        private const string c_MAP_DATA_FILENAME = "mapdata.json";
+        private const string c_MORTAR_DATA_FILENAME = "mortardata.json";
+        private const string c_HELP_DATA_FILENAME = "helpdata.json";
+        private const string c_CREDITS_DATA_FILENAME = "creditsdata.json";
 
-        public List<MapDataModel> GetMapData()
+        private readonly ResourceSet m_resources;
+
+        public DataResourceService()
         {
-            var resourceManager = new ResourceManager(c_RESOURCE_MANAGER, Assembly.GetExecutingAssembly());
-            var resources = resourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
-            foreach (var res in from object resource in resources select (DictionaryEntry) resource)
-            {
-                if (!((string)res.Key).EndsWith("mapdata.json")) continue;
-                using var streamReader = new StreamReader((UnmanagedMemoryStream) res.Value ?? throw new Exception());
-                var jsonString = streamReader.ReadToEnd();
-                var maps = JsonConvert.DeserializeObject<List<MapDataModel>>(jsonString);
-                return maps;
-            }
-            return null;
+            m_resources = new ResourceManager(c_RESOURCE_MANAGER, Assembly.GetExecutingAssembly())
+                .GetResourceSet(CultureInfo.CurrentUICulture, true, true);
         }
+
+        public List<MapDataModel> GetMapData() =>
+            GetDataFromFileName<List<MapDataModel>>(c_MAP_DATA_FILENAME);
+
+        public List<MortarDataModel> GetMortarData() =>
+            GetDataFromFileName<List<MortarDataModel>>(c_MORTAR_DATA_FILENAME);
+
+        public CreditsDataModel GetCreditsData() => 
+            GetDataFromFileName<CreditsDataModel>(c_CREDITS_DATA_FILENAME);
+
+        public HelpDataModel GetHelpData() =>
+            GetDataFromFileName<HelpDataModel>(c_HELP_DATA_FILENAME);
         
-        public List<MortarDataModel> GetMortarData()
+        // I don't like this method at all, but getting resources seems to be a difficult task
+        // Perhaps Costura.Fody is the reason it's so difficult?
+        private T GetDataFromFileName<T>(string fileName)
         {
-            var resourceManager = new ResourceManager(c_RESOURCE_MANAGER, Assembly.GetExecutingAssembly());
-            var resources = resourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
-            foreach (var res in from object resource in resources select (DictionaryEntry) resource)
+            foreach (var res in from object resource in m_resources select (DictionaryEntry) resource)
             {
-                if (!((string)res.Key).EndsWith("mortardata.json")) continue;
+                if (!((string)res.Key).EndsWith(fileName)) continue;
                 using var streamReader = new StreamReader((UnmanagedMemoryStream) res.Value ?? throw new Exception());
                 var jsonString = streamReader.ReadToEnd();
-                var obj = JsonConvert.DeserializeObject<List<MortarDataModel>>(jsonString);
+                var obj = JsonConvert.DeserializeObject<T>(jsonString);
                 return obj;
             }
-            return null;
+            return default;
         }
     }
 }

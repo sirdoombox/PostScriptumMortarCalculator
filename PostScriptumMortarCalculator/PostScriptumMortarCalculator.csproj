@@ -118,6 +118,8 @@
     <Compile Include="Events\MortarChangedEvent.cs" />
     <Compile Include="Events\PositionChangedEvent.cs" />
     <Compile Include="Extensions\NumericExtensions.cs" />
+    <Compile Include="Models\CreditsDataModel.cs" />
+    <Compile Include="Models\HelpDataModel.cs" />
     <Compile Include="Models\MapDataModel.cs" />
     <Compile Include="Models\MortarDataModel.cs" />
     <Compile Include="Models\UserConfigModel.cs" />
@@ -190,6 +192,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="psmc_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Data\CreditsData.json" />
+    <Resource Include="Assets\Data\HelpData.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,0 +1,41 @@
+{
+  "Contributors": [
+    {
+      "Name": "Solmyr",
+      "ContributionType": "Testing",
+      "ContributionDescription": "Testing the calculator for bugs and accuracy.",
+      "URL": "https://steamcommunity.com/id/solmyr101/"
+    },
+    {
+      "Name": "Mr.Skeltal",
+      "ContributionType": "Testing",
+      "ContributionDescription": "Testing the calculator for bugs and accuracy.",
+      "URL": "https://steamcommunity.com/id/Starman-NL/"
+    }
+  ],
+  "ExternalTools": [
+    {
+      "Name": "UEViewer",
+      "ContributionType": "Map Image Extraction",
+      "ContributionDescription": "Extracted map images from the game files for use in the tool.",
+      "URL": "https://www.gildor.org/en/projects/umodel"
+    },
+    {
+      "Name": "MahApps.Metro",
+      "ContributionType": "UI & Controls",
+      "ContributionDescription": "Provided the styling and additional functionality for the UX.",
+      "URL": "https://mahapps.com/"
+    },{
+      "Name": "Stylet",
+      "ContributionType": "MVVM Framework & IoC Provider",
+      "ContributionDescription": "ViewModel first library that simplifies MVVM development substantially.",
+      "URL": "https://github.com/canton7/Stylet"
+    },
+    {
+      "Name": "Fody [Costura/PropertyChanged]",
+      "ContributionType": "Assembly Weaver",
+      "ContributionDescription": "Embeds resources and external libraries into the assembly, implements PropertyChanged at compile time.",
+      "URL": "https://github.com/Fody/Fody"
+    }
+  ]
+}
