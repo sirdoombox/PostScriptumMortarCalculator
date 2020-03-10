@@ -5,16 +5,16 @@ namespace PostScriptumMortarCalculator.Models
     [DoNotNotify]
     public class MapDataModel
     {
-        public string MapPath { get; }
+        public string MapImagePath { get; }
         
-        public string DisplayName { get; }
+        public string Name { get; }
         
         public double Bounds { get; }
 
         public MapDataModel(string path, string name, double bounds)
         {
-            MapPath = path;
-            DisplayName = name;
+            MapImagePath = path;
+            Name = name;
             Bounds = bounds;
         }
     }

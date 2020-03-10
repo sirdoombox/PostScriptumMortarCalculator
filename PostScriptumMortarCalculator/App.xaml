@@ -23,6 +23,7 @@
                     <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibility"/>
                     <converters:StringToAccentBrushConverter x:Key="StringToAccentBrush"/>
                     <converters:HalfDoubleConverter x:Key="HalfDouble"/>
+                    <converters:RoundedVector2ToPointConverter x:Key="RoundedVector2ToPoint"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -4,6 +4,7 @@ using System.Windows;
 using PostScriptumMortarCalculator.Events;
 using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
+using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.Utils;
 using Stylet;
 
@@ -47,6 +48,7 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         #region Private Members
 
+        private readonly ConfigService m_configService;
         private readonly IEventAggregator m_eventAggregator;
 
         #endregion
@@ -55,8 +57,10 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public CalculatorViewModel(MortarDataModel defaultMortar,
             IReadOnlyList<MortarDataModel> mortars,
+            ConfigService configService,
             IEventAggregator eventAggregator)
         {
+            m_configService = configService;
             m_eventAggregator = eventAggregator;
             m_eventAggregator.Subscribe(this);
             AvailableMortars.AddRange(mortars);
@@ -69,6 +73,8 @@ namespace PostScriptumMortarCalculator.ViewModels
         public void OnSelectedMortarChanged()
         {
             m_eventAggregator.Publish(new MortarChangedEvent(SelectedMortar));
+            m_configService.ActiveConfig.LastMortarName = SelectedMortar.Name;
+            m_configService.SerialiseUserConfig();
         }
         
         

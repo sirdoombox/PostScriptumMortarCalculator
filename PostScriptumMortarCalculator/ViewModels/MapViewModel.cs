@@ -6,6 +6,7 @@ using System.Windows.Input;
 using PostScriptumMortarCalculator.Events;
 using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
+using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.Utils;
 using Stylet;
 using Wpf.Controls.PanAndZoom;
@@ -29,12 +30,12 @@ namespace PostScriptumMortarCalculator.ViewModels
 
 
         public double HalfMortarMinDistancePixels =>
-            -(MortarMinDistancePixels / 2d);
+            MortarMinDistancePixels / 2d;
 
         public double MortarMaxDistancePixels { get; private set; }
 
         public double HalfMortarMaxDistancePixels =>
-            -(MortarMaxDistancePixels / 2d);
+            MortarMaxDistancePixels / 2d;
 
         public double DistancePixels =>
             RoundedVector2.Distance(MortarPositionPixels, TargetPositionPixels);
@@ -42,7 +43,7 @@ namespace PostScriptumMortarCalculator.ViewModels
         public RoundedVector2 TargetInnateSplashPixels { get; private set; }
 
 
-        public RoundedVector2 TargetInnateSplashOffset =>
+        public RoundedVector2 HalfTargetInnateSplashPixels =>
             -(TargetInnateSplashPixels / 2d);
 
         public bool IsMortarPositionSet =>
@@ -61,19 +62,22 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public MortarDataModel SelectedMortar { get; private set; }
 
-        public double Opacity { get; set; } = .25d;
-        public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapPath;
+        public double Opacity { get; set; }
+        public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapImagePath;
 
         #endregion
 
         #region Private Fields
-
+        private const double c_LINE_WIDTH = 5;
+        
         private ZoomBorder m_zoomBorder;
         private Canvas m_canvas;
         private bool m_isMouseCaptured;
         private MouseButton m_capturedButton;
         private double m_mapPixelsPerMeter;
         private readonly IEventAggregator m_eventAggregator;
+        private readonly ConfigService m_configService;
+        private readonly UserConfigModel m_configModel;
 
         #endregion
 
@@ -81,15 +85,20 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public MapViewModel(IReadOnlyList<MapDataModel> availableMaps,
             MortarDataModel defaultMortar,
+            ConfigService configService,
             IEventAggregator eventAggregator)
         {
             m_eventAggregator = eventAggregator;
             m_eventAggregator.Subscribe(this);
             AvailableMaps.AddRange(availableMaps);
+            m_configService = configService;
+            m_configModel = configService.ActiveConfig;
             SelectedMortar = defaultMortar;
-            SelectedMap = AvailableMaps.First();
+            SelectedMap = string.IsNullOrWhiteSpace(m_configModel.LastMapName) 
+                ? AvailableMaps.First() 
+                : AvailableMaps.First(x => x.Name == m_configModel.LastMapName);
+            Opacity = m_configModel.Opacity;
         }
-
         #endregion
 
         #region PropertyChanged Handlers
@@ -99,6 +108,14 @@ namespace PostScriptumMortarCalculator.ViewModels
             if (m_zoomBorder is null) return;
             Reset(true);
             m_mapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(SelectedMap.Bounds);
+            m_configModel.LastMapName = SelectedMap.Name;
+            m_configService.SerialiseUserConfig();
+        }
+
+        public void OnOpacityChanged()
+        {
+            m_configModel.Opacity = Opacity;
+            m_configService.SerialiseUserConfig();
         }
 
         public void OnTargetPositionPixelsChanged() => PublishUpdate();
@@ -117,6 +134,7 @@ namespace PostScriptumMortarCalculator.ViewModels
             MortarMaxDistancePixels = SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
             NotifyOfPropertyChange(() => HalfMortarMaxDistancePixels);
             NotifyOfPropertyChange(() => HalfMortarMinDistancePixels);
+            RecalculateTargetSplash();
             if (!IsTargetStillInRange()) TargetPositionPixels = default;
         }
 

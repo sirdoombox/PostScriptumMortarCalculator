@@ -12,9 +12,10 @@ namespace PostScriptumMortarCalculator.Bootstrapper
     {
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
-            var configService = new ConfigService();
-            builder.Bind<UserConfigModel>().ToInstance(configService.LoadOrDefault());
-            builder.Bind<ConfigService>().ToInstance(configService);
+            builder.Bind<ConfigService>()
+                .ToFactory(_ => new ConfigService().LoadOrDefault())
+                .InSingletonScope();
+            
             var dataResourceService = new DataResourceService();
             builder.Bind<IReadOnlyList<MapDataModel>>()
                 .ToFactory(_ => dataResourceService.GetMapData())
@@ -29,7 +30,13 @@ namespace PostScriptumMortarCalculator.Bootstrapper
                 .ToFactory(_ => dataResourceService.GetCreditsData())
                 .InSingletonScope();
             builder.Bind<MortarDataModel>()
-                .ToFactory(container => container.Get<IReadOnlyList<MortarDataModel>>().First());
+                .ToFactory(container =>
+                {
+                    var config = container.Get<ConfigService>().ActiveConfig;
+                    var lastMortarSet = !string.IsNullOrWhiteSpace(config.LastMortarName);
+                    var mortars = container.Get<IReadOnlyList<MortarDataModel>>();
+                    return lastMortarSet ? mortars.First(x => x.Name == config.LastMortarName) : mortars.First();
+                });
         }
     }
 }
