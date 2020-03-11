@@ -1,9 +1,8 @@
-
 # Post Scriptum Mortar Calculator
 
-### [Get It Here](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest)
+### [Get It Here - Requires .NET Framework 4.5+](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest)
 
-![Screenshot](https://i.imgur.com/UH5S0zZ.png)
+![Screenshot](https://i.imgur.com/dqyixZd.png)
 
 A desktop app for mortar calculations in Post Scriptum, using additionally gathered data for ranges beyond those listed on the in-game tables, and for innate dispersion. Requires no installation and the high-res map image files are included in the executable.
 
@@ -16,7 +15,8 @@ A desktop app for mortar calculations in Post Scriptum, using additionally gathe
 - Selectable themes/colours
 ### Planned features
 - Rebindable mouse buttons/keys
-- Change colours of the map indicators.
+- Custom accent colours
+- Custom colours for the map indicators
 - Overlay grid for maps
 - Personal map landmarks for saving good mortar positions for future sessions
 ### Help - How Do I...
