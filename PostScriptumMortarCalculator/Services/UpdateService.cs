@@ -22,7 +22,8 @@ namespace PostScriptumMortarCalculator.Services
 #if (!DEBUG)
             var release = await m_client.Repository.Release.GetLatest(c_OWNER_NAME, c_REPO_NAME);
             var releaseVersion = decimal.Parse(release.TagName);
-            var currentVersionString = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var ver = Assembly.GetExecutingAssembly().GetName().Version;
+            var currentVersionString = $"{ver.Major}.{ver.Minor}";
             var currentVersion = decimal.Parse(currentVersionString);
             return new UpdateInfo(currentVersion, releaseVersion, c_RELEASE_PATH);
 #endif
