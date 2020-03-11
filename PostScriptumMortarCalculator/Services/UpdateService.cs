@@ -1,6 +1,7 @@
 #if (!DEBUG)
 using System.Reflection;
 #endif
+using System.Net;
 using System.Threading.Tasks;
 using Octokit;
 
@@ -17,6 +18,7 @@ namespace PostScriptumMortarCalculator.Services
         public UpdateService()
         {
             m_client = new GitHubClient(new ProductHeaderValue("PostScriptumMortarCalculator"));
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
         }
         
         public async Task<UpdateInfo> CheckForUpdate()
