@@ -1,7 +1,7 @@
 
 # Post Scriptum Mortar Calculator
 
-### [Get It Here](/releases/latest)
+### [Get It Here](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest)
 
 ![Screenshot](https://i.imgur.com/UH5S0zZ.png)
 
