@@ -5,11 +5,36 @@ using PostScriptumMortarCalculator.Services;
 using PostScriptumMortarCalculator.ViewModels;
 using Stylet;
 using StyletIoC;
+#if (!DEBUG)
+using LogLevel = NLog.LogLevel;
+using NLog.Config;
+using NLog.Targets;
+#endif
 
 namespace PostScriptumMortarCalculator.Bootstrapper
 {
     public class PsmcBootstrapper : Bootstrapper<PsmcRootViewModel>
     {
+        private const string c_LOG_DUMP_FILE_NAME = "ErrorLog.log";
+
+        private ErrorLogger m_logger;
+        protected override void OnStart()
+        {
+#if (!DEBUG)
+            var config = new LoggingConfiguration();
+            var logFile = new FileTarget("logfile")
+            {
+                CreateDirs = true, 
+                FileName = c_LOG_DUMP_FILE_NAME, 
+                DeleteOldFileOnStartup = true, 
+                Layout = "${longdate} ${message} ${exception:format=tostring}"
+            };
+            config.AddRule(LogLevel.Trace, LogLevel.Trace, logFile);
+            NLog.LogManager.Configuration = config;
+            m_logger = new ErrorLogger();
+#endif
+        }
+
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             builder.Bind<ConfigService>()

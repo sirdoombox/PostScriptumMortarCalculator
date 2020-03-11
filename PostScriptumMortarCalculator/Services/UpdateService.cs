@@ -1,4 +1,6 @@
+#if (!DEBUG)
 using System.Reflection;
+#endif
 using System.Threading.Tasks;
 using Octokit;
 
