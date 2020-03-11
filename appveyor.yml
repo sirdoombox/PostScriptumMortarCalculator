@@ -1,0 +1,26 @@
+version: 1.{build}
+branches:
+  only:
+  - Release
+skip_commits:
+  message: /\[chore\]/
+skip_tags: true
+image: Visual Studio 2019
+configuration: Release
+before_build:
+- cmd: nuget restore
+build:
+  verbosity: minimal
+artifacts:
+- path: PostScriptumMortarCalculator\bin\Release\*.exe
+  name: PSMCRelease
+deploy:
+- provider: GitHub
+  release: postscriptummortarcalculator-v$(appveyor_build_version)
+  auth_token:
+    secure: acFp5JiZvnInZcfh0n7Xce7EH3ySp2HNTMK7aKdn2rTKJBqCX/7zMakbgfx/rr9n
+  artifact: PSMCRelease
+  draft: true
+  force_update: false
+  on:
+    branch: Release
