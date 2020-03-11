@@ -22,12 +22,19 @@ namespace PostScriptumMortarCalculator.Services
         public async Task<UpdateInfo> CheckForUpdate()
         {
 #if (!DEBUG)
-            var release = await m_client.Repository.Release.GetLatest(c_OWNER_NAME, c_REPO_NAME);
-            var releaseVersion = decimal.Parse(release.TagName);
-            var ver = Assembly.GetExecutingAssembly().GetName().Version;
-            var currentVersionString = $"{ver.Major}.{ver.Minor}";
-            var currentVersion = decimal.Parse(currentVersionString);
-            return new UpdateInfo(currentVersion, releaseVersion, c_RELEASE_PATH);
+            try
+            {
+                var release = await m_client.Repository.Release.GetLatest(c_OWNER_NAME, c_REPO_NAME);
+                var releaseVersion = decimal.Parse(release.TagName);
+                var ver = Assembly.GetExecutingAssembly().GetName().Version;
+                var currentVersionString = $"{ver.Major}.{ver.Minor}";
+                var currentVersion = decimal.Parse(currentVersionString);
+                return new UpdateInfo(currentVersion, releaseVersion, c_RELEASE_PATH);
+            }
+            catch
+            {
+                return new UpdateInfo(1,0,string.Empty);
+            }
 #endif
             return new UpdateInfo(1.0m,1.1m,c_RELEASE_PATH);
         }
