@@ -21,6 +21,8 @@ A desktop app for mortar calculations in Post Scriptum, using additionally gathe
 - Personal map landmarks for saving good mortar positions for future sessions
 ### Help - How Do I...
 `Menu` -> `Help` should provide you with all you need to know to use the app as well as some useful general hints.
+### Contacting me
+If you find a bug or want to request a feature and don't have a github account, you're more than welcome to @ me on the Post Scriptum discord - Doombox#1389
 
 ## Information for Developers/Contributors
 ### Contributing
