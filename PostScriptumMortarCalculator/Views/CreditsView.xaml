@@ -9,68 +9,74 @@
              x:Name="RootControl"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:CreditsViewModel}">
-    <StackPanel>
-        <StackPanel.Resources>
-            <Thickness x:Key="ControlMargin">0 10 0 0</Thickness>
-            <Style TargetType="Label">
-                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
-                <Setter Property="FontWeight" Value="Black"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="18"/>
-            </Style>
-            <Style TargetType="DockPanel" x:Key="DockPanelStyle">
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="Margin" Value="{StaticResource ControlMargin}"/>
-                <Style.Resources>
-                    <Style TargetType="Label">
-                        <Setter Property="DockPanel.Dock" Value="Left"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                    </Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Chromeless}">
-                        <Setter Property="DockPanel.Dock" Value="Right"/>
-                        <Setter Property="Margin" Value="10 0 0 0"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                    </Style>
-                </Style.Resources>
-            </Style>
-        </StackPanel.Resources>
-        <Label Content="Contributors"/>
-        <ItemsControl ItemsSource="{Binding Contributors}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel Style="{StaticResource DockPanelStyle}">
-                        <Label Content="{Binding ContributionType}"
-                               ToolTip="{Binding ContributionDescription}"/>
-                        <Button Content="{Binding Name}"
-                                ToolTip="{Binding URL}"
-                                Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
-                                CommandParameter="{Binding URL}"/>
-                    </DockPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <Separator Background="{DynamicResource MahApps.Brushes.Accent}" 
-                   Margin="{StaticResource ControlMargin}"/>
-        <Label Content="External Tools &amp; Libraries"
-               Margin="{StaticResource ControlMargin}"/>
-        <ItemsControl ItemsSource="{Binding ExternalTools}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel Style="{StaticResource DockPanelStyle}">
-                        <Label Content="{Binding ContributionType}"
-                               ToolTip="{Binding ContributionDescription}"/>
-                        <Button Content="{Binding Name}"
-                                Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
-                                ToolTip="{Binding URL}"
-                                CommandParameter="{Binding URL}"/>
-                    </DockPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+    <ScrollViewer HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled"
+                  CanContentScroll="True">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Thickness x:Key="ControlMargin">0 10 0 0</Thickness>
+                <Style TargetType="Label">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter Property="FontWeight" Value="Black" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="FontSize" Value="18" />
+                </Style>
+                <Style TargetType="DockPanel" x:Key="DockPanelStyle">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="{StaticResource ControlMargin}" />
+                    <Style.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="DockPanel.Dock" Value="Left" />
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Top" />
+                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Chromeless}">
+                            <Setter Property="DockPanel.Dock" Value="Right" />
+                            <Setter Property="Margin" Value="10 0 0 0" />
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </StackPanel.Resources>
+            <Label Content="Contributors" />
+            <ItemsControl ItemsSource="{Binding Contributors}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Style="{StaticResource DockPanelStyle}">
+                            <Label Content="{Binding ContributionType}"
+                                   ToolTip="{Binding ContributionDescription}" />
+                            <Button Content="{Binding Name}"
+                                    ToolTip="{Binding URL}"
+                                    Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
+                                    CommandParameter="{Binding URL}" />
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Separator Background="{DynamicResource MahApps.Brushes.Accent}"
+                       Margin="{StaticResource ControlMargin}" />
+            <Label Content="External Tools &amp; Libraries"
+                   Margin="{StaticResource ControlMargin}" />
+            <ItemsControl ItemsSource="{Binding ExternalTools}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Style="{StaticResource DockPanelStyle}">
+                            <Label Content="{Binding ContributionType}"
+                                   ToolTip="{Binding ContributionDescription}" />
+                            <Button Content="{Binding Name}"
+                                    Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
+                                    ToolTip="{Binding URL}"
+                                    CommandParameter="{Binding URL}" />
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
