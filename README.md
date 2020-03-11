@@ -26,6 +26,7 @@ If you find a bug or want to request a feature and don't have a github account, 
 
 ## Information for Developers/Contributors
 ### Contributing
+- **Always pull and work on the [Develop](https://github.com/sirdoombox/PostScriptumMortarCalculator/tree/Develop) branch!**
 - Updating the tool when maps/mortars are changed/added is done very simply by editing the assets found [**here**](PostScriptumMortarCalculator/Assets) and can be done by anyone without any specific programming experience.
 - Unit tests are a little overkill, but they do serve a purpose - Before submitting a PR ensure that
 	- Changes to existing code results in all existing unit tests passing.
