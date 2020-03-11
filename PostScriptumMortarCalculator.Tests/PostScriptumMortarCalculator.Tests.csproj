@@ -51,9 +51,6 @@
         <Compile Include="Utils\RoundedVector2Tests.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="ViewModels" />
-    </ItemGroup>
-    <ItemGroup>
       <ProjectReference Include="..\PostScriptumMortarCalculator\PostScriptumMortarCalculator.csproj">
         <Project>{849e4663-adc4-4328-8906-6d40976bfb22}</Project>
         <Name>PostScriptumMortarCalculator</Name>

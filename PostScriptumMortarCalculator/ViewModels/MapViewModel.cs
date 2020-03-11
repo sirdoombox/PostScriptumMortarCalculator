@@ -15,10 +15,6 @@ namespace PostScriptumMortarCalculator.ViewModels
 {
     public class MapViewModel : Screen, IHandle<MortarChangedEvent>
     {
-        private const string c_RESOURCE_PATH = "/PostScriptumMortarCalculator;component/Assets";
-
-        #region Properties
-
         public RoundedVector2 TargetPositionPixels { get; set; }
 
         public RoundedVector2 MortarPositionPixels { get; set; }
@@ -27,7 +23,6 @@ namespace PostScriptumMortarCalculator.ViewModels
             RoundedVector2.Angle(MortarPositionPixels, TargetPositionPixels);
 
         public double MortarMinDistancePixels { get; private set; }
-
 
         public double HalfMortarMinDistancePixels =>
             MortarMinDistancePixels / 2d;
@@ -65,11 +60,8 @@ namespace PostScriptumMortarCalculator.ViewModels
         public double Opacity { get; set; }
         public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapImagePath;
 
-        #endregion
+        private const string c_RESOURCE_PATH = "/PostScriptumMortarCalculator;component/Assets";
 
-        #region Private Fields
-        private const double c_LINE_WIDTH = 5;
-        
         private ZoomBorder m_zoomBorder;
         private Canvas m_canvas;
         private bool m_isMouseCaptured;
@@ -78,10 +70,6 @@ namespace PostScriptumMortarCalculator.ViewModels
         private readonly IEventAggregator m_eventAggregator;
         private readonly ConfigService m_configService;
         private readonly UserConfigModel m_configModel;
-
-        #endregion
-
-        #region Initialisation
 
         public MapViewModel(IReadOnlyList<MapDataModel> availableMaps,
             MortarDataModel defaultMortar,
@@ -94,14 +82,11 @@ namespace PostScriptumMortarCalculator.ViewModels
             m_configService = configService;
             m_configModel = configService.ActiveConfig;
             SelectedMortar = defaultMortar;
-            SelectedMap = string.IsNullOrWhiteSpace(m_configModel.LastMapName) 
-                ? AvailableMaps.First() 
+            SelectedMap = string.IsNullOrWhiteSpace(m_configModel.LastMapName)
+                ? AvailableMaps.First()
                 : AvailableMaps.First(x => x.Name == m_configModel.LastMapName);
             Opacity = m_configModel.Opacity;
         }
-        #endregion
-
-        #region PropertyChanged Handlers
 
         public void OnSelectedMapChanged()
         {
@@ -142,10 +127,6 @@ namespace PostScriptumMortarCalculator.ViewModels
         {
             SelectedMortar = message.ActiveMortar;
         }
-
-        #endregion
-
-        #region UI Event Handlers
 
         public void CanvasLoaded(object sender, RoutedEventArgs _)
         {
@@ -235,10 +216,6 @@ namespace PostScriptumMortarCalculator.ViewModels
             OnSelectedMortarChanged();
         }
 
-        #endregion
-
-        #region Helpers
-
         private bool IsMousePosInValidRange(double posX, double posY)
         {
             var tempTarget = new RoundedVector2(posX, posY);
@@ -271,7 +248,5 @@ namespace PostScriptumMortarCalculator.ViewModels
                         DistancePixels.ToScaledMeters(m_mapPixelsPerMeter)))
                 .ToPixelScale(m_mapPixelsPerMeter) * 2;
         }
-
-        #endregion
     }
 }

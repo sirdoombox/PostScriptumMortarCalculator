@@ -9,6 +9,8 @@ namespace PostScriptumMortarCalculator.Utils
 
         public double X { get; }
         public double Y { get; }
+        
+        public static RoundedVector2 Zero => new RoundedVector2(0,0);
 
 
         public RoundedVector2(double x, double y)

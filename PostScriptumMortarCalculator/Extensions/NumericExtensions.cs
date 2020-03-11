@@ -36,7 +36,7 @@ namespace PostScriptumMortarCalculator.Extensions
             var minDist = mortarData.MinRange.Distance;
             var maxDist = mortarData.MaxRange.Distance;
             if (distance > maxDist || distance < minDist) return -1;
-            return (distance - minDist) / (maxDist - minDist);
+            return PercentageBetween(distance, minDist, maxDist);
         }
 
         public static double PercentageBetween(this double value, double min, double max)

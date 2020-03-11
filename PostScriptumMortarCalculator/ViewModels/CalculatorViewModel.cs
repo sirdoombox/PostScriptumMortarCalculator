@@ -12,8 +12,6 @@ namespace PostScriptumMortarCalculator.ViewModels
 {
     public class CalculatorViewModel : Screen, IHandle<PositionChangedEvent>
     {
-        #region Properties
-
         public RoundedVector2 MortarPositionMeters { get; private set; }
         
         public RoundedVector2 TargetPositionMeters { get; private set; }
@@ -43,18 +41,10 @@ namespace PostScriptumMortarCalculator.ViewModels
                 return 0;
             }
         }
-
-        #endregion
-
-        #region Private Members
-
+        
         private readonly ConfigService m_configService;
         private readonly IEventAggregator m_eventAggregator;
-
-        #endregion
-
-        #region Initialisation
-
+        
         public CalculatorViewModel(MortarDataModel defaultMortar,
             IReadOnlyList<MortarDataModel> mortars,
             ConfigService configService,
@@ -66,9 +56,6 @@ namespace PostScriptumMortarCalculator.ViewModels
             AvailableMortars.AddRange(mortars);
             SelectedMortar = defaultMortar;
         }
-        #endregion
-
-        #region PropertyChanged Handlers
 
         public void OnSelectedMortarChanged()
         {
@@ -85,17 +72,9 @@ namespace PostScriptumMortarCalculator.ViewModels
             Angle = message.Angle;
         }
 
-        #endregion
-
-        #region UI Event Handlers
-
         public void CopyToClipboardClicked()
         {
             Clipboard.SetData(DataFormats.Text, $"Angle: {Angle} | Mills: {Milliradians}");
         }
-
-        #endregion
-
-        
     }
 }
