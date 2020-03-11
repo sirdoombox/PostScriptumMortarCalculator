@@ -1,6 +1,6 @@
 # Post Scriptum Mortar Calculator
 
-### [Get It Here - Requires .NET Framework 4.5+](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest)
+### [Get It Here - Win10 Only](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest)
 
 ![Screenshot](https://i.imgur.com/dqyixZd.png)
 
