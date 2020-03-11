@@ -16,7 +16,8 @@ artifacts:
   name: PSMCRelease
 deploy:
 - provider: GitHub
-  release: $(appveyor_build_version)
+  tag: ${appveyor_build_version}
+  release: Post Scriptum Mortar Calculator - $(appveyor_build_version)
   auth_token:
     secure: acFp5JiZvnInZcfh0n7Xce7EH3ySp2HNTMK7aKdn2rTKJBqCX/7zMakbgfx/rr9n
   artifact: PSMCRelease
