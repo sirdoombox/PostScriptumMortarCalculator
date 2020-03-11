@@ -7,6 +7,11 @@ skip_commits:
 skip_tags: true
 image: Visual Studio 2019
 configuration: Release
+assembly_info:
+  patch: true
+  file: 'PostScriptumMortarCalculator\**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
 before_build:
 - cmd: nuget restore
 build:

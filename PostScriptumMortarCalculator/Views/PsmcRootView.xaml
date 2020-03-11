@@ -14,6 +14,7 @@
                  MinWidth="900"
                  MinHeight="500"
                  Icon="pack://application:,,,/psmc_icon.ico"
+                 ShowIconOnTitleBar="False"
                  SaveWindowPosition="True">
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl>
@@ -28,6 +29,10 @@
     </mah:MetroWindow.Flyouts>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
+            <Button Content="Update Available"
+                    Command="{s:Action UpdateAvailableClicked}"
+                    ToolTip="{Binding UpdateTooltip}"
+                    Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BooleanToVisibility}}"/>
             <Button Content="Menu"
                     Command="{s:Action OpenMenuFlyout}" />
         </mah:WindowCommands>

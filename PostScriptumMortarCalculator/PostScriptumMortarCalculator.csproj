@@ -68,6 +68,10 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Octokit, Version=0.43.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Octokit.0.43.0\lib\net46\Octokit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PanAndZoom, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\PanAndZoom.2.3.1\lib\net461\PanAndZoom.dll</HintPath>
       <Private>True</Private>
@@ -126,6 +130,7 @@
     <Compile Include="Models\UserConfigModel.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\DataResourceService.cs" />
+    <Compile Include="Services\UpdateService.cs" />
     <Compile Include="Utils\RoundedVector2.cs" />
     <Compile Include="ViewModels\CalculatorViewModel.cs" />
     <Compile Include="ViewModels\CreditsViewModel.cs" />
