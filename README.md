@@ -1,6 +1,6 @@
 # Post Scriptum Mortar Calculator
 
-### [Get It Here](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest) - [[Requires .NET Framework 4.8]](https://dotnet.microsoft.com/download/dotnet-framework)
+### [Get It Here](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest) - [[Requires .NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)]
 
 ![Screenshot](https://i.imgur.com/dqyixZd.png)
 
