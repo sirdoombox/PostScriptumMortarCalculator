@@ -14,5 +14,5 @@ A clear and concise description of the feature.
 The reason you think this feature is worthwhile
 
 **Priority: (Place an X in the box which you think applies)**
-[] - Nice to have
-[] - Necessary
+- [ ] - Nice to have
+- [ ] - Necessary

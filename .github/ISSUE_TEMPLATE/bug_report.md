@@ -23,5 +23,5 @@ Error logs will appear in the same directory as the exe as "ErrorLog.log"
 ``` Paste Log File Contents Here ```
 
 **Desktop Version: (Place an X in the relevant box)**
- - [] Windows 7
- - [] Windows 10
+ - [ ] Windows 7
+ - [ ] Windows 10
