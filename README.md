@@ -2,7 +2,7 @@
 
 ### [Get It Here](https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest) - [[Requires .NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)]
 
-![Screenshot](https://i.imgur.com/dqyixZd.png)
+![Screenshot](https://i.imgur.com/29lbj6r.png)
 
 A desktop app for mortar calculations in Post Scriptum, using additionally gathered data for ranges beyond those listed on the in-game tables, and for innate dispersion. Requires no installation and the high-res map image files are included in the executable.
 
