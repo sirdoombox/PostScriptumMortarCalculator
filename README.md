@@ -9,15 +9,16 @@ A desktop app for mortar calculations in Post Scriptum, using additionally gathe
 ## Information for Users
 ### Features
 - Pan/Zoom high res map images with:
-	- Mortar min/max range indictators
+	- Mortar range indictator
 	- Line to target
 	- Area displaying the innate spread of the mortar fire (which changes over distance)
+	- Grid overlay
+	- Opacity controls for all of the above
 - Selectable themes/colours
 ### Planned features
 - Rebindable mouse buttons/keys
 - Custom accent colours
 - Custom colours for the map indicators
-- Overlay grid for maps
 - Personal map landmarks for saving good mortar positions for future sessions
 ### Help - How Do I...
 `Menu` -> `Help` should provide you with all you need to know to use the app as well as some useful general hints.

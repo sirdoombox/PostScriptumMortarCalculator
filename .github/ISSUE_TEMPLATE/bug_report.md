@@ -1,13 +1,13 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Create a bug report to help improve the tool.
 title: ''
 labels: bug
 assignees: ''
 
 ---
 
-**Describe the bug**
+**Bug Description**
 A clear and concise description of what the bug is.
 
 **To Reproduce**
@@ -22,6 +22,6 @@ Error logs will appear in the same directory as the exe as "ErrorLog.log"
 
 ``` Paste Log File Contents Here ```
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Version [e.g. 22]
+**Desktop Version: (Place an X in the relevant box)**
+ - [] Windows 7
+ - [] Windows 10
