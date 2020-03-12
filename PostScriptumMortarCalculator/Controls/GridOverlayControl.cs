@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -51,36 +52,53 @@ namespace PostScriptumMortarCalculator.Controls
         private void DrawGrid()
         {
             Children.Clear();
-            // This value is initially set to 0 until it updates, which causes a deadlock
-            if (MapPixelsPerMeter <= 0) return; 
-            // Draw major grid lines
-            for (double x = 0; x <= ActualWidth; x += 300 * MapPixelsPerMeter)
-                Children.Add(CreateLine(x,x,0,ActualHeight, MajorLineThickness));
-            for (double y = 0; y <= ActualHeight; y += 300 * MapPixelsPerMeter)
-                Children.Add(CreateLine(0, ActualWidth, y, y, MajorLineThickness));
-            // Draw minor grid lines
-            for (double x = 0; x <= ActualWidth; x += 100 * MapPixelsPerMeter)
-                Children.Add(CreateLine(x,x,0,ActualHeight, MinorLineThickness));
-            for (double y = 0; y <= ActualHeight; y += 100 * MapPixelsPerMeter)
-                Children.Add(CreateLine(0, ActualWidth, y, y, MinorLineThickness));
-            // Draw micro grid lines
-            for (double x = 0; x <= ActualWidth; x += 33.333 * MapPixelsPerMeter)
-                Children.Add(CreateLine(x,x,0,ActualHeight, MicroLineThickness));
-            for (double y = 0; y <= ActualHeight; y += 33.333 * MapPixelsPerMeter)
-                Children.Add(CreateLine(0, ActualWidth, y, y, MicroLineThickness));
+            // This value is initially set to 0 until the map fully loads.
+            if (MapPixelsPerMeter <= 0) return;
+            
+            var microIncrement = 33.333333333d * MapPixelsPerMeter;
+            
+            // Create divisions ahead of time so we can control what kind of line we draw where.
+            var divisions = new List<double>();
+            var currentCrawl = 0d;
+            while ((currentCrawl += microIncrement) <= ActualWidth)
+            {
+                divisions.Add(currentCrawl);
+            }
+
+            for (var i = 1; i <= divisions.Count; i++)
+            {
+                var div = divisions[i-1];
+                if (i % 9 == 0)
+                {
+                    DrawLine(div,div,0,ActualHeight, MajorLineThickness, Brushes.Black, 1);
+                    DrawLine(0, ActualWidth, div, div, MajorLineThickness, Brushes.Black, 1);
+                }
+                else if (i % 3 == 0)
+                {
+                    DrawLine(div,div,0,ActualHeight, MinorLineThickness, Brushes.Black);
+                    DrawLine(0, ActualWidth, div, div, MinorLineThickness, Brushes.Black);
+                }
+                else
+                {
+                    DrawLine(div,div,0,ActualHeight, MicroLineThickness, Brushes.White, -1);
+                    DrawLine(0, ActualWidth, div, div, MicroLineThickness, Brushes.White, -1);
+                }
+            }
         }
 
-        private Line CreateLine(double x1, double x2, double y1, double y2, double thickness)
+        private void DrawLine(double x1, double x2, double y1, double y2, double thickness, Brush stroke, int zIndex = 0)
         {
-            return new Line
+            var line = new Line
             {
                 StrokeThickness = thickness,
-                Stroke = Brushes.Black,
+                Stroke = stroke,
                 X1 = x1,
                 X2 = x2,
                 Y1 = y1,
-                Y2 = y2
+                Y2 = y2,
             };
+            SetZIndex(line, zIndex);
+            Children.Add(line);
         }
     }
 }

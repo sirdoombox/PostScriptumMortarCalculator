@@ -7,13 +7,37 @@
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:panAndZoom="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
              xmlns:controls="clr-namespace:PostScriptumMortarCalculator.Controls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:MapViewModel}">
     <Grid>
         <Grid.Resources>
             <Style TargetType="Ellipse" x:Key="AreaStyleEllipse">
-                <Setter Property="Opacity" Value="{Binding Opacity, Mode=OneWay}" />
+                <Setter Property="Opacity" Value="{Binding IndicatorOpacity, Mode=OneWay}" />
                 <Setter Property="IsHitTestVisible" Value="False" />
+            </Style>
+            <Style TargetType="DockPanel" x:Key="OpacitySliderDockPanel">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Style.Resources>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
+                        <Setter Property="Width" Value="40" />
+                        <Setter Property="DockPanel.Dock" Value="Right" />
+                    </Style>
+                    <Style TargetType="Slider" BasedOn="{StaticResource MahApps.Styles.Slider}">
+                        <Setter Property="MinWidth" Value="100"/>
+                        <Setter Property="TickFrequency" Value="0.01"/>
+                        <Setter Property="TickPlacement" Value="None"/>
+                        <Setter Property="IsSnapToTickEnabled" Value="True"/>
+                        <Setter Property="ToolTipService.InitialShowDelay" Value="200"/>
+                        <Setter Property="mah:SliderHelper.EnableMouseWheel" Value="MouseHover"/>
+                        <Setter Property="mah:SliderHelper.ChangeValueBy" Value="LargeChange"/>
+                        <Setter Property="SmallChange" Value="0.01"/>
+                        <Setter Property="LargeChange" Value="0.1"/>
+                        <Setter Property="Minimum" Value="0"/>
+                        <Setter Property="Maximum" Value="1"/>
+                        <Setter Property="Margin" Value="0,0,5,0"/>
+                    </Style>
+                </Style.Resources>
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
@@ -24,8 +48,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Column="0"
+                      Margin="0 0 20 0"
                       ItemsSource="{Binding AvailableMaps}"
                       SelectedItem="{Binding SelectedMap}">
                 <ComboBox.ItemTemplate>
@@ -34,18 +60,21 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label Content="Opacity"
-                       Foreground="{DynamicResource MahApps.Brushes.Accent}" />
-                <Slider Value="{Binding Opacity}"
-                        MinWidth="100"
-                        Minimum="0.1"
-                        Maximum="1"
-                        SmallChange="0.01"
-                        LargeChange="0.1"
-                        Margin="0,0,5,0" />
-                <TextBox Text="{Binding Opacity}" Width="40" />
-            </StackPanel>
+            <DockPanel Grid.Column="1"
+                       Style="{StaticResource OpacitySliderDockPanel}"
+                       Margin="20 0 20 0">
+                <TextBox Text="{Binding GridOpacity}"/>
+                <Slider Value="{Binding GridOpacity}"
+                        ToolTip="Grid Opacity"
+                        Minimum="0" />
+            </DockPanel>
+            <DockPanel Grid.Column="2"
+                       Style="{StaticResource OpacitySliderDockPanel}"
+                       Margin="20 0 0 0">
+                <TextBox Text="{Binding IndicatorOpacity}"/>
+                <Slider Value="{Binding IndicatorOpacity}"
+                        ToolTip="Indicator Opacity" />
+            </DockPanel>
         </Grid>
         <panAndZoom:ZoomBorder Grid.Row="1"
                                Margin="0 10 0 0"
@@ -67,9 +96,10 @@
                 <controls:GridOverlayControl Width="{Binding ElementName=Image, Path=ActualWidth}"
                                              Height="{Binding ElementName=Image, Path=ActualHeight}"
                                              MapPixelsPerMeter="{Binding MapPixelsPerMeter}"
-                                             MajorLineThickness="5"
-                                             MinorLineThickness="3"
-                                             MicroLineThickness="1"/>
+                                             MajorLineThickness="6"
+                                             MinorLineThickness="2"
+                                             MicroLineThickness="1"
+                                             Opacity="{Binding GridOpacity}" />
                 <Image x:Name="Image"
                        Canvas.ZIndex="-10"
                        Source="{Binding MapImageSource, IsAsync=True}"
@@ -90,7 +120,7 @@
                     </Ellipse.RenderTransform>
                 </Ellipse>
                 <Path Fill="Blue"
-                      Opacity="{Binding Opacity}"
+                      Opacity="{Binding IndicatorOpacity}"
                       Visibility="{Binding IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
                       IsHitTestVisible="False">
                     <Path.Data>
@@ -130,7 +160,7 @@
                       X2="{Binding TargetPositionPixels.X}"
                       Y2="{Binding TargetPositionPixels.Y}"
                       IsHitTestVisible="False"
-                      Opacity="{Binding Opacity}"
+                      Opacity="{Binding IndicatorOpacity}"
                       Visibility="{Binding IsMortarAndTargetSet, Converter={StaticResource BooleanToVisibility}}"
                       StrokeThickness="5"
                       Stroke="Red" />

@@ -6,18 +6,17 @@ namespace PostScriptumMortarCalculator.Models
     {
         [JsonProperty] public string Theme { get; set; }
         [JsonProperty] public string Accent { get; set; }
-        
-        [JsonProperty] public double Opacity { get; set; }
-        
+        [JsonProperty] public double IndicatorOpacity { get; set; }
+        [JsonProperty] public double GridOpacity { get; set; }
         [JsonProperty] public string LastMapName { get; set; }
-        
         [JsonProperty] public string LastMortarName { get; set; }
 
         public static UserConfigModel Default => new UserConfigModel
         {
             Theme = "Dark",
             Accent = "Lime",
-            Opacity = 0.25d,
+            IndicatorOpacity = 0.25d,
+            GridOpacity = 0.25d
         };
     }
 }

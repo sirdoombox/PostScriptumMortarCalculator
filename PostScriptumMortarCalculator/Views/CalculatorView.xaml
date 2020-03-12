@@ -11,21 +11,20 @@
              d:DataContext="{d:DesignInstance viewModels:CalculatorViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        
         <StackPanel Grid.Column="0" Margin="10 0 10 0" VerticalAlignment="Center">
             <StackPanel.Resources>
                 <Thickness x:Key="ControlMargin" Top="10" />
-                    <Style x:Key="BaseTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
-                        <Setter Property="FontSize" Value="20" />
-                        <Setter Property="IsReadOnly" Value="True"/>
-                        <Setter Property="mah:TextBoxHelper.UseFloatingWatermark" Value="True"/>
-                    </Style>
-                    <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}"/>
-                    <Style x:Key="LessVisibleStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">
-                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray5}"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray5}"/>
-                        <Setter Property="Focusable" Value="False"/>
-                    </Style>
+                <Style x:Key="BaseTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
+                    <Setter Property="FontSize" Value="20" />
+                    <Setter Property="IsReadOnly" Value="True" />
+                    <Setter Property="mah:TextBoxHelper.UseFloatingWatermark" Value="True" />
+                </Style>
+                <Style TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}" />
+                <Style x:Key="LessVisibleStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray5}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray5}" />
+                    <Setter Property="Focusable" Value="False" />
+                </Style>
             </StackPanel.Resources>
             <ComboBox ItemsSource="{Binding AvailableMortars}"
                       SelectedItem="{Binding SelectedMortar}"
@@ -41,30 +40,15 @@
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Mortar Position"
                      Text="{Binding MortarPositionCoordsString, Mode=OneWay}"
-                     Style="{StaticResource LessVisibleStyle}">
-                <!-- <TextBox.Text> -->
-                <!--     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"> -->
-                <!--         <Binding Path="MortarPositionMeters.X" /> -->
-                <!--         <Binding Path="MortarPositionMeters.Y" /> -->
-                <!--     </MultiBinding> -->
-                <!-- </TextBox.Text> -->
-            </TextBox>
+                     Style="{StaticResource LessVisibleStyle}" />
             <TextBox Margin="{StaticResource ControlMargin}"
-                     mah:TextBoxHelper.Watermark="Target Position X | Y"
+                     mah:TextBoxHelper.Watermark="Target Position"
                      Text="{Binding TargetPositionCoordsString, Mode=OneWay}"
-                     Style="{StaticResource LessVisibleStyle}">
-                <!-- <TextBox.Text> -->
-                <!--     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"> -->
-                <!--         <Binding Path="TargetPositionMeters.X" /> -->
-                <!--         <Binding Path="TargetPositionMeters.Y" /> -->
-                <!--     </MultiBinding> -->
-                <!-- </TextBox.Text> -->
-            </TextBox>
+                     Style="{StaticResource LessVisibleStyle}" />
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Distance To Target"
                      Style="{StaticResource LessVisibleStyle}"
-                     Text="{Binding Distance, StringFormat={}{0}m, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="True" />
+                     Text="{Binding Distance, StringFormat={}{0}m, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             <Separator Margin="{StaticResource ControlMargin}"
                        Background="{DynamicResource MahApps.Brushes.Accent}" />
             <TextBox Margin="{StaticResource ControlMargin}"
@@ -80,7 +64,7 @@
                     FontSize="20"
                     Command="{s:Action CopyToClipboardClicked}"
                     mah:ControlsHelper.ContentCharacterCasing="Normal"
-                    Content="Copy to Clipboard"/>
+                    Content="Copy to Clipboard" />
         </StackPanel>
     </Grid>
 </UserControl>

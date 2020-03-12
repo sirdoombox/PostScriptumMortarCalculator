@@ -59,7 +59,9 @@ namespace PostScriptumMortarCalculator.ViewModels
         
         public double MapPixelsPerMeter { get; set; }
         
-        public double Opacity { get; set; }
+        public double IndicatorOpacity { get; set; }
+        
+        public double GridOpacity { get; set; }
         
         public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapImagePath;
 
@@ -87,7 +89,8 @@ namespace PostScriptumMortarCalculator.ViewModels
             SelectedMap = string.IsNullOrWhiteSpace(m_configModel.LastMapName)
                 ? AvailableMaps.First()
                 : AvailableMaps.First(x => x.Name == m_configModel.LastMapName);
-            Opacity = m_configModel.Opacity;
+            IndicatorOpacity = m_configModel.IndicatorOpacity;
+            GridOpacity = m_configModel.GridOpacity;
         }
 
         public void OnSelectedMapChanged()
@@ -99,9 +102,15 @@ namespace PostScriptumMortarCalculator.ViewModels
             m_configService.SerialiseUserConfig();
         }
 
-        public void OnOpacityChanged()
+        public void OnIndicatorOpacityChanged()
         {
-            m_configModel.Opacity = Opacity;
+            m_configModel.IndicatorOpacity = IndicatorOpacity;
+            m_configService.SerialiseUserConfig();
+        }
+
+        public void OnGridOpacityChanged()
+        {
+            m_configModel.GridOpacity = GridOpacity;
             m_configService.SerialiseUserConfig();
         }
 
