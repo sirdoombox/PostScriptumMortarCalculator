@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Create a bug report to help improve the tool.
+about: Create a feature request to see it potentially implemented in future versions.
 title: ''
 labels: enhancement
 assignees: ''
