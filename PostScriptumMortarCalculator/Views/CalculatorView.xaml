@@ -39,24 +39,26 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBox Margin="{StaticResource ControlMargin}"
-                     mah:TextBoxHelper.Watermark="Mortar Position X | Y"
+                     mah:TextBoxHelper.Watermark="Mortar Position"
+                     Text="{Binding MortarPositionCoordsString, Mode=OneWay}"
                      Style="{StaticResource LessVisibleStyle}">
-                <TextBox.Text>
-                    <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged">
-                        <Binding Path="MortarPositionMeters.X" />
-                        <Binding Path="MortarPositionMeters.Y" />
-                    </MultiBinding>
-                </TextBox.Text>
+                <!-- <TextBox.Text> -->
+                <!--     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"> -->
+                <!--         <Binding Path="MortarPositionMeters.X" /> -->
+                <!--         <Binding Path="MortarPositionMeters.Y" /> -->
+                <!--     </MultiBinding> -->
+                <!-- </TextBox.Text> -->
             </TextBox>
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Target Position X | Y"
+                     Text="{Binding TargetPositionCoordsString, Mode=OneWay}"
                      Style="{StaticResource LessVisibleStyle}">
-                <TextBox.Text>
-                    <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged">
-                        <Binding Path="TargetPositionMeters.X" />
-                        <Binding Path="TargetPositionMeters.Y" />
-                    </MultiBinding>
-                </TextBox.Text>
+                <!-- <TextBox.Text> -->
+                <!--     <MultiBinding StringFormat="{}{0}m | {1}m" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"> -->
+                <!--         <Binding Path="TargetPositionMeters.X" /> -->
+                <!--         <Binding Path="TargetPositionMeters.Y" /> -->
+                <!--     </MultiBinding> -->
+                <!-- </TextBox.Text> -->
             </TextBox>
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Distance To Target"

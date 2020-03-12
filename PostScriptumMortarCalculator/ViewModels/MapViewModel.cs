@@ -56,8 +56,11 @@ namespace PostScriptumMortarCalculator.ViewModels
         public MapDataModel SelectedMap { get; set; }
 
         public MortarDataModel SelectedMortar { get; private set; }
-
+        
+        public double MapPixelsPerMeter { get; set; }
+        
         public double Opacity { get; set; }
+        
         public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapImagePath;
 
         private const string c_RESOURCE_PATH = "/PostScriptumMortarCalculator;component/Assets";
@@ -66,7 +69,6 @@ namespace PostScriptumMortarCalculator.ViewModels
         private Canvas m_canvas;
         private bool m_isMouseCaptured;
         private MouseButton m_capturedButton;
-        private double m_mapPixelsPerMeter;
         private readonly IEventAggregator m_eventAggregator;
         private readonly ConfigService m_configService;
         private readonly UserConfigModel m_configModel;
@@ -92,7 +94,7 @@ namespace PostScriptumMortarCalculator.ViewModels
         {
             if (m_zoomBorder is null) return;
             Reset(true);
-            m_mapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(SelectedMap.Bounds);
+            MapPixelsPerMeter = m_zoomBorder.Child.RenderSize.Height.PixelBoundsToPixelsPerMeter(SelectedMap.Bounds);
             m_configModel.LastMapName = SelectedMap.Name;
             m_configService.SerialiseUserConfig();
         }
@@ -109,14 +111,14 @@ namespace PostScriptumMortarCalculator.ViewModels
         private void PublishUpdate()
         {
             m_eventAggregator.Publish(new PositionChangedEvent(
-                MortarPositionPixels.ToMetersScale(m_mapPixelsPerMeter),
-                TargetPositionPixels.ToMetersScale(m_mapPixelsPerMeter), Angle));
+                MortarPositionPixels.ToMetersScale(MapPixelsPerMeter),
+                TargetPositionPixels.ToMetersScale(MapPixelsPerMeter), Angle, SelectedMap.Bounds));
         }
 
         public void OnSelectedMortarChanged()
         {
-            MortarMinDistancePixels = SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
-            MortarMaxDistancePixels = SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter) * 2d;
+            MortarMinDistancePixels = SelectedMortar.MinRange.Distance.ToPixelScale(MapPixelsPerMeter) * 2d;
+            MortarMaxDistancePixels = SelectedMortar.MaxRange.Distance.ToPixelScale(MapPixelsPerMeter) * 2d;
             NotifyOfPropertyChange(() => HalfMortarMaxDistancePixels);
             NotifyOfPropertyChange(() => HalfMortarMinDistancePixels);
             RecalculateTargetSplash();
@@ -220,15 +222,15 @@ namespace PostScriptumMortarCalculator.ViewModels
         {
             var tempTarget = new RoundedVector2(posX, posY);
             var tempDist = RoundedVector2.Distance(MortarPositionPixels, tempTarget);
-            return tempDist >= SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter)
-                   && tempDist <= SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter);
+            return tempDist >= SelectedMortar.MinRange.Distance.ToPixelScale(MapPixelsPerMeter)
+                   && tempDist <= SelectedMortar.MaxRange.Distance.ToPixelScale(MapPixelsPerMeter);
         }
 
         private bool IsTargetStillInRange()
         {
             var dist = RoundedVector2.Distance(MortarPositionPixels, TargetPositionPixels);
-            return dist >= SelectedMortar.MinRange.Distance.ToPixelScale(m_mapPixelsPerMeter)
-                   && dist <= SelectedMortar.MaxRange.Distance.ToPixelScale(m_mapPixelsPerMeter);
+            return dist >= SelectedMortar.MinRange.Distance.ToPixelScale(MapPixelsPerMeter)
+                   && dist <= SelectedMortar.MaxRange.Distance.ToPixelScale(MapPixelsPerMeter);
             ;
         }
 
@@ -237,7 +239,7 @@ namespace PostScriptumMortarCalculator.ViewModels
             MortarPositionPixels = default;
             TargetPositionPixels = default;
             if (!resetMapPixels) return;
-            m_mapPixelsPerMeter = default;
+            MapPixelsPerMeter = default;
         }
 
         private void RecalculateTargetSplash()
@@ -245,8 +247,8 @@ namespace PostScriptumMortarCalculator.ViewModels
             TargetInnateSplashPixels = RoundedVector2.LerpBetween(SelectedMortar.DispersionRadiusAtMinRange,
                     SelectedMortar.DispersionRadiusAtMaxRange,
                     SelectedMortar.PercentageBetweenMinAndMaxDistance(
-                        DistancePixels.ToScaledMeters(m_mapPixelsPerMeter)))
-                .ToPixelScale(m_mapPixelsPerMeter) * 2;
+                        DistancePixels.ToScaledMeters(MapPixelsPerMeter)))
+                .ToPixelScale(MapPixelsPerMeter) * 2;
         }
     }
 }

@@ -54,6 +54,9 @@ namespace PostScriptumMortarCalculator.Utils
         
         public static RoundedVector2 operator *(RoundedVector2 v, double by) =>
             new RoundedVector2(v.X * by, v.Y * by);
+        
+        public static RoundedVector2 operator %(RoundedVector2 v, double by) =>
+            new RoundedVector2(v.X % by, v.Y % by);
 
         public static bool operator ==(RoundedVector2 v1, RoundedVector2 v2) =>
             v1.Equals(v2);

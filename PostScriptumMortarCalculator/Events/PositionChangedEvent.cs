@@ -8,13 +8,17 @@ namespace PostScriptumMortarCalculator.Events
         public RoundedVector2 TargetPositionMeters { get; }
         public double Angle { get; }
 
-        public PositionChangedEvent(RoundedVector2 mortarPositionMeters, 
+        public double MapBounds { get; }
+
+        public PositionChangedEvent(RoundedVector2 mortarPositionMeters,
             RoundedVector2 targetPositionMeters,
-            double angle)
+            double angle,
+            double mapBounds)
         {
             MortarPositionMeters = mortarPositionMeters;
             TargetPositionMeters = targetPositionMeters;
             Angle = angle;
+            MapBounds = mapBounds;
         }
     }
 }

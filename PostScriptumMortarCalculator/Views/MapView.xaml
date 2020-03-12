@@ -6,6 +6,7 @@
              xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:panAndZoom="clr-namespace:Wpf.Controls.PanAndZoom;assembly=Wpf.Controls.PanAndZoom"
+             xmlns:controls="clr-namespace:PostScriptumMortarCalculator.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:MapViewModel}">
     <Grid>
@@ -63,6 +64,12 @@
                     Height="{Binding ElementName=Image, Path=ActualHeight}"
                     SizeChanged="{s:Action CanvasSizeChanged}"
                     Loaded="{s:Action CanvasLoaded}">
+                <controls:GridOverlayControl Width="{Binding ElementName=Image, Path=ActualWidth}"
+                                             Height="{Binding ElementName=Image, Path=ActualHeight}"
+                                             MapPixelsPerMeter="{Binding MapPixelsPerMeter}"
+                                             MajorLineThickness="5"
+                                             MinorLineThickness="3"
+                                             MicroLineThickness="1"/>
                 <Image x:Name="Image"
                        Canvas.ZIndex="-10"
                        Source="{Binding MapImageSource, IsAsync=True}"

@@ -13,8 +13,14 @@ namespace PostScriptumMortarCalculator.ViewModels
     public class CalculatorViewModel : Screen, IHandle<PositionChangedEvent>
     {
         public RoundedVector2 MortarPositionMeters { get; private set; }
+
+        public string MortarPositionCoordsString => 
+            MortarPositionMeters.ConvertMetersPositionToMapCoordsString();
         
         public RoundedVector2 TargetPositionMeters { get; private set; }
+
+        public string TargetPositionCoordsString =>
+            TargetPositionMeters.ConvertMetersPositionToMapCoordsString();
         
         public BindableCollection<MortarDataModel> AvailableMortars { get; set; } = 
             new BindableCollection<MortarDataModel>();
@@ -44,6 +50,8 @@ namespace PostScriptumMortarCalculator.ViewModels
         
         private readonly ConfigService m_configService;
         private readonly IEventAggregator m_eventAggregator;
+
+        private double m_mapBounds;
         
         public CalculatorViewModel(MortarDataModel defaultMortar,
             IReadOnlyList<MortarDataModel> mortars,
@@ -70,6 +78,7 @@ namespace PostScriptumMortarCalculator.ViewModels
             MortarPositionMeters = message.MortarPositionMeters;
             TargetPositionMeters = message.TargetPositionMeters;
             Angle = message.Angle;
+            m_mapBounds = message.MapBounds;
         }
 
         public void CopyToClipboardClicked()
