@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             Name="Config"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:UserConfigViewModel}">
     <StackPanel>
@@ -28,5 +28,11 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <xctk:ColorPicker ShowTabHeaders="False"
+                          UsingAlphaChannel="False"
+                          ShowDropDownButton="False"
+                          DropDownBackground="{DynamicResource MahApps.Brushes.Control.Background}"
+                          BorderThickness="0"
+                          ColorMode="ColorCanvas"/>
     </StackPanel>
 </UserControl>
