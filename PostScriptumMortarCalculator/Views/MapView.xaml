@@ -107,7 +107,7 @@
                        MouseUp="{s:Action MouseUp}"
                        MouseMove="{s:Action MouseMove}" />
                 <!-- Mortar position indicator. -->
-                <Ellipse Fill="Blue"
+                <Ellipse Fill="{Binding MortarBrush}"
                          Canvas.ZIndex="100"
                          Canvas.Left="{Binding MortarPositionPixels.X}"
                          Canvas.Top="{Binding MortarPositionPixels.Y}"
@@ -119,7 +119,7 @@
                         <TranslateTransform X="-2.5" Y="-2.5" />
                     </Ellipse.RenderTransform>
                 </Ellipse>
-                <Path Fill="Blue"
+                <Path Fill="{Binding MortarBrush}"
                       Opacity="{Binding IndicatorOpacity}"
                       Visibility="{Binding IsMortarPositionSet, Converter={StaticResource BooleanToVisibility}}"
                       IsHitTestVisible="False">
@@ -145,7 +145,7 @@
                          Height="{Binding TargetInnateSplashPixels.Y}"
                          Visibility="{Binding IsTargetPositionSet, Converter={StaticResource BooleanToVisibility}}"
                          Style="{StaticResource AreaStyleEllipse}"
-                         Fill="Red">
+                         Fill="{Binding TargetBrush}">
                     <Ellipse.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform X="{Binding HalfTargetInnateSplashPixels.X}"
@@ -163,7 +163,7 @@
                       Opacity="{Binding IndicatorOpacity}"
                       Visibility="{Binding IsMortarAndTargetSet, Converter={StaticResource BooleanToVisibility}}"
                       StrokeThickness="5"
-                      Stroke="Red" />
+                      Stroke="{Binding TargetBrush}" />
             </Canvas>
         </panAndZoom:ZoomBorder>
     </Grid>

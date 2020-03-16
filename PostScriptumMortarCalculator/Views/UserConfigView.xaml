@@ -8,31 +8,75 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:UserConfigViewModel}">
-    <StackPanel>
-        <StackPanel.Resources>
-            <Thickness x:Key="ControlMargin">0 10 0 0</Thickness>
-        </StackPanel.Resources>
-        <ComboBox ItemsSource="{Binding Themes}"
-                  SelectedItem="{Binding SelectedTheme}"
-                  mah:TextBoxHelper.UseFloatingWatermark="True"
-                  mah:TextBoxHelper.Watermark="Theme" />
-        <ComboBox Margin="{StaticResource ControlMargin}"
-                  ItemsSource="{Binding Accents}"
-                  SelectedItem="{Binding SelectedAccent}"
-                  mah:TextBoxHelper.UseFloatingWatermark="True"
-                  mah:TextBoxHelper.Watermark="Accent">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" 
-                               Foreground="{Binding Converter={StaticResource StringToAccentBrush}}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <xctk:ColorPicker ShowTabHeaders="False"
-                          UsingAlphaChannel="False"
-                          ShowDropDownButton="False"
-                          DropDownBackground="{DynamicResource MahApps.Brushes.Control.Background}"
-                          BorderThickness="0"
-                          ColorMode="ColorCanvas"/>
-    </StackPanel>
+    <ScrollViewer HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled"
+                  CanContentScroll="True">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Thickness x:Key="ControlMargin">0 10 0 0</Thickness>
+                <Style TargetType="xctk:ColorPicker">
+                    <Setter Property="ShowTabHeaders" Value="False" />
+                    <Setter Property="UsingAlphaChannel" Value="False" />
+                    <Setter Property="ShowDropDownButton" Value="False" />
+                    <Setter Property="DropDownBackground" Value="{DynamicResource MahApps.Brushes.Control.Background}" />
+                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.Background}" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="ColorMode" Value="ColorCanvas" />
+                </Style>
+                <Style TargetType="ComboBox" BasedOn="{StaticResource MahApps.Styles.ComboBox}">
+                    <Setter Property="mah:TextBoxHelper.UseFloatingWatermark" Value="True" />
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter Property="FontWeight" Value="Black" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="FontSize" Value="18" />
+                </Style>
+                <Style TargetType="DockPanel">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="{StaticResource ControlMargin}" />
+                    <Style.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="MinWidth" Value="200"/>
+                            <Setter Property="DockPanel.Dock" Value="Left" />
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Top" />
+                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </StackPanel.Resources>
+            <Border Margin="5" BorderBrush="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1">
+                <StackPanel Margin="5">
+                    <Label Content="Colours &amp; Themes" />
+                    <ComboBox ItemsSource="{Binding Themes}"
+                              SelectedItem="{Binding SelectedTheme}"
+                              mah:TextBoxHelper.Watermark="Theme" />
+                    <ComboBox Margin="{StaticResource ControlMargin}"
+                              ItemsSource="{Binding Accents}"
+                              SelectedItem="{Binding SelectedAccent}"
+                              mah:TextBoxHelper.Watermark="Accent">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"
+                                           Foreground="{Binding Converter={StaticResource StringToAccentBrush}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <DockPanel>
+                        <Label Content="Mortar Indicator Colour"/>
+                        <xctk:ColorPicker SelectedColor="{Binding MortarIndicatorColour}" />
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="Target Indicator Colour"/>
+                        <xctk:ColorPicker SelectedColor="{Binding TargetIndicatorColour}" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

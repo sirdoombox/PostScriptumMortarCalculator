@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using PostScriptumMortarCalculator.Events;
 using PostScriptumMortarCalculator.Extensions;
 using PostScriptumMortarCalculator.Models;
@@ -13,7 +14,7 @@ using Wpf.Controls.PanAndZoom;
 
 namespace PostScriptumMortarCalculator.ViewModels
 {
-    public class MapViewModel : Screen, IHandle<MortarChangedEvent>
+    public class MapViewModel : Screen, IHandle<MortarChangedEvent>, IHandle<ColorChangedEvent>
     {
         public RoundedVector2 TargetPositionPixels { get; set; }
 
@@ -62,6 +63,10 @@ namespace PostScriptumMortarCalculator.ViewModels
         public double IndicatorOpacity { get; set; }
         
         public double GridOpacity { get; set; }
+        
+        public SolidColorBrush MortarBrush { get; set; }
+        
+        public SolidColorBrush TargetBrush { get; set; }
         
         public string MapImageSource => c_RESOURCE_PATH + SelectedMap.MapImagePath;
 
@@ -258,6 +263,14 @@ namespace PostScriptumMortarCalculator.ViewModels
                     SelectedMortar.PercentageBetweenMinAndMaxDistance(
                         DistancePixels.ToScaledMeters(MapPixelsPerMeter)))
                 .ToPixelScale(MapPixelsPerMeter) * 2;
+        }
+
+        public void Handle(ColorChangedEvent message)
+        {
+            if(message.TypeChanged == ColorChangedEvent.Type.Mortar)
+                MortarBrush = new SolidColorBrush(message.NewColor);
+            else 
+                TargetBrush = new SolidColorBrush(message.NewColor);
         }
     }
 }

@@ -138,6 +138,7 @@
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\RoundedVector2ToPointConverter.cs" />
     <Compile Include="Converters\StringToAccentBrushConverter.cs" />
+    <Compile Include="Events\ColorChangedEvent.cs" />
     <Compile Include="Events\MortarChangedEvent.cs" />
     <Compile Include="Events\PositionChangedEvent.cs" />
     <Compile Include="Extensions\NumericExtensions.cs" />
