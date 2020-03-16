@@ -25,7 +25,7 @@ namespace PostScriptumMortarCalculator.Services
         public ConfigService LoadOrDefault()
         {
             if (!Directory.Exists(m_configDir) || !File.Exists(m_configFilePath))
-                ActiveConfig = UserConfigModel.Default;
+                ActiveConfig = new UserConfigModel();
             else
                 ActiveConfig = JsonConvert.DeserializeObject<UserConfigModel>(File.ReadAllText(m_configFilePath));
             return this;
