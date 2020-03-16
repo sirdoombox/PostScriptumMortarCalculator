@@ -39,8 +39,8 @@ namespace PostScriptumMortarCalculator.ViewModels
                 .Select(x => x.BaseColorScheme));
             SelectedTheme = m_configModel.Theme;
             SelectedAccent = m_configModel.Accent;
-            MortarIndicatorColour = m_configModel.MortarIndicatorColor;
-            TargetIndicatorColour = m_configModel.TargetIndicatorColor;
+            MortarIndicatorColour = m_configModel.MortarIndicatorColour;
+            TargetIndicatorColour = m_configModel.TargetIndicatorColour;
         }
 
         protected override void OnPropertyChanged(string propertyName)
@@ -61,15 +61,15 @@ namespace PostScriptumMortarCalculator.ViewModels
             ThemeManager.ChangeThemeBaseColor(Application.Current, SelectedTheme);
         }
 
-        public void OnMortarIndicatorColorChanged()
+        public void OnMortarIndicatorColourChanged()
         {
-            m_configModel.MortarIndicatorColor = MortarIndicatorColour;
+            m_configModel.MortarIndicatorColour = MortarIndicatorColour;
             m_eventAggregator.Publish(new ColorChangedEvent(ColorChangedEvent.Type.Mortar, MortarIndicatorColour));
         }
         
-        public void OnTargetIndicatorColorChanged()
+        public void OnTargetIndicatorColourChanged()
         {
-            m_configModel.TargetIndicatorColor = TargetIndicatorColour;
+            m_configModel.TargetIndicatorColour = TargetIndicatorColour;
             m_eventAggregator.Publish(new ColorChangedEvent(ColorChangedEvent.Type.Target, TargetIndicatorColour));
         }
     }

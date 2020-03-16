@@ -40,7 +40,7 @@
                     <Setter Property="Margin" Value="{StaticResource ControlMargin}" />
                     <Style.Resources>
                         <Style TargetType="Label">
-                            <Setter Property="MinWidth" Value="200"/>
+                            <Setter Property="MinWidth" Value="175"/>
                             <Setter Property="DockPanel.Dock" Value="Left" />
                             <Setter Property="HorizontalAlignment" Value="Left" />
                             <Setter Property="VerticalAlignment" Value="Top" />

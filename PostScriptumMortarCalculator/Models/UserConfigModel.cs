@@ -11,8 +11,8 @@ namespace PostScriptumMortarCalculator.Models
         [JsonProperty] public double GridOpacity { get; set; } = 0.25d;
         [JsonProperty] public string LastMapName { get; set; }
         [JsonProperty] public string LastMortarName { get; set; }
-        [JsonProperty] public Color MortarIndicatorColor { get; set; } = Colors.Blue;
-        [JsonProperty] public Color TargetIndicatorColor { get; set; } = Colors.Red;
+        [JsonProperty] public Color MortarIndicatorColour { get; set; } = Colors.Blue;
+        [JsonProperty] public Color TargetIndicatorColour { get; set; } = Colors.Red;
 
     }
 }
