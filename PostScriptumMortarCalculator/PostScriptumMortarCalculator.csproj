@@ -188,19 +188,13 @@
     <Resource Include="Assets\Maps\Oosterbeek.jpg" />
     <Resource Include="Assets\Maps\Stonne.jpg" />
     <Resource Include="Assets\Maps\Veghel.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Maps\Velmolen.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Data\MortarData.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="psmc_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Data\CreditsData.json" />
     <Resource Include="Assets\Data\HelpData.json" />
+    <Resource Include="Assets\Maps\St_Mere_Eglise.jpg" />
+    <Resource Include="Assets\Maps\Utah.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
