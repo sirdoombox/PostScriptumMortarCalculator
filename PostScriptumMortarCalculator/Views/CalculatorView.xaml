@@ -7,6 +7,7 @@
              xmlns:viewModels="clr-namespace:PostScriptumMortarCalculator.ViewModels"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:userControls="clr-namespace:PostScriptumMortarCalculator.UserControls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:CalculatorViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -41,6 +42,7 @@
                      mah:TextBoxHelper.Watermark="Mortar Position"
                      Text="{Binding MortarPositionCoordsString, Mode=OneWay}"
                      Style="{StaticResource LessVisibleStyle}" />
+            <userControls:EditableCoordinate/>
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Target Position"
                      Text="{Binding TargetPositionCoordsString, Mode=OneWay}"
