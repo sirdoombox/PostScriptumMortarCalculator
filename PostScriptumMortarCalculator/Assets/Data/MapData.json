@@ -50,6 +50,16 @@
     "bounds": 3300
   },
   {
+    "name": "St Mere Eglise",
+    "path": "/maps/St_Mere_Eglise.jpg",
+    "bounds": 3300
+  },
+  {
+    "name": "Utah",
+    "path": "/maps/Utah.jpg",
+    "bounds": 3000
+  },
+  {
     "name": "Veghel",
     "path": "/maps/Veghel.jpg",
     "bounds": 3060
