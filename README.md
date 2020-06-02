@@ -15,10 +15,9 @@ A desktop app for mortar calculations in Post Scriptum, using additionally gathe
 	- Grid overlay
 	- Opacity controls for all of the above
 - Selectable themes/colours
+- Custom colours for the map indicators
 ### Planned features
 - Rebindable mouse buttons/keys
-- Custom accent colours
-- Custom colours for the map indicators
 - Personal map landmarks for saving good mortar positions for future sessions
 ### Help - How Do I...
 `Menu` -> `Help` should provide you with all you need to know to use the app as well as some useful general hints.
