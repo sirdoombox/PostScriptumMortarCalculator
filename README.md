@@ -9,7 +9,7 @@ A desktop app for mortar calculations in Post Scriptum, using additionally gathe
 ## Information for Users
 ### Features
 - Pan/Zoom high res map images with:
-	- Mortar range indictator
+	- Mortar range indicator
 	- Line to target
 	- Area displaying the innate spread of the mortar fire (which changes over distance)
 	- Grid overlay
