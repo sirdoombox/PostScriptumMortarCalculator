@@ -15,6 +15,11 @@
     "bounds": 2000
   },
   {
+    "name": "Carentan",
+    "path": "/maps/Carentan.jpg",
+    "bounds": 2295
+  },
+  {
     "name": "Dinant",
     "path": "/maps/Dinant.jpg",
     "bounds": 2295
@@ -52,7 +57,7 @@
   {
     "name": "St Mere Eglise",
     "path": "/maps/St_Mere_Eglise.jpg",
-    "bounds": 3300
+    "bounds": 3299.5
   },
   {
     "name": "Utah",
