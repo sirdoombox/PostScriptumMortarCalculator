@@ -96,6 +96,7 @@ namespace PostScriptumMortarCalculator.Controls
                 X2 = x2,
                 Y1 = y1,
                 Y2 = y2,
+                IsHitTestVisible = false
             };
             SetZIndex(line, zIndex);
             Children.Add(line);
