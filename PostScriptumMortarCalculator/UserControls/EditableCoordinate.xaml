@@ -8,8 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel x:Name="LayoutRoot"
                 d:DataContext="{d:DesignInstance userControls:EditableCoordinate}">
-        <Label Content="{Binding LabelText}" />
-        <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{Binding LabelText}"
+                   HorizontalAlignment="Left" />
+        <StackPanel Orientation="Horizontal"
+                    Margin="0 5 0 0">
             <StackPanel.Resources>
                 <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
                     <Setter Property="MinWidth" Value="25" />

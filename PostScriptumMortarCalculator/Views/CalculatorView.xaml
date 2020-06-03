@@ -41,16 +41,15 @@
             <userControls:EditableCoordinate Margin="{StaticResource ControlMargin}"
                                              LabelText="Mortar Position"
                                              Coordinates="{Binding MortarPositionCoords, Mode=TwoWay}" />
-            <!-- <TextBox Margin="{StaticResource ControlMargin}" -->
-            <!--          mah:TextBoxHelper.Watermark="Target Position" -->
-            <!--          Text="{Binding TargetPositionCoordsString, Mode=OneWay}" -->
-            <!--          Style="{StaticResource LessVisibleStyle}" /> -->
+            <userControls:EditableCoordinate Margin="{StaticResource ControlMargin}"
+                                             LabelText="Target Position"
+                                             Coordinates="{Binding TargetPositionCoords, Mode=TwoWay}"/>
+            <Separator Margin="{StaticResource ControlMargin}"
+                       Background="{DynamicResource MahApps.Brushes.Accent}" />
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Distance To Target"
                      Style="{StaticResource LessVisibleStyle}"
                      Text="{Binding Distance, StringFormat={}{0}m, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Separator Margin="{StaticResource ControlMargin}"
-                       Background="{DynamicResource MahApps.Brushes.Accent}" />
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Angle To Target"
                      Text="{Binding Angle, StringFormat={}{0}°, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
