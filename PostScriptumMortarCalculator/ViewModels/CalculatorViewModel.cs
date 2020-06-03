@@ -14,13 +14,10 @@ namespace PostScriptumMortarCalculator.ViewModels
     {
         public RoundedVector2 MortarPositionMeters { get; private set; }
 
-        public string MortarPositionCoordsString => 
-            MortarPositionMeters.ConvertMetersPositionToMapCoordsString();
-        
+        public MapCoordinate MortarPositionCoords { get; set; }
         public RoundedVector2 TargetPositionMeters { get; private set; }
 
-        public string TargetPositionCoordsString =>
-            TargetPositionMeters.ConvertMetersPositionToMapCoordsString();
+        public MapCoordinate TargetPositionCoords { get; set; }
         
         public BindableCollection<MortarDataModel> AvailableMortars { get; set; } = 
             new BindableCollection<MortarDataModel>();
@@ -77,6 +74,8 @@ namespace PostScriptumMortarCalculator.ViewModels
         {
             MortarPositionMeters = message.MortarPositionMeters;
             TargetPositionMeters = message.TargetPositionMeters;
+            MortarPositionCoords = MortarPositionMeters.MetersPositionToMapCoordinate();
+            TargetPositionCoords = TargetPositionMeters.MetersPositionToMapCoordinate();
             Angle = message.Angle;
             m_mapBounds = message.MapBounds;
         }

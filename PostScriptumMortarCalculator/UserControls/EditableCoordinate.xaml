@@ -6,39 +6,41 @@
              xmlns:userControls="clr-namespace:PostScriptumMortarCalculator.UserControls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel x:Name="LayoutRoot" 
-                d:DataContext="{d:DesignInstance userControls:EditableCoordinate}"
-                Orientation="Horizontal">
-        <StackPanel.Resources>
-            <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
-                <Setter Property="MinWidth" Value="25"/>
-                <Setter Property="FontSize" Value="20"/>
-                <EventSetter Event="GotKeyboardFocus" Handler="SelectAllText"/>
-                <EventSetter Event="MouseDoubleClick" Handler="SelectAllText"/>
-                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="SelectivelyIgnoreMouseButton"/>
-                <EventSetter Event="TextChanged" Handler="OnTextChanged"/>
-            </Style>
-            <Style TargetType="TextBlock">
-                <Setter Property="Text" Value="-"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="10 0 10 0"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
-            </Style>
-        </StackPanel.Resources>
-        <TextBox Text="{Binding GridReferenceLetter}"
-                 MaxLength="1"
-                 PreviewTextInput="GridReferenceLetterValidateInput"/>
-        <TextBox Text="{Binding GridReferenceNumber}" 
-                 MaxLength="2"
-                 PreviewTextInput="GridReferenceNumberValidateInput"/>
-        <TextBlock/>
-        <TextBox Text="{Binding KeypadMajor}" 
-                 MaxLength="1"
-                 PreviewTextInput="KeypadValidateInput"/>
-        <TextBlock/>
-        <TextBox Text="{Binding KeypadMinor}" 
-                 MaxLength="1"
-                 PreviewTextInput="KeypadValidateInput"/>
+    <StackPanel x:Name="LayoutRoot"
+                d:DataContext="{d:DesignInstance userControls:EditableCoordinate}">
+        <Label Content="{Binding LabelText}" />
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
+                    <Setter Property="MinWidth" Value="25" />
+                    <Setter Property="FontSize" Value="20" />
+                    <EventSetter Event="GotKeyboardFocus" Handler="SelectAllText" />
+                    <EventSetter Event="MouseDoubleClick" Handler="SelectAllText" />
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="SelectivelyIgnoreMouseButton" />
+                    <EventSetter Event="TextChanged" Handler="OnTextChanged" />
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="-" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="10 0 10 0" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBox Text="{Binding GridReferenceLetter}"
+                     MaxLength="1"
+                     PreviewTextInput="GridReferenceLetterValidateInput" />
+            <TextBox Text="{Binding GridReferenceNumber}"
+                     MaxLength="2"
+                     PreviewTextInput="GridReferenceNumberValidateInput" />
+            <TextBlock />
+            <TextBox Text="{Binding KeypadMajor}"
+                     MaxLength="1"
+                     PreviewTextInput="KeypadValidateInput" />
+            <TextBlock />
+            <TextBox Text="{Binding KeypadMinor}"
+                     MaxLength="1"
+                     PreviewTextInput="KeypadValidateInput" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

@@ -38,15 +38,13 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox Margin="{StaticResource ControlMargin}"
-                     mah:TextBoxHelper.Watermark="Mortar Position"
-                     Text="{Binding MortarPositionCoordsString, Mode=OneWay}"
-                     Style="{StaticResource LessVisibleStyle}" />
-            <userControls:EditableCoordinate/>
-            <TextBox Margin="{StaticResource ControlMargin}"
-                     mah:TextBoxHelper.Watermark="Target Position"
-                     Text="{Binding TargetPositionCoordsString, Mode=OneWay}"
-                     Style="{StaticResource LessVisibleStyle}" />
+            <userControls:EditableCoordinate Margin="{StaticResource ControlMargin}"
+                                             LabelText="Mortar Position"
+                                             Coordinates="{Binding MortarPositionCoords, Mode=TwoWay}" />
+            <!-- <TextBox Margin="{StaticResource ControlMargin}" -->
+            <!--          mah:TextBoxHelper.Watermark="Target Position" -->
+            <!--          Text="{Binding TargetPositionCoordsString, Mode=OneWay}" -->
+            <!--          Style="{StaticResource LessVisibleStyle}" /> -->
             <TextBox Margin="{StaticResource ControlMargin}"
                      mah:TextBoxHelper.Watermark="Distance To Target"
                      Style="{StaticResource LessVisibleStyle}"

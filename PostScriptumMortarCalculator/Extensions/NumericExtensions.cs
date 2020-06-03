@@ -49,22 +49,39 @@ namespace PostScriptumMortarCalculator.Extensions
             return min + (max - min) * perc;
         }
         
-        public static string ConvertMetersPositionToMapCoordsString(this RoundedVector2 metersPosition)
+        // public static string ConvertMetersPositionToMapCoordsString(this RoundedVector2 metersPosition)
+        // {
+        //     const int startLetter = 65;
+        //     const int startNumber = 1;
+        //     var rsltString = string.Empty;
+        //     rsltString += (char) (startLetter + Math.Floor(metersPosition.X / 300));
+        //     rsltString += startNumber + Math.Floor(metersPosition.Y / 300) + "-";
+        //     var localised = metersPosition % 300;
+        //     var yPart = 7 - (Math.Floor(localised.Y / 100) * 3);
+        //     var zPart = Math.Floor(localised.X / 100);
+        //     rsltString += yPart + zPart + "-";
+        //     var furtherLocalised = localised % 100;
+        //     yPart = 7 - (Math.Floor(furtherLocalised.Y / 33) * 3);
+        //     zPart = Math.Floor(furtherLocalised.X / 33);
+        //     rsltString += yPart + zPart;
+        //     return rsltString;
+        // }
+
+        public static MapCoordinate MetersPositionToMapCoordinate(this RoundedVector2 metersPosition)
         {
             const int startLetter = 65;
             const int startNumber = 1;
-            var rsltString = string.Empty;
-            rsltString += (char) (startLetter + Math.Floor(metersPosition.X / 300));
-            rsltString += startNumber + Math.Floor(metersPosition.Y / 300) + "-";
+            var gridLetter = (char) (startLetter + Math.Floor(metersPosition.X / 300));
+            var gridNumber = (int)(startNumber + Math.Floor(metersPosition.Y / 300));
             var localised = metersPosition % 300;
             var yPart = 7 - (Math.Floor(localised.Y / 100) * 3);
             var zPart = Math.Floor(localised.X / 100);
-            rsltString += yPart + zPart + "-";
+            var keypadMajor = (int)(yPart + zPart);
             var furtherLocalised = localised % 100;
             yPart = 7 - (Math.Floor(furtherLocalised.Y / 33) * 3);
             zPart = Math.Floor(furtherLocalised.X / 33);
-            rsltString += yPart + zPart;
-            return rsltString;
+            var keypadMinor = (int)(yPart + zPart);
+            return new MapCoordinate(gridLetter.ToString(),gridNumber,keypadMajor,keypadMinor);
         }
     }
 }

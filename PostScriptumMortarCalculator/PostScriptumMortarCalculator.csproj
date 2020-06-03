@@ -146,6 +146,7 @@
     <Compile Include="Models\HelpDataModel.cs" />
     <Compile Include="Models\MapDataModel.cs" />
     <Compile Include="Models\MortarDataModel.cs" />
+    <Compile Include="Models\MapCoordinate.cs" />
     <Compile Include="Models\UserConfigModel.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\DataResourceService.cs" />
