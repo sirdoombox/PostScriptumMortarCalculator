@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +29,6 @@ namespace PostScriptumMortarCalculator.UserControls
                 new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsMeasure,
                     OnGridReferenceNumberChanged));
 
-
         public static readonly DependencyProperty KeypadMajorProperty = DependencyProperty.Register(nameof(KeypadMajor),
             typeof(int), typeof(EditableCoordinate),
             new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsMeasure,
@@ -43,9 +41,9 @@ namespace PostScriptumMortarCalculator.UserControls
 
         public static readonly DependencyProperty CoordinatesProperty =
             DependencyProperty.Register(nameof(Coordinates), typeof(MapCoordinate),
-                typeof(EditableCoordinate), new FrameworkPropertyMetadata(new MapCoordinate("A", 1, 1, 1), FrameworkPropertyMetadataOptions.AffectsMeasure, OnCoordinateChanged));
-
-       
+                typeof(EditableCoordinate),
+                new FrameworkPropertyMetadata(new MapCoordinate("A", 1, 1, 1),
+                    FrameworkPropertyMetadataOptions.AffectsMeasure, OnCoordinateChanged));
 
         public string LabelText
         {
@@ -83,7 +81,6 @@ namespace PostScriptumMortarCalculator.UserControls
             set => SetValue(CoordinatesProperty, value);
         }
 
-
         public EditableCoordinate()
         {
             InitializeComponent();
@@ -99,7 +96,7 @@ namespace PostScriptumMortarCalculator.UserControls
             {
                 var coord = (MapCoordinate) d.GetValue(CoordinatesProperty);
                 d.SetValue(CoordinatesProperty,
-                    new MapCoordinate((string)e.NewValue, coord.GridNumber, coord.KeypadMajor, coord.KeypadMinor));
+                    new MapCoordinate((string) e.NewValue, coord.GridNumber, coord.KeypadMajor, coord.KeypadMinor));
             }
         }
 
@@ -111,7 +108,7 @@ namespace PostScriptumMortarCalculator.UserControls
             {
                 var coord = (MapCoordinate) d.GetValue(CoordinatesProperty);
                 d.SetValue(CoordinatesProperty,
-                    new MapCoordinate(coord.GridLetter, (int)e.NewValue, coord.KeypadMajor, coord.KeypadMinor));
+                    new MapCoordinate(coord.GridLetter, (int) e.NewValue, coord.KeypadMajor, coord.KeypadMinor));
             }
         }
 
@@ -135,10 +132,10 @@ namespace PostScriptumMortarCalculator.UserControls
             {
                 var coord = (MapCoordinate) d.GetValue(CoordinatesProperty);
                 d.SetValue(CoordinatesProperty,
-                    new MapCoordinate(coord.GridLetter, coord.GridNumber, coord.KeypadMajor, (int)e.NewValue));
+                    new MapCoordinate(coord.GridLetter, coord.GridNumber, coord.KeypadMajor, (int) e.NewValue));
             }
         }
-        
+
         private static void OnCoordinateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var coord = (MapCoordinate) e.NewValue;

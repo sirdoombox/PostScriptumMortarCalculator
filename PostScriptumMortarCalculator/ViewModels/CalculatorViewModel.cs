@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using PostScriptumMortarCalculator.Events;
@@ -28,27 +27,12 @@ namespace PostScriptumMortarCalculator.ViewModels
         
         public double Distance =>
             RoundedVector2.Distance(MortarPositionMeters, TargetPositionMeters);
-        
-        public double Milliradians
-        {
-            get
-            {
-                for (var i = 0; i < SelectedMortar.RangeValues.Count-1; i++)
-                {
-                    var curr = SelectedMortar.RangeValues[i];
-                    var next = SelectedMortar.RangeValues[i + 1];
-                    if (Distance < curr.Distance || Distance > next.Distance) continue;
-                    var perc = Distance.PercentageBetween(curr.Distance, next.Distance);
-                    return Math.Round(perc.LerpBetween(curr.Milliradians, next.Milliradians), 2);
-                }
-                return 0;
-            }
-        }
+
+        public double Milliradians =>
+            SelectedMortar.GetMilliradiansForDistance(Distance);
         
         private readonly ConfigService m_configService;
         private readonly IEventAggregator m_eventAggregator;
-
-        private double m_mapBounds;
         
         public CalculatorViewModel(MortarDataModel defaultMortar,
             IReadOnlyList<MortarDataModel> mortars,
@@ -77,7 +61,6 @@ namespace PostScriptumMortarCalculator.ViewModels
             MortarPositionCoords = MortarPositionMeters.MetersPositionToMapCoordinate();
             TargetPositionCoords = TargetPositionMeters.MetersPositionToMapCoordinate();
             Angle = message.Angle;
-            m_mapBounds = message.MapBounds;
         }
 
         public void CopyToClipboardClicked()

@@ -1,26 +1,34 @@
 #if (!DEBUG)
 using System.Reflection;
+using Octokit;
 #endif
 using System.Net;
 using System.Threading.Tasks;
-using Octokit;
 
 namespace PostScriptumMortarCalculator.Services
 {
     public class UpdateService
     {
+#if (!DEBUG)
+        // Strip out all the version checks for debugging purposes
+        // The versioning is handled by AppVeyor. 
         private const string c_OWNER_NAME = "sirdoombox";
         private const string c_REPO_NAME = "PostScriptumMortarCalculator";
-        private const string c_RELEASE_PATH = "https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest";
-        
+
         private readonly GitHubClient m_client;
-        
+#endif
+        private const string c_RELEASE_PATH =
+            "https://github.com/sirdoombox/PostScriptumMortarCalculator/releases/latest";
+
+
         public UpdateService()
         {
-            m_client = new GitHubClient(new ProductHeaderValue("PostScriptumMortarCalculator"));
+#if(!DEBUG)
+            m_client = new GitHubClient(new ProductHeaderValue(c_REPO_NAME));
+#endif
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
         }
-        
+
         public async Task<UpdateInfo> CheckForUpdate()
         {
 #if (!DEBUG)
@@ -38,10 +46,10 @@ namespace PostScriptumMortarCalculator.Services
                 return new UpdateInfo(1,0,string.Empty);
             }
 #endif
-            return new UpdateInfo(1.0m,1.1m,c_RELEASE_PATH);
+            return new UpdateInfo(1.0m, 1.1m, c_RELEASE_PATH);
         }
 
-        public struct UpdateInfo
+        public readonly struct UpdateInfo
         {
             public decimal CurrentVersion { get; }
             public decimal NewVersion { get; }

@@ -50,9 +50,9 @@
                             <Label Content="{Binding ContributionType}"
                                    ToolTip="{Binding ContributionDescription}" />
                             <Button Content="{Binding Name}"
-                                    ToolTip="{Binding URL}"
+                                    ToolTip="{Binding Url}"
                                     Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
-                                    CommandParameter="{Binding URL}" />
+                                    CommandParameter="{Binding Url}" />
                         </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -69,8 +69,8 @@
                                    ToolTip="{Binding ContributionDescription}" />
                             <Button Content="{Binding Name}"
                                     Command="{Binding ElementName=RootControl, Path=DataContext.OpenUrlCommand}"
-                                    ToolTip="{Binding URL}"
-                                    CommandParameter="{Binding URL}" />
+                                    ToolTip="{Binding Url}"
+                                    CommandParameter="{Binding Url}" />
                         </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

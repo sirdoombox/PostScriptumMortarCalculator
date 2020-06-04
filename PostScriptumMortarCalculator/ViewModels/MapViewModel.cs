@@ -126,7 +126,7 @@ namespace PostScriptumMortarCalculator.ViewModels
         {
             m_eventAggregator.Publish(new PositionChangedEvent(
                 MortarPositionPixels.ToMetersScale(MapPixelsPerMeter),
-                TargetPositionPixels.ToMetersScale(MapPixelsPerMeter), Angle, SelectedMap.Bounds));
+                TargetPositionPixels.ToMetersScale(MapPixelsPerMeter), Angle));
         }
 
         public void OnSelectedMortarChanged()
@@ -165,7 +165,6 @@ namespace PostScriptumMortarCalculator.ViewModels
 
         public void MouseDown(object _, MouseButtonEventArgs e)
         {
-            var pos = e.GetPosition(m_zoomBorder.Child);
             switch (e.ChangedButton)
             {
                 case MouseButton.Right:
@@ -245,7 +244,6 @@ namespace PostScriptumMortarCalculator.ViewModels
             var dist = RoundedVector2.Distance(MortarPositionPixels, TargetPositionPixels);
             return dist >= SelectedMortar.MinRange.Distance.ToPixelScale(MapPixelsPerMeter)
                    && dist <= SelectedMortar.MaxRange.Distance.ToPixelScale(MapPixelsPerMeter);
-            ;
         }
 
         private void Reset(bool resetMapPixels = false)

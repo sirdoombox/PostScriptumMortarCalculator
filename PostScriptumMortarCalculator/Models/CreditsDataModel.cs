@@ -22,14 +22,14 @@ namespace PostScriptumMortarCalculator.Models
             public string Name { get; }
             public string ContributionType { get; }
             public string ContributionDescription { get; }
-            public string URL { get; }
+            public string Url { get; }
 
             public Contribution(string name, string contributionType, string contributionDescription, string url)
             {
                 Name = name;
                 ContributionType = contributionType;
                 ContributionDescription = contributionDescription;
-                URL = url;
+                Url = url;
             }
         }
     }

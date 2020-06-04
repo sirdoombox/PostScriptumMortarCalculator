@@ -8,7 +8,7 @@ namespace PostScriptumMortarCalculator.Bootstrapper
 {
     public class ErrorLogger
     {
-        private static readonly Logger m_logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         public ErrorLogger()
         {
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
@@ -37,13 +37,13 @@ namespace PostScriptumMortarCalculator.Bootstrapper
             }
             catch (Exception ex)
             {
-                m_logger.Trace(ex, "Exception in LogUnhandledException");
+                Logger.Trace(ex, "Exception in LogUnhandledException");
                 LogManager.Shutdown();
                 Application.Current.Shutdown();
             }
             finally
             {
-                m_logger.Trace(exception, message);
+                Logger.Trace(exception, message);
                 LogManager.Shutdown();
                 Application.Current.Shutdown();
             }

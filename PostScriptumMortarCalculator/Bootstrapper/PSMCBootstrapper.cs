@@ -15,12 +15,12 @@ namespace PostScriptumMortarCalculator.Bootstrapper
 {
     public class PsmcBootstrapper : Bootstrapper<PsmcRootViewModel>
     {
+        #if (!DEBUG)
+        // Release logging.
         private const string c_LOG_DUMP_FILE_NAME = "ErrorLog.log";
-
         private ErrorLogger m_logger;
         protected override void OnStart()
         {
-#if (!DEBUG)
             var config = new LoggingConfiguration();
             var logFile = new FileTarget("logfile")
             {
@@ -32,15 +32,14 @@ namespace PostScriptumMortarCalculator.Bootstrapper
             config.AddRule(LogLevel.Trace, LogLevel.Trace, logFile);
             NLog.LogManager.Configuration = config;
             m_logger = new ErrorLogger();
-#endif
         }
+        #endif
 
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             builder.Bind<ConfigService>()
                 .ToFactory(_ => new ConfigService().LoadOrDefault())
                 .InSingletonScope();
-            
             var dataResourceService = new DataResourceService();
             builder.Bind<IReadOnlyList<MapDataModel>>()
                 .ToFactory(_ => dataResourceService.GetMapData())

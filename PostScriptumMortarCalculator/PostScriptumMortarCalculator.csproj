@@ -141,6 +141,7 @@
     <Compile Include="Events\ColorChangedEvent.cs" />
     <Compile Include="Events\MortarChangedEvent.cs" />
     <Compile Include="Events\PositionChangedEvent.cs" />
+    <Compile Include="Extensions\MortarDataModelExtensions.cs" />
     <Compile Include="Extensions\NumericExtensions.cs" />
     <Compile Include="Models\CreditsDataModel.cs" />
     <Compile Include="Models\HelpDataModel.cs" />
