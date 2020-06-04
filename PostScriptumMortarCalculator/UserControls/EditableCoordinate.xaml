@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:userControls="clr-namespace:PostScriptumMortarCalculator.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel x:Name="LayoutRoot"
@@ -16,9 +17,7 @@
                 <Style TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
                     <Setter Property="MinWidth" Value="25" />
                     <Setter Property="FontSize" Value="20" />
-                    <EventSetter Event="GotKeyboardFocus" Handler="SelectAllText" />
-                    <EventSetter Event="MouseDoubleClick" Handler="SelectAllText" />
-                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="SelectivelyIgnoreMouseButton" />
+                    <Setter Property="mah:TextBoxHelper.SelectAllOnFocus" Value="True"/>
                     <EventSetter Event="TextChanged" Handler="OnTextChanged" />
                 </Style>
                 <Style TargetType="TextBlock">

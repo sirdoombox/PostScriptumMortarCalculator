@@ -2,7 +2,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using PostScriptumMortarCalculator.Models;
 
 namespace PostScriptumMortarCalculator.UserControls
@@ -145,44 +144,20 @@ namespace PostScriptumMortarCalculator.UserControls
             d.SetValue(KeypadMinorProperty, coord.KeypadMinor);
         }
 
-        private void KeypadValidateInput(object sender, TextCompositionEventArgs e)
-        {
+        private void KeypadValidateInput(object _, TextCompositionEventArgs e) =>
             e.Handled = !IsValidKeypadInt(e.Text);
-        }
 
-        private void GridReferenceLetterValidateInput(object sender, TextCompositionEventArgs e)
-        {
+        private void GridReferenceLetterValidateInput(object _, TextCompositionEventArgs e) =>
             e.Handled = !GridReferenceLetterPattern.IsMatch(e.Text);
-        }
 
-        private void GridReferenceNumberValidateInput(object sender, TextCompositionEventArgs e)
-        {
+        private void GridReferenceNumberValidateInput(object _, TextCompositionEventArgs e) =>
             e.Handled = !IsValidKeypadInt(e.Text);
-        }
-
-        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
-        {
-            DependencyObject parent = e.OriginalSource as UIElement;
-            while (parent != null && !(parent is TextBox))
-                parent = VisualTreeHelper.GetParent(parent);
-            if (parent == null) return;
-            var textBox = (TextBox) parent;
-            if (textBox.IsKeyboardFocusWithin) return;
-            textBox.Focus();
-            e.Handled = true;
-        }
 
         private static bool IsValidKeypadInt(object value)
         {
             var isInt = int.TryParse(value.ToString(), out var i);
             if (!isInt) return false;
             return i >= 1 && i <= 9;
-        }
-
-        private void SelectAllText(object sender, RoutedEventArgs e)
-        {
-            if (e.OriginalSource is TextBox textBox)
-                textBox.SelectAll();
         }
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
